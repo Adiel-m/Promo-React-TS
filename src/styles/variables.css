@@ -1,0 +1,101 @@
+:root {
+  --c-white: 0 0% 100%;
+  --c-black: 0 0% 0%;
+  --c-gray-95: 0 0% 95%;
+  --c-gray-90: 0 0% 90%;
+  --c-gray-80: 0 0% 80%;
+  --c-gray-70: 0 0% 70%;
+  --c-gray-60: 0 0% 60%;
+  --c-gray-50: 0 0% 50%;
+  --c-gray-40: 0 0% 40%;
+  --c-gray-30: 0 0% 30%;
+  --c-gray-20: 0 0% 20%;
+  --c-gray-10: 0 0% 10%;
+  --c-gray-5: 0 0% 5%;
+
+  --c-light: 0 0% 96%;
+  --c-dark: 0 0% 6%;
+
+  --c-foreground: var(--c-dark);
+  --c-background: var(--c-light);
+
+  --c-primary: 213 62% 46%;
+  --c-secondary: 321 70% 46%;
+  --c-tertiary: 0 0% 100%;
+  --c-success: 114 73% 40%;
+  --c-error: 0 85% 45%;
+  --c-alert: 60 92% 46%;
+
+  /* font size */
+  --fs-144: clamp(2.5rem, 12.5vw, 9rem);
+  --fs-128: clamp(2.5rem, 12vw, 8rem);
+  --fs-112: clamp(2.5rem, 10.5vw, 7rem);
+  --fs-96: clamp(2.5rem, 9vw, 6rem);
+  --fs-80: clamp(2rem, 7.5vw, 5rem);
+  --fs-72: clamp(2rem, 6.75vw, 4.5rem);
+  --fs-64: clamp(2rem, 6vw, 4rem);
+  --fs-48: clamp(2rem, 6vw, 3rem);
+  --fs-40: clamp(2rem, 6vw, 2.5rem);
+  --fs-32: clamp(1.13rem, 3.5vw, 2rem);
+  --fs-28: clamp(1.5rem, 3.5vw, 1.75rem);
+  --fs-24: clamp(1.13rem, 3vw, 1.5rem);
+  --fs-20: 1.25rem;
+  --fs-18: 1.13rem;
+  --fs-16: 1rem;
+  --fs-12: 0.75rem;
+
+  /* font weight */
+  --fw-800: 800;
+  --fw-700: 700;
+  --fw-600: 600;
+  --fw-500: 500;
+  --fw-400: 400;
+  --fw-300: 300;
+  --fw-200: 200;
+
+  /* Sizes*/
+  --dyn-size-192: clamp(4.5rem, 12vw, 12rem);
+  --dyn-size-144: clamp(4.5rem, 9vw, 9rem);
+  --dyn-size-128: clamp(4rem, 8vw, 8rem);
+  --dyn-size-112: clamp(3.5rem, 7vw, 7rem);
+  --dyn-size-96: clamp(3em, 6vw, 6em);
+  --dyn-size-64: clamp(2.5rem, 5vw, 5rem);
+  --dyn-size-64: clamp(2rem, 4vw, 4rem);
+  --dyn-size-48: clamp(1.5rem, 3vw, 3rem);
+  --dyn-size-32: clamp(1rem, 2vw, 2rem);
+  --dyn-size-24: clamp(0.75rem, 1.5vw, 1.5rem);
+  --dyn-size-16: clamp(0.5rem, 1vw, 1rem);
+
+  /* Border*/
+  --border-1: 0.063em solid hsl(var(--c-primary));
+  --border-2: 0.126em solid hsl(var(--c-primary));
+
+  /* Border radius*/
+  --border-radius-0: 100vw;
+  --border-radius-1: 0.125rem;
+  --border-radius-2: 0.25rem;
+  --border-radius-3: 0.5rem;
+  --border-radius-4: 1rem;
+  --border-radius-5: 2rem;
+
+  /* Shadow */
+  --shadow-black: 0 0 0.25em hsl(var(--black) / 0.24);
+  --shadow-primary: 0 0 0.25em hsl(var(--primary) / 0.24);
+  --shadow-secondary: 0 0 0.25em hsl(var(--c-secondary) / 0.24);
+
+  /* Gradients*/
+  --gradient-x: linear-gradient(
+    90deg,
+    hsl(var(--c-secondary)) 0%,
+    hsl(var(--c-primary)) 100%
+  );
+  --gradient-y: linear-gradient(
+    0deg,
+    hsl(var(--c-secondary)) 0%,
+    hsl(var(--c-primary)) 100%
+  );
+
+  /* Container */
+  --container-padding-inline: clamp(0.5rem, 4.5vw, 3rem);
+  --container-max-width: 90rem;
+}

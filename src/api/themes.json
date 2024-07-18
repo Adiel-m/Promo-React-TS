@@ -1,0 +1,170 @@
+{
+  "space": {
+    "page": {
+      "title": "Space Theme",
+      "imgSrc": "/images/starry-night-sky-2400.png",
+      "imgAlt": "Stars over a black background"
+    },
+    "hero": {
+      "title": ["Boost Your Startup For", "Online Presence"],
+      "text": "Innovative web development solutions to enhance your startup’s digital footprint, driving growth and engagement from day one",
+      "btnText": "Go for it",
+      "imgSrc": "images/svg/stripes-lg.svg",
+      "imgAlt": ""
+    },
+    "benefits": {
+      "title": "Discover The Perks",
+      "iconSrc": "images/svg/stripes-sm.svg",
+      "iconAlt": ""
+    },
+    "reviews": {
+      "title": "Gossip",
+      "iconSrc": "images/svg/stripes-sm.svg",
+      "iconAlt": ""
+    },
+    "footer": {
+      "title": "Let's Work Together Right Now, Oh Yeah...",
+      "btnText": "Go for it"
+    }
+  },
+  "socket": {
+    "page": {
+      "title": "Socket",
+      "imgSrc": "",
+      "imgAlt": ""
+    },
+    "hero": {
+      "title": ["Get A Startup's Boost", "To Online Presence"],
+      "text": "Professional web development services designed to accelerate your startup's online visibility and attract your target audience effectively",
+      "btnText": "Go for it",
+      "imgSrc": "",
+      "imgAlt": ""
+    },
+    "benefits": {
+      "title": "Distinct Benefits and Features",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "reviews": {
+      "title": "",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "footer": {
+      "title": "Let's Work Together Right Now, Oh Yeah...",
+      "btnText": "Go for it"
+    }
+  },
+  "elevate": {
+    "page": {
+      "title": "Elevate",
+      "imgSrc": "",
+      "imgAlt": ""
+    },
+    "hero": {
+      "title": [["Elevate", "Your", "Business"], "With a  Professional Approach"],
+      "text": "Custom web solutions that reflect your business's professionalism and commitment to quality, ensuring a strong online impression",
+      "btnText": "Let's proceed",
+      "imgSrc": "/src/assets/up-chart.svg",
+      "imgAlt": ""
+    },
+    "benefits": {
+      "title": "Exceptional Benefits and Features",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "reviews": {
+      "title": "",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "footer": {
+      "title": "Let's Work Together Right Now, Oh Yeah...",
+      "btnText": "Let's proceed"
+    }
+  },
+  "future": {
+    "page": {
+      "title": "Future",
+      "imgSrc": "",
+      "imgAlt": ""
+    },
+    "hero": {
+      "title": ["Gain A Strong", "Digital Future Today"],
+      "text": "Comprehensive web development strategies to future-proof your business, providing a robust and scalable online platform",
+      "btnText": "Get me there",
+      "imgSrc": "/src/assets/moving-forward.jpg",
+      "imgAlt": "Illustration of a man holding a suitcase walking on a path, towards the horizon"
+    },
+    "benefits": {
+      "title": "Key Advantages and Unique Features",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "reviews": {
+      "title": "",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "footer": {
+      "title": "Let's Work Together Right Now, Oh Yeah...",
+      "btnText": "Let's proceed"
+    }
+  },
+  "empower": {
+    "page": {
+      "title": "Empower",
+      "imgSrc": "",
+      "imgAlt": ""
+    },
+    "hero": {
+      "title": ["Empower Your Business", "with Excellence"],
+      "text": "Tailored web development services that empower your business to reach its full potential with cutting-edge technology and design",
+      "btnText": "Let us proceed",
+      "imgSrc": "/src/assets/stars.svg",
+      "imgAlt": ""
+    },
+    "benefits": {
+      "title": "Top Benefits and Features",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "reviews": {
+      "title": "Recommendations",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "footer": {
+      "title": "Let's Work Together Right Now, Oh Yeah...",
+      "btnText": "Let us proceed"
+    }
+  },
+  "vision": {
+    "page": {
+      "title": "Vision",
+      "imgSrc": "",
+      "imgAlt": ""
+    },
+    "hero": {
+      "title":[ "Bring Your Vision", "And Let It Shine"],
+      "text": "Expert web development that brings your vision to life, creating a standout digital presence that captivates visitors",
+      "btnText": "Get me there",
+      "imgSrc": "/src/assets/circle-net.svg",
+      "imgAlt": ""
+    },
+    "benefits": {
+      "title": "Discover The Difference Of Our Unique Features",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "reviews": {
+      "title": "",
+      "iconSrc": "",
+      "iconAlt": ""
+    },
+    "footer": {
+      "title": "Let's Work Together Right Now, Oh Yeah...",
+      "btnText": "Get me there"
+    }
+  }
+}

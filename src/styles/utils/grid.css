@@ -1,0 +1,8 @@
+.grid {
+  display: grid;
+  gap: var(--dyn-size-32);
+
+  &.grid-autofit {
+    grid-template-columns: repeat( auto-fit, minmax(20rem, 1fr) )
+  }
+}

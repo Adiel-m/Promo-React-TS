@@ -1,0 +1,36 @@
+.t-bg-clip {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  
+  &.grad-y {
+    background-image: var(--gradient-y);
+  }
+  &.grad-x {
+    background-image: var(--gradient-x);
+  }
+}
+
+.t-quote {
+  --q-size: 3rem;
+  --offset: calc(var(--q-size) / 3);
+  position: relative;
+  padding-inline-start: var(--offset);
+
+  &::before,
+  &::after {
+    font-size: var(--q-size);
+    position: absolute;
+    color: hsl(var(--c-secondary));
+    line-height: 0.7;
+  }
+  &::before {
+    inset-inline-start: 0%;
+    inset-block-start: calc(var(--offset) * -0.5);
+    content: open-quote;
+  }
+  &::after {
+    inset-block-end: calc(var(--offset) * -2);
+    content: close-quote;
+  }
+}

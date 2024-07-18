@@ -1,0 +1,85 @@
+:root {
+  --c-primary: 299 84% 45%; /*#D012D3*/
+  --c-secondary: 191 92% 53%; /*#1BCDF5*/
+  --c-tertiary: 90 86% 53%; /*#86EE1E*/
+
+  --gradient-x: linear-gradient(120deg, hsl(var(--c-primary)) 0%, hsl(var(--c-secondary)) 50%, hsl(var(--c-tertiary)) 100%);
+  --gradient-x-2: linear-gradient( hsl(var(--c-tertiary)) 0%, hsl(var(--c-secondary)) 100%);
+  --gradient-y: linear-gradient( hsl(var(--c-secondary)) 0%, hsl(var(--c-primary)) 100%);
+
+  --fs-96: clamp(1.25em, 6vw, 6em);
+}
+
+body {
+  background-color: hsl(var(--c-foreground));
+  color: hsl(var(--c-background));
+}
+
+main {
+  overflow: hidden;
+
+}
+.btn {
+  border-color: hsl(var(--c-primary));
+  box-shadow: 0 0 1.5em -0.0625em hsl(var(--c-secondary) / 0.24);
+  border-radius: var(--border-radius-2);
+
+  &:hover {
+    border-color: hsl(var(--c-secondary));
+  }
+}
+
+.hero{
+  position: relative;
+  aspect-ratio: 2/1;
+  
+  .col {
+    margin-inline: auto;
+    text-align: center;
+    align-items: center;
+    max-width: 60rem;
+    gap: var(--dyn-size-48);
+  }
+
+  h1 {
+    font-size: var(--fs-96);
+    margin-block-end: 25%;
+  }
+  
+  p {
+    font-size: clamp(1rem, 3vw, 1.75rem);
+    font-weight: var(--fw-300);
+    max-width: 35rem;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    inset-block-start: -85%;
+    height: 180%;
+    width: 180%;
+    z-index: -1;
+  }
+  
+  @media only screen and (width > 25em) {
+    img {
+      inset-block-start: -90%;
+    }
+    h1 {
+      margin-block-end: 27%;
+    }
+  }
+  @media only screen and (width > 60em) {
+    img {
+      inset-block-start: -60%;
+    }
+    h1 {
+      margin-block-end: unset;
+    }
+  }
+  @media only screen and (width > 90em) {
+    img {
+      inset-block-start: -70%;
+    }
+  }
+}

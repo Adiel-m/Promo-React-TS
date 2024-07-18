@@ -1,0 +1,8 @@
+:root {
+    --section-padding-block: clamp(3rem, 9vw, 6rem);
+}
+
+.section {
+  padding-block: var(--section-padding-block);
+}
+

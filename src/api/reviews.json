@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "David Berkovish",
+      "jobTitle": "CEO, Berkovish",
+      "text": "You should get to know Adiel, he impressed me a lot,  We just finished a project perfectly and the client is in the clouds, Talk to him.",
+      "iconSrc": "images/svg/stripes-sm.svg",
+      "iconAlt": ""
+    },
+    {
+      "id": 2,
+      "name": "Omri Rubisa",
+      "jobTitle": "CEO, FrontPhoto",
+      "text": "He really did a brilliant job and I recommend to anyone who wants to build a website, to contact Adiel and see what quality is.",
+      "iconSrc": "images/svg/stripes-sm.svg",
+      "iconAlt": ""
+    }
+  ]
+}

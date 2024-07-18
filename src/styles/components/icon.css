@@ -1,0 +1,25 @@
+.icon {
+  --icon-fs: 1em;
+  display: inline-flex;
+  font-size: var(--icon-fs);
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-fs);
+  line-height: 1;
+
+  &.icon-xsm {
+    width: var(--icon-fs);
+  }
+  &.icon-sm {
+    width: calc(var(--icon-fs) * 1.5);
+  }
+  &.icon-md {
+    width: calc(var(--icon-fs) * 2);
+  }
+  &.icon-lg {
+    width: calc(var(--icon-fs) * 4);
+  }
+  &.icon-xlg {
+    width: calc(var(--icon-fs) * 6);
+  }
+}

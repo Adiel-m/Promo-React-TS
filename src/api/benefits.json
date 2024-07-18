@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "CMS Solutions",
+      "text": "Easy-to-update websites with intuitive CMS."
+    },
+    {
+      "id": 2,
+      "title": "Custom Solutions",
+      "text": "Tailored web development to meet your unique business needs."
+    },
+    {
+      "id": 3,
+      "title": "Fast Loading Times",
+      "text": "Improve user experience with quick-loading pages"
+    },
+    {
+      "id": 4,
+      "title": "Modern Aesthetics",
+      "text": "Attractive designs that captivate your audience."
+    },
+    {
+      "id": 5,
+      "title": "Responsive Design",
+      "text": "Ensuring your website looks great on all devices."
+    },
+    {
+      "id": 6,
+      "title": "User-Friendly Interfaces",
+      "text": "Create intuitive and engaging user experiences."
+    },
+    {
+      "id": 7,
+      "title": "SEO Optimization",
+      "text": "Boost your search engine rankings and visibility."
+    },
+    {
+      "id": 8,
+      "title": "Scalable Architecture",
+      "text": "Build a website that grows with your business."
+    }
+  ]
+}
