@@ -1,12 +1,14 @@
-import '../styles/themes/elevate.css'
+import '../styles/pages/elevate.css'
 import { Hero } from '../layouts/Hero'
 import { Footer } from '../layouts/Footer'
 import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
+import { addRootPageTheme } from '../ts/utils'
+
 
 const fetchData = async () => {
-  const res = await fetch('/src/api/themes.json')
+  const res = await fetch('/src/api/pages.json')
   const data = await res.json()
 
   return data.elevate
@@ -15,8 +17,9 @@ const fetchData = async () => {
 const data = await fetchData()
 
 export const Elevate = () => {
-  const { hero, benefits, reviews, footer } = data
+  addRootPageTheme('elevate')
 
+  const { hero, benefits, reviews, footer } = data
   return (
     <>
       <Hero

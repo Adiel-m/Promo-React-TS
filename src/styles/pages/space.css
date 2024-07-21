@@ -1,0 +1,120 @@
+:where(.space) {
+  /* Colors */
+  --c-primary: 213 62% 46%;
+  --c-secondary: 321 70% 46%;
+  --c-tertiary: 0 0% 100%;
+
+  /* Body */
+  --body-bg-color: hsl(var(--c-foreground));
+  --body-color: hsl(var(--c-background));
+
+  /* Components */
+  .bg-img {
+    position: fixed;
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  .btn {
+    padding-inline-start: 3.5em;
+    border-block-width: 0.12em;
+    border-inline-end-width: 0.3em;
+    border-start-end-radius: 100vw;
+    border-end-end-radius: 100vw;
+    border-inline-start: unset;
+    background: linear-gradient(90deg, hsl(var(--c-dark)) 50vw, hsl(var(--c-primary)) 60vw)
+        padding-box fixed,
+      linear-gradient(90deg, hsl(var(--c-secondary) / 0) 0%, hsl(var(--c-secondary)) 100%)
+        border-box;
+  }
+
+  .form {
+    gap: var(--dyn-size-32);
+    padding-block: 0.5em;
+    padding-inline-start: 0.5em;
+    padding-inline-end: 1em;
+    border: 0.13em solid transparent;
+    border-inline-start: unset;
+    border-inline-end-width: 0.6em;
+    border-start-end-radius: 100vw;
+    border-end-end-radius: 100vw;
+    background: linear-gradient(90deg, hsl(212, 61%, 6%) 35%, hsl(var(--c-secondary)) 80%)
+        padding-box fixed,
+      linear-gradient(90deg, hsl(var(--c-background) / 0) 0%, hsl(var(--c-background)) 100%)
+        border-box;
+
+    .btn {
+      color: hsl(var(--c-background));
+      border-block-width: 0.06em;
+      border-color: hsl(var(--c-background));
+      background: unset;
+    }
+  }
+
+  /* Layouts */
+  .hero {
+    padding-block-end: calc(var(--section-padding-block) / 2);
+
+    .container {
+      max-width: 100em;
+      display: flex;
+      align-items: start;
+      gap: var(--dyn-size-64);
+    }
+
+    h1 {
+        & > span:last-child {
+          font-weight: var(--fw-600);
+          font-size: var(--fs-96);
+          color: hsl(var(--c-secondary));
+        }
+    }
+
+    p {
+      font-size: var(--fs-32);
+      font-weight: var(--fw-300);
+      max-width: 37rem;
+    }
+
+    img {
+      width: 35vmax;
+      padding-block-start: 1rem;
+    }
+
+    @media only screen and (width < 60em) {
+      .container {
+        flex-wrap: wrap;
+      }
+
+      img {
+        margin-inline-start: auto;
+      }
+    }
+  }
+
+  .benefits {
+    .card {
+      .icon {
+        font-size: var(--dyn-size-96);
+      }
+
+      /* items Order center */
+      &:nth-child(2),
+      &:nth-child(4),
+      &:nth-child(7) {
+        justify-content: center;
+      }
+      /* items Order end*/
+      &:nth-child(3),
+      &:nth-child(6) {
+        justify-content: end;
+      }
+    }
+  }
+
+  .reviews {
+    .content {
+      max-width: 75em;
+    }
+  }
+}

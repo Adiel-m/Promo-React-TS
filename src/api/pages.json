@@ -2,24 +2,24 @@
   "space": {
     "page": {
       "title": "Space Theme",
-      "imgSrc": "/images/starry-night-sky-2400.png",
+      "imgSrc": "/src/assets/starry-night-sky-2400.png",
       "imgAlt": "Stars over a black background"
     },
     "hero": {
       "title": ["Boost Your Startup For", "Online Presence"],
       "text": "Innovative web development solutions to enhance your startup’s digital footprint, driving growth and engagement from day one",
       "btnText": "Go for it",
-      "imgSrc": "images/svg/stripes-lg.svg",
+      "imgSrc": "/src/assets/stripes-lg.svg",
       "imgAlt": ""
     },
     "benefits": {
       "title": "Discover The Perks",
-      "iconSrc": "images/svg/stripes-sm.svg",
+      "iconSrc": "/src/assets/stripes-sm.svg",
       "iconAlt": ""
     },
     "reviews": {
       "title": "Gossip",
-      "iconSrc": "images/svg/stripes-sm.svg",
+      "iconSrc": "/src/assets/stripes-sm.svg",
       "iconAlt": ""
     },
     "footer": {

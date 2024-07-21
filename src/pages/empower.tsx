@@ -1,27 +1,33 @@
-import '../styles/themes/future.css'
+import '../styles/pages/empower.css'
 import { Hero } from '../layouts/Hero'
 import { Footer } from '../layouts/Footer'
 import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
+import { addRootPageTheme } from '../ts/utils'
+
 
 const fetchData = async () => {
-  const res = await fetch('/src/api/themes.json')
+  const res = await fetch('/src/api/pages.json')
   const data = await res.json()
 
-  return data.future
+  return data.empower
 }
 
 const data = await fetchData()
 
-export const Future = () => {
+
+
+export const Empower = () => {
+    addRootPageTheme('empower')
+
   const { hero, benefits, reviews, footer } = data
 
   return (
     <>
       <Hero
         slot={{
-          position: 'inSectionFirst',
+          position: 'inColumnLast',
           children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
         }}
         title={hero.title}
@@ -29,10 +35,10 @@ export const Future = () => {
         btnText={hero.btnText}
       ></Hero>
       <Main>
-        <Benefits title={benefits.title} />
-        <Reviews title={reviews.title} />
+        <Benefits titleClass="t-bg-clip grad-y" title={benefits.title} />
+        <Reviews titleClass="t-bg-clip grad-y" title={reviews.title} />
       </Main>
-      <Footer title={footer.title} btnText={footer.btnText} />
+      <Footer titleClass="t-bg-clip grad-y"  title={footer.title} btnText={footer.btnText} />
     </>
   )
 }

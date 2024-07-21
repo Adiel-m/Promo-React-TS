@@ -1,12 +1,13 @@
-import '../styles/themes/vision.css'
+import '../styles/pages/vision.css'
 import { Hero } from '../layouts/Hero'
 import { Footer } from '../layouts/Footer'
 import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
+import { addRootPageTheme } from '../ts/utils'
 
 const fetchData = async () => {
-  const res = await fetch('/src/api/themes.json')
+  const res = await fetch('/src/api/pages.json')
   const data = await res.json()
 
   return data.vision
@@ -15,7 +16,9 @@ const fetchData = async () => {
 const data = await fetchData()
 
 export const Vision = () => {
-  const {  hero, benefits, reviews, footer } = data
+  addRootPageTheme('vision')
+
+  const { hero, benefits, reviews, footer } = data
 
   return (
     <>
@@ -38,7 +41,7 @@ export const Vision = () => {
         <Reviews
           title={reviews.title}
           titleClass="t-bg-clip grad-x"
-          subtitleClass='t-bg-clip grad-y'
+          subtitleClass="t-bg-clip grad-y"
         />
       </Main>
       <Footer

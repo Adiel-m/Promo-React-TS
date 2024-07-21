@@ -1,12 +1,13 @@
-import '../styles/themes/socket.css'
+import '../styles/pages/socket.css'
 import { Hero } from '../layouts/Hero'
 import { Footer } from '../layouts/Footer'
 import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
+import { addRootPageTheme } from '../ts/utils'
 
 const fetchData = async () => {
-  const res = await fetch('/src/api/themes.json')
+  const res = await fetch('/src/api/pages.json')
   const data = await res.json()
 
   return data.socket
@@ -15,6 +16,8 @@ const fetchData = async () => {
 const data = await fetchData()
 
 export const Socket = () => {
+  addRootPageTheme('socket')
+
   const { hero, benefits, reviews, footer } = data
 
   return (
