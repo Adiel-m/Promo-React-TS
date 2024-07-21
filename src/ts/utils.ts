@@ -44,3 +44,8 @@ export const getExtension = (file: string): string => {
   const ext = file.slice(file.lastIndexOf('.'))
   return ext ? ext : 'File Extension is Missing'
 }
+export const addPageTheme = (theme: string) => {
+  const root = document.querySelector('#root')!
+  
+  root.parentElement?.classList.add(theme)
+} 

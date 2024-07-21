@@ -95,6 +95,11 @@
     hsl(var(--c-primary)) 100%
   );
 
+  /* Body */
+  --body-bg-color: hsl(var(--c-background));
+  --body-color: hsl(var(--c-foreground));
+  --body-ff: 'Plus Jakarta Sans';
+
   /* Container */
   --container-padding-inline: clamp(0.5rem, 4.5vw, 3rem);
   --container-max-width: 90rem;

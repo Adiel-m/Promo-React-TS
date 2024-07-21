@@ -4,7 +4,7 @@ import { Footer } from '../layouts/Footer'
 import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
-import { addRootPageTheme } from '../ts/utils'
+import { addPageTheme } from '../ts/utils'
 
 
 const fetchData = async () => {
@@ -19,7 +19,7 @@ const data = await fetchData()
 
 
 export const Empower = () => {
-    addRootPageTheme('empower')
+    addPageTheme('empower')
 
   const { hero, benefits, reviews, footer } = data
 

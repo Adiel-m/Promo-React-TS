@@ -6,11 +6,11 @@
 }
 
 body {
-  background-color: hsl(var(--c-background));
-  color: hsl(var(--c-foreground));
+  background-color: var(--body-bg-color);
+  color: var(--body-color);
   line-height: 1.4;
   word-spacing: 0.15em;
-  font-family: 'Plus Jakarta Sans';
+  font-family: var(--body-ff);
 }
 
 a {
