@@ -1,3 +1,5 @@
+import { PageThemeProps } from "./interfaces/common.interfaces"
+
 export const isObj = <T>(arg: T): boolean => {
   return (
     typeof arg === 'object' &&
@@ -44,8 +46,10 @@ export const getExtension = (file: string): string => {
   const ext = file.slice(file.lastIndexOf('.'))
   return ext ? ext : 'File Extension is Missing'
 }
-export const addPageTheme = (theme: string) => {
-  const root = document.querySelector('#root')!
-  
-  root.parentElement?.classList.add(theme)
-} 
+
+export const pageAndThemeModeStyles = ({ page, pageThemeMode }: PageThemeProps) => {
+  const body = document.querySelector('body')!
+  pageThemeMode === 'dark'
+    ? body.classList.add(page, pageThemeMode)
+    : body.classList.add(page)
+}

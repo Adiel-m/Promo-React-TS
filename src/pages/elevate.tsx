@@ -4,7 +4,6 @@ import { Footer } from '../layouts/Footer'
 import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
-import { addPageTheme } from '../ts/utils'
 
 
 const fetchData = async () => {
@@ -17,7 +16,6 @@ const fetchData = async () => {
 const data = await fetchData()
 
 export const Elevate = () => {
-  addPageTheme('elevate')
 
   const { hero, benefits, reviews, footer } = data
   return (

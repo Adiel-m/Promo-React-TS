@@ -5,7 +5,6 @@ import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
 import { Icon } from '../components/Icon'
-import { addPageTheme } from '../ts/utils'
 
 const fetchData = async () => {
   const res = await fetch('/src/api/pages.json')
@@ -17,7 +16,6 @@ const fetchData = async () => {
 const data = await fetchData()
 
 export const Space = () => {
-  addPageTheme('space')
 
   const { page, hero, benefits, reviews, footer } = data
 

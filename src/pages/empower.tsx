@@ -4,7 +4,6 @@ import { Footer } from '../layouts/Footer'
 import Main from '../layouts/Main'
 import { Benefits } from '../layouts/Benefits'
 import { Reviews } from '../layouts/Reviews'
-import { addPageTheme } from '../ts/utils'
 
 
 const fetchData = async () => {
@@ -19,7 +18,6 @@ const data = await fetchData()
 
 
 export const Empower = () => {
-    addPageTheme('empower')
 
   const { hero, benefits, reviews, footer } = data
 
@@ -38,7 +36,11 @@ export const Empower = () => {
         <Benefits titleClass="t-bg-clip grad-y" title={benefits.title} />
         <Reviews titleClass="t-bg-clip grad-y" title={reviews.title} />
       </Main>
-      <Footer titleClass="t-bg-clip grad-y"  title={footer.title} btnText={footer.btnText} />
+      <Footer
+        titleClass="t-bg-clip grad-y"
+        title={footer.title}
+        btnText={footer.btnText}
+      />
     </>
   )
 }

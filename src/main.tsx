@@ -9,6 +9,8 @@ import { Future } from './pages/future'
 import { Socket } from './pages/socket'
 import { Space } from './pages/space'
 import { Vision } from './pages/vision'
+import { ThemeProvider } from './context/ThemeContext'
+import { PageTheme } from './layouts/PageTheme'
 
 const router = createBrowserRouter([
   {
@@ -22,32 +24,56 @@ const router = createBrowserRouter([
       {
         path: 'elevate',
         loader: false,
-        element: <Elevate />,
+        element: (
+          <PageTheme page="elevate" pageThemeMode="light">
+            <Elevate />
+          </PageTheme>
+        ),
       },
       {
         path: 'empower',
         loader: false,
-        element: <Empower />,
+        element: (
+          <PageTheme page="empower" pageThemeMode="light">
+            <Empower />
+          </PageTheme>
+        ),
       },
       {
         path: 'future',
         loader: false,
-        element: <Future />,
+        element: (
+          <PageTheme page="future" pageThemeMode="light">
+            <Future />
+          </PageTheme>
+        ),
       },
       {
         path: 'socket',
         loader: false,
-        element: <Socket />,
+        element: (
+          <PageTheme page="socket" pageThemeMode="dark">
+            <Socket />
+          </PageTheme>
+        ),
       },
       {
         path: 'space',
         loader: false,
-        element: <Space />,
+        element: (
+          <PageTheme page="space" pageThemeMode="dark">
+            <Space />
+          </PageTheme>
+        ),
       },
       {
         path: 'vision',
         loader: false,
-        element: <Vision />,
+        element: (
+          <PageTheme page="vision" pageThemeMode="dark">
+            <Vision />
+          </PageTheme>
+        ),
       },
     ],
   },
@@ -55,6 +81,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ThemeProvider>
       <RouterProvider router={router} />
-  </React.StrictMode>,
+    </ThemeProvider>
+  </React.StrictMode>
 )
