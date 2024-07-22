@@ -15,13 +15,12 @@ export const ThemeProvider = ({children}: Props): React.ReactElement => {
 
   useEffect(() => {
     const themeMode = localStorage.getItem('themeMode')
-
-    if(themeMode) {
+    // Setting Light/Dark Mode
+    if (themeMode) {
       themeMode === 'light' ? setTheme('light') : setTheme('dark')
     }
-
+    // Update Local Storage Theme Mode
     updateThemeMode(theme)
-    
   }, [theme])
 
   return (
