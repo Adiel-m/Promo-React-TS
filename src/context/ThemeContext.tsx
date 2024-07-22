@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
-import { ThemeContextType, ThemeType } from "../ts/types/common.types";
-import { Props } from "../ts/interfaces/common.interfaces";
+import { ThemeContextType, ThemeType } from "../ts/types";
+import { Props } from "../ts/interfaces";
 
 export const ThemeContext = createContext<ThemeContextType | null>(null)
 

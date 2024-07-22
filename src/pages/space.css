@@ -1,0 +1,13 @@
+:where(.space) {
+  /* Colors */
+  --c-primary: 213 62% 46%;
+  --c-secondary: 321 70% 46%;
+  --c-tertiary: 0 0% 100%;
+
+  /* Components */
+  .bg-img {
+    position: fixed;
+    opacity: 0.3;
+    z-index: -1;
+  }
+}

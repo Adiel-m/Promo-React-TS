@@ -1,0 +1,87 @@
+.btn {
+  padding-block: 0.5em;
+  padding-inline: 2em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-500);
+  text-wrap: nowrap;
+  line-height: 1;
+  border: var(--border-1);
+  border-color: transparent;
+}
+
+:where(.elevate){
+  .btn {
+    color: hsl(var(--c-background));
+    background-color: hsl(var(--c-foreground));
+    box-shadow: 0.25em 0.25em 0.126em hsl(var(--c-dark) / 0.48);
+    
+    &:hover {
+      border-color: hsl(var(--c-foreground));
+      box-shadow: 0.125em 0.125em 0.126em hsl(var(--c-dark) / 0.48);
+    }
+  }
+}
+:where(.empower){
+  .btn {
+    order: 4;
+    font-weight: var(--fw-300);
+    background-image: var(--gradient-y-2);
+    box-shadow: 0 0.25em 0.25em -0.125em hsl(var(--c-foreground) / 0.48);
+    border-color: hsl(var(--c-primary-2));
+    
+    &:hover {
+      color: hsl(var(--c-foreground));
+      border-color: hsl(var(--c-primary-2));
+      box-shadow: 0 0.25em 0.125em -0.125em hsl(var(--c-foreground) / 0.48);
+    }
+  }
+}
+:where(.future){
+  .btn {
+    background-color: hsl(var(--c-secondary));
+    box-shadow: 0 0.125em 0.25em hsl(var(--c-dark) /0.38);
+    border-color: hsl(var(--c-secondary));
+    
+    &:hover {
+      color: hsl(var(--c-foreground));
+      border-color: hsl(var(--c-secondary));
+      background-color: hsl(var(--c-white));
+      box-shadow: 0 0.063em 0.25em hsl(var(--c-dark) /0.68);
+    }
+  }
+}
+:where(.socket){
+  .btn {
+    font-weight: var(--fw-600);
+    background-color: hsl(var(--c-primary));
+    border-radius: var(--border-radius-1);
+  }
+}
+:where(.space){
+  .btn {
+    padding-inline-start: 3.5em;
+    border-block-width: 0.12em;
+    border-inline-end-width: 0.3em;
+    border-start-end-radius: 100vw;
+    border-end-end-radius: 100vw;
+    border-inline-start: unset;
+    background: linear-gradient(90deg, hsl(var(--c-dark)) 50vw, hsl(var(--c-primary)) 60vw)
+        padding-box fixed,
+      linear-gradient(90deg, hsl(var(--c-secondary) / 0) 0%, hsl(var(--c-secondary)) 100%)
+        border-box;
+  }
+}
+:where(.vision){
+  .btn {
+    border-color: hsl(var(--c-primary));
+    box-shadow: 0 0 1.5em -0.0625em hsl(var(--c-secondary) / 0.24);
+    border-radius: var(--border-radius-2);
+
+    &:hover {
+      border-color: hsl(var(--c-secondary));
+    }
+  }
+}

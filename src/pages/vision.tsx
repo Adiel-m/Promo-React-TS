@@ -1,9 +1,9 @@
-import '../styles/pages/vision.css'
-import { Hero } from '../layouts/Hero'
-import { Footer } from '../layouts/Footer'
+import './vision.css'
+import { Hero } from '../layouts/hero/Hero'
+import { Footer } from '../layouts/footer/Footer'
 import Main from '../layouts/Main'
-import { Benefits } from '../layouts/Benefits'
-import { Reviews } from '../layouts/Reviews'
+import { Benefits } from '../layouts/benefits/Benefits'
+import { Reviews } from '../layouts/reviews/Reviews'
 
 const fetchData = async () => {
   const res = await fetch('/src/api/pages.json')

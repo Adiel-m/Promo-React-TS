@@ -1,5 +1,5 @@
 import { pageAndThemeModeStyles } from "../ts/utils"
-import { pageThemeModeProps } from "../ts/interfaces/common.interfaces"
+import { pageThemeModeProps } from "../ts/interfaces"
 import { ThemeContext } from "../context/ThemeContext"
 import { useContext, useEffect } from "react"
 

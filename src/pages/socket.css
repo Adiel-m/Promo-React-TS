@@ -1,0 +1,15 @@
+:where(.socket) {
+  /* Colors */
+  --c-primary: 119 69% 46%;
+  --c-secondary: 193 100% 91%;
+  --c-tertiary: 69 78% 48%;
+
+  /* Gradients */
+  --gradient-y: linear-gradient(
+    0deg,
+    hsl(var(--c-primary)) 0%,
+    hsl(var(--c-secondary)) 100%
+  );
+  --gradient-radial-1: radial-gradient(100% 100% at 50% 0%, hsl(var(--c-dark) /0.32) 50%, hsl(var(--c-primary) /0.32));
+  --gradient-radial-2: radial-gradient(at 50% 0%, hsl(var(--c-dark) / 0.32), hsl(var(--c-tertiary) / 0.32));
+}

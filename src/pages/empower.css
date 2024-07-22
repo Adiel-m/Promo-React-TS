@@ -1,0 +1,20 @@
+:where(.empower) {
+  /* Colors */
+  --c-primary: 26 56% 8%; /*#201309*/
+  --c-primary-1: 25 56% 16%; /*#3F2512*/
+  --c-primary-2: 25 56% 42%; /*#A7612F*/
+  --c-primary-3: 25 56% 60%; /*#D28F60*/
+  --c-primary-4: 27 61% 79%; /*#EAC6A9*/
+  --c-primary-5: 27 61% 90%; /*#F5E4D6*/
+  --c-primary-6: 27 60% 97%; /*#FCF7F3*/
+  --c-primary-7: 27 60% 94%; /*#F9EFE7*/
+  --c-primary-8: 30 60% 98%; /*#FDFAF7*/
+
+  /* Gradients */
+  --gradient-x: linear-gradient(120deg, hsl(var(--c-primary-4)) 0%, hsl(var(--c-primary-2)) 50%, hsl(var(--c-primary-1)) 100%);
+  --gradient-y: linear-gradient( hsl(var(--c-primary-4)) 15%, hsl(var(--c-primary-3)) 30%, hsl(var(--c-primary-1)) 100%);
+  --gradient-y-2: linear-gradient( hsl(var(--c-primary-8)) 0%, hsl(var(--c-primary-7)) 100%);
+
+  /* Body */
+  --body-bg-color: var(--gradient-y-2);
+}

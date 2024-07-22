@@ -1,0 +1,104 @@
+.form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 1em;
+  column-gap: 2em;
+
+  .form-grp {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  input {
+    flex-grow: 1;
+    border-block-start: unset;
+    border-inline: unset;
+  }
+}
+
+:where(.elevate) {
+  .form {
+    input {
+      border-color: hsl(var(--c-foreground));
+
+      &:focus-visible,
+      &:focus-within {
+        border-color: hsl(var(--c-primary));
+      }
+    }
+  }
+}
+:where(.empower) {
+  .form {
+    input {
+      border-color: hsl(var(--c-foreground));
+      
+      &:focus-visible,
+      &:focus-within {
+        border-color: hsl(var(--c-primary-3));
+      }
+    }
+
+    .btn {
+      padding-inline: var(--dyn-size-48);
+    }
+  } 
+}
+:where(.future) {
+  .form {
+    input {
+      border-color: hsl(var(--c-foreground));
+      
+      &:focus-visible,
+      &:focus-within {
+        border-color: hsl(var(--c-secondary));
+      }
+    }
+
+    .btn {
+      padding-inline: var(--dyn-size-64);
+      color: hsl(var(--c-background));
+      background-color: hsl(var(--c-foreground));
+      border-color: hsl(var(--c-foreground));
+      
+      &:hover {
+        color: hsl(var(--c-foreground));
+        background-color: hsl(var(--c-background));
+      }
+    }
+  }
+}
+:where(.socket) {
+  .form {
+    .btn {
+      padding-inline: var(--dyn-size-64);
+    }
+  }
+}
+:where(.space) {
+  .form {
+    gap: var(--dyn-size-32);
+    padding-block: 0.5em;
+    padding-inline-start: 0.5em;
+    padding-inline-end: 1em;
+    border: 0.13em solid transparent;
+    border-inline-start: unset;
+    border-inline-end-width: 0.6em;
+    border-start-end-radius: 100vw;
+    border-end-end-radius: 100vw;
+    background: linear-gradient(90deg, hsl(212, 61%, 6%) 35%, hsl(var(--c-secondary)) 80%)
+        padding-box fixed,
+      linear-gradient(90deg, hsl(var(--c-background) / 0) 0%, hsl(var(--c-background)) 100%)
+        border-box;
+
+    .btn {
+      color: hsl(var(--c-background));
+      border-block-width: 0.06em;
+      border-color: hsl(var(--c-background));
+      background: unset;
+    }
+  }
+}

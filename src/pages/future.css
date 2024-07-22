@@ -1,0 +1,14 @@
+:where(.future) {
+  /* Colors */
+  --c-primary: 197 31% 16%;
+  --c-primary-01: 197 31% 34%;
+  --c-secondary: 153 72% 62%;
+
+  /* Body */
+  --body-bg-color: hsl(var(--c-white));
+
+  /* Reset */
+  h2 {
+    font-weight: var(--fw-400);
+  }
+}

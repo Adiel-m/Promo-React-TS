@@ -1,4 +1,4 @@
-import { PageThemeProps } from "./interfaces/common.interfaces"
+import { PageThemeProps } from "./interfaces"
 
 export const isObj = <T>(arg: T): boolean => {
   return (

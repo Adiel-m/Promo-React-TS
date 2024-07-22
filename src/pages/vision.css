@@ -1,0 +1,17 @@
+:where(.vision) {
+  /* Colors */
+  --c-primary: 299 84% 45%; /*#D012D3*/
+  --c-secondary: 191 92% 53%; /*#1BCDF5*/
+  --c-tertiary: 90 86% 53%; /*#86EE1E*/
+
+  /* Gradients */
+  --gradient-x: linear-gradient(120deg, hsl(var(--c-primary)) 0%, hsl(var(--c-secondary)) 50%, hsl(var(--c-tertiary)) 100%);
+  --gradient-x-2: linear-gradient( hsl(var(--c-tertiary)) 0%, hsl(var(--c-secondary)) 100%);
+  --gradient-y: linear-gradient( hsl(var(--c-secondary)) 0%, hsl(var(--c-primary)) 100%);
+  --fs-96: clamp(1.25em, 6vw, 6em);
+
+  /* Reset */
+  main {
+    overflow: hidden;
+  }
+}

@@ -1,4 +1,4 @@
-import { Hero } from './layouts/Hero'
+import { Hero } from './layouts/hero/Hero'
 
 export const NotFound = () => {
 

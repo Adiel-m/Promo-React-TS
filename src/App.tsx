@@ -1,4 +1,4 @@
-import { NavMenu } from "./components/NavMenu";
+import { NavMenu } from "./components/navMenu/NavMenu";
 
 export default function App() {
   return (

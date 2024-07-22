@@ -1,10 +1,10 @@
-import '../styles/pages/space.css'
-import { Hero } from '../layouts/Hero'
-import { Footer } from '../layouts/Footer'
+import './space.css'
+import { Hero } from '../layouts/hero/Hero'
+import { Footer } from '../layouts/footer/Footer'
 import Main from '../layouts/Main'
-import { Benefits } from '../layouts/Benefits'
-import { Reviews } from '../layouts/Reviews'
-import { Icon } from '../components/Icon'
+import { Benefits } from '../layouts/benefits/Benefits'
+import { Reviews } from '../layouts/reviews/Reviews'
+import { Icon } from '../components/icon/Icon'
 
 const fetchData = async () => {
   const res = await fetch('/src/api/pages.json')
