@@ -1,0 +1,39 @@
+:root {
+  /* Border*/
+  --border-1: 0.063em solid hsl(var(--c-primary));
+  --border-2: 0.126em solid hsl(var(--c-primary));
+
+  /* Border radius*/
+  --border-radius-0: 100vw;
+  --border-radius-1: 0.125rem;
+  --border-radius-2: 0.25rem;
+  --border-radius-3: 0.5rem;
+  --border-radius-4: 1rem;
+  --border-radius-5: 2rem;
+
+  /* Shadow */
+  --shadow-black: 0 0 0.25em hsl(var(--black) / 0.24);
+  --shadow-primary: 0 0 0.25em hsl(var(--primary) / 0.24);
+  --shadow-secondary: 0 0 0.25em hsl(var(--c-secondary) / 0.24);
+
+  /* Gradients*/
+  --gradient-x: linear-gradient(
+    90deg,
+    hsl(var(--c-secondary)) 0%,
+    hsl(var(--c-primary)) 100%
+  );
+  --gradient-y: linear-gradient(
+    0deg,
+    hsl(var(--c-secondary)) 0%,
+    hsl(var(--c-primary)) 100%
+  );
+
+  /* Body */
+  --body-bg-color: hsl(var(--c-background));
+  --body-color: hsl(var(--c-foreground));
+  --body-ff: 'Plus Jakarta Sans';
+
+  /* Container */
+  --container-padding-inline: clamp(0.5rem, 4.5vw, 3rem);
+  --container-max-width: 90rem;
+}
