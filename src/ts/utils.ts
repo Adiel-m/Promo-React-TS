@@ -47,9 +47,9 @@ export const getExtension = (file: string): string => {
   return ext ? ext : 'File Extension is Missing'
 }
 
-export const pageAndThemeModeStyles = ({ page, pageThemeMode }: PageThemeProps) => {
+export const pageAndThemeModeStyles = ({ pageTheme, pageThemeMode }: PageThemeProps) => {
   const body = document.querySelector('body')!
   pageThemeMode === 'dark'
-    ? body.classList.add(page, pageThemeMode)
-    : body.classList.add(page)
+    ? body.classList.add(pageTheme, pageThemeMode)
+    : body.classList.add(pageTheme)
 }

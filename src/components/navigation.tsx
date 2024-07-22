@@ -20,7 +20,7 @@ export const navigation = [
         path: 'elevate',
         loader: false,
         element: (
-          <PageTheme page="elevate" pageThemeMode="light">
+          <PageTheme pageTheme="elevate" pageThemeMode="light">
             <Elevate />
           </PageTheme>
         ),
@@ -29,7 +29,7 @@ export const navigation = [
         path: 'empower',
         loader: false,
         element: (
-          <PageTheme page="empower" pageThemeMode="light">
+          <PageTheme pageTheme="empower" pageThemeMode="light">
             <Empower />
           </PageTheme>
         ),
@@ -38,7 +38,7 @@ export const navigation = [
         path: 'future',
         loader: false,
         element: (
-          <PageTheme page="future" pageThemeMode="light">
+          <PageTheme pageTheme="future" pageThemeMode="light">
             <Future />
           </PageTheme>
         ),
@@ -47,7 +47,7 @@ export const navigation = [
         path: 'socket',
         loader: false,
         element: (
-          <PageTheme page="socket" pageThemeMode="dark">
+          <PageTheme pageTheme="socket" pageThemeMode="dark">
             <Socket />
           </PageTheme>
         ),
@@ -56,7 +56,7 @@ export const navigation = [
         path: 'space',
         loader: false,
         element: (
-          <PageTheme page="space" pageThemeMode="dark">
+          <PageTheme pageTheme="space" pageThemeMode="dark">
             <Space />
           </PageTheme>
         ),
@@ -65,7 +65,7 @@ export const navigation = [
         path: 'vision',
         loader: false,
         element: (
-          <PageTheme page="vision" pageThemeMode="dark">
+          <PageTheme pageTheme="vision" pageThemeMode="dark">
             <Vision />
           </PageTheme>
         ),
