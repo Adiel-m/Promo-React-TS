@@ -1,10 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { ThemeContextType, ThemeType } from "../ts/types/common.types";
-import { ThemeProps } from "../ts/interfaces/common.interfaces";
+import { Props } from "../ts/interfaces/common.interfaces";
 
 export const ThemeContext = createContext<ThemeContextType | null>(null)
 
-export const ThemeProvider = ({children}: ThemeProps): React.ReactElement => {
+export const ThemeProvider = ({children}: Props): React.ReactElement => {
   const [theme, setTheme] = useState<ThemeType>()
 
   const updateThemeMode = (theme: ThemeType | undefined) => {

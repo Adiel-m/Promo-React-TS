@@ -1,9 +1,5 @@
-import { ReactNode } from "react"
+import { Props } from "../ts/interfaces/common.interfaces"
 
-interface Main {
-  children: ReactNode
-}
-
-export default function Main({ children }: Main) {
+export default function Main({ children }: Props) {
   return <main>{children}</main>
 }

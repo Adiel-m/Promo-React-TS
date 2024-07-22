@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { ThemeType } from "../types/common.types";
 
-export interface ThemeProps {
-  children: ReactNode
+export interface Props {
+  children?: ReactNode
 }
 
 export interface PageThemeProps {
