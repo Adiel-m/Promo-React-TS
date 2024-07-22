@@ -8,10 +8,6 @@
   --gradient-radial-1: radial-gradient(100% 100% at 50% 0%, hsl(var(--c-dark) /0.32) 50%, hsl(var(--c-primary) /0.32));
   --gradient-radial-2: radial-gradient(at 50% 0%, hsl(var(--c-dark) / 0.32), hsl(var(--c-tertiary) / 0.32));
 
-  /* Body */
-  --body-bg-color: hsl(var(--c-foreground));
-  --body-color: hsl(var(--c-background));
-
   /* Components */
   .btn {
     font-weight: var(--fw-600);
@@ -21,7 +17,6 @@
 
   .form {
     .btn {
-      color: inherit;
       padding-inline: var(--dyn-size-64);
     }
   }
@@ -103,6 +98,4 @@
       background-image: var(--gradient-radial-1);
     }
   }
-
-
 }

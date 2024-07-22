@@ -4,10 +4,6 @@
   --c-secondary: 321 70% 46%;
   --c-tertiary: 0 0% 100%;
 
-  /* Body */
-  --body-bg-color: hsl(var(--c-foreground));
-  --body-color: hsl(var(--c-background));
-
   /* Components */
   .bg-img {
     position: fixed;
