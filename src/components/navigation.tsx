@@ -14,7 +14,7 @@ export const navigation = [
     element: <App />
   },
   {
-    path: '/pages/',
+    path: 'pages',
     children: [
       {
         path: 'elevate',
