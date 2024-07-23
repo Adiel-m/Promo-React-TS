@@ -6,29 +6,38 @@ export const NavMenu = () => {
   return (
     <nav className="nav">
       <ul className="menu">
-        {navigation.map((item) => (
-          <li className="item" key={item.path}>
-            {!item.children ? (
+        {
+          // Menu
+          navigation.map((item, i) => (
+            <li
+              className="item"
+              key={item.path}
+              style={{ offsetDistance: `${(100 / navigation.length) * (i + 1)}%` }}
+            >
               <NavLink className="link" to={item.path}>
                 {item.path === '/' ? 'home' : item.path}
               </NavLink>
-            ) : (
-              <ul className="sub-menu">
-                {item.children.map((subItem, i) => (
-                  <li
-                    style={{ offsetDistance: `${(100 / item.children.length) * (i+1)}%` }}
-                    className="sub-item"
-                    key={subItem.path}
-                  >
-                    <NavLink className="sub-link" to={item.path + subItem.path}>
-                      {subItem.path}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
+              {
+                // Sub-Menu
+                item.children && (
+                  <ul className="sub-menu">
+                    {item.children.map((subItem, i) => (
+                      <li
+                        className="sub-item"
+                        key={subItem.path}
+                        style={{ offsetDistance: `${(100 / item.children.length) * (i + 1)}%`}}
+                      >
+                        <NavLink className="sub-link" to={item.path + subItem.path}>
+                          {subItem.path}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              }
+            </li>
+          ))
+        }
       </ul>
     </nav>
   )
