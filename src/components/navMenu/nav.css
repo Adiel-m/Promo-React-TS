@@ -1,7 +1,7 @@
 .nav {
   --z-index: 10000;
-  --width: 6em;
-  --sub-width: calc(var(--width) * 1.1);
+  --width: 4.5em;
+  --sub-width: calc(var(--width) * 1.5);
   --link-border: var(--border-1);
 
   position: absolute;
@@ -26,61 +26,61 @@
     visibility: visible;
     }
   }
-  
-  .item:has(.sub-menu){    
-    &.visible {
-    visibility: visible;
-    }
-  }
 
-  .item > a,
-  .sub-item > a {
+  .item,
+  .sub-item {
     transform-origin: center;
+    width: var(--width);
+    height: var(--width);
     border: var(--link-border);
     border-color: transparent;
     border-radius: var(--border-radius-0);
     background-color: hsl(var(--c-background));
-  }
-  
-  .item > a {
     font-size: var(--fs-32);
-    width: var(--width);
-    height: var(--width);
     text-transform: uppercase;
     color: hsl(var(--c-primary));
     transition: border-color 0.2s, transform 0.2s;
     
-    &:hover {
+    &:hover:not(:has(.sub-item)) { /* prevents item from scaling */
       transform: scale(1.05);
       border-color: hsl(var(--c-primary));
-      
       & > .sub-item {
         transform: unset;
         border-color: hsl(var(--c-primary));
       }
     }
   }
-
-  .item:has(.sub-menu) {
-    offset-path: circle(calc(var(--width) * 2.5));
-    offset-rotate: 0deg;
+  
+  .item > a { /* item scaling */
+    transition: transform 0.2s;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
-  .item:has(.sub-menu) > a {
+  .item:has(.sub-menu) {
+    offset-path: circle(calc(var(--width) * 3));  /* Items Circle */
+    offset-rotate: 0deg;
+    &.visible {
+    visibility: visible;
+    }
+  }
+
+  .item:has(.sub-menu) {
     font-size: var(--fs-24);
     width: var(--width);
     height: var(--width);
   }
 
   .sub-item {
-    offset-path: circle(calc(var(--width) * 1.8));
+    offset-path: circle(calc(var(--width) * 1.8)); /* Sub Items Circle */
     offset-rotate: 0deg;
   }
 
-  .sub-item > a {
+  .sub-item {
     width: var(--sub-width);
     height: var(--sub-width);
-    font-size: var(--fs-20);
+    font-size: var(--fs-16);
     color: hsl(var(--c-secondary));
     transition: border-color 0.2s, transform 0.2s;
     
