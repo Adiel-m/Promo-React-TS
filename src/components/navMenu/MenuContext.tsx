@@ -50,7 +50,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     setDownTime(Date.now())
   }
   const handleMouseUp = (e: MouseEvent) => {
-    setDownPosition({ x: e.clientX, y: e.clientY })
+    setUpPosition({ x: e.clientX, y: e.clientY })
     menuPositionAt()
     setDuration()
   }
@@ -59,7 +59,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     setDownTime(Date.now())
   }
   const handleTouchEnd = (e: TouchEvent) => {
-    setDownPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
+    setUpPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
     setDuration()
   }
   
