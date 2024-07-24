@@ -60,6 +60,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   }
   const handleTouchEnd = (e: TouchEvent) => {
     setUpPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
+    menuPositionAt()
     setDuration()
   }
   
