@@ -5,6 +5,8 @@ export interface MenuContextProps {
   subMenuIsVisible: boolean
   showMenu: boolean
   screenSize: React.MutableRefObject<ScreenSizeProps>
+  handleHoverOver: MouseEventHandler
+  handleHoverLeave: MouseEventHandler
   handleMouseDown: MouseEventHandler
   handleMouseUp: MouseEventHandler
   handleTouchStart: TouchEventHandler

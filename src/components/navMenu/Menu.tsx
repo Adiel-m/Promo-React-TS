@@ -4,10 +4,9 @@ import { navigation } from "../navigation"
 import { useContext } from 'react'
 import { MenuContext } from './MenuContext'
 
-
-
 export const NavMenu = () => {
-  const {menuIsVisible, subMenuIsVisible } = useContext(MenuContext)
+  const { menuIsVisible, subMenuIsVisible, handleHoverOver, handleHoverLeave } =
+    useContext(MenuContext)
 
   return (
     <nav className="nav">
@@ -16,7 +15,9 @@ export const NavMenu = () => {
           // Menu
           navigation.map((item, i) => (
             <li
-              className={`item${(item.children && subMenuIsVisible) ? ' visible' : ''}`}
+              onMouseOver={(e) => {handleHoverOver(e)}}
+              onMouseLeave={(e) => {handleHoverLeave(e)}}
+              className={`item${item.children && subMenuIsVisible ? ' visible' : ''}`}
               key={item.path}
               style={{ offsetDistance: `${(100 / navigation.length) * (i + 1)}%` }}
             >
@@ -29,6 +30,8 @@ export const NavMenu = () => {
                   <ul className="sub-menu">
                     {item.children.map((subItem, i) => (
                       <li
+                        onMouseLeave={(e) => {handleHoverLeave(e)}}
+                        onMouseOver={(e) => {handleHoverOver(e)}}
                         className="sub-item"
                         key={subItem.path}
                         style={{

@@ -33,6 +33,17 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     )
   }
 
+  const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
+    const el: HTMLLIElement = e.target
+    e.stopPropagation()
+    el.classList.add('isHover')
+  }
+  const handleHoverLeave = (e: MouseEvent<HTMLLIElement>) => {
+    const el: HTMLLIElement = e.target
+    e.stopPropagation()
+    el.classList.remove('isHover')
+  }
+
   // Mouse/Touch
   const handleMouseDown = (e: MouseEvent) => {
     setDownPosition({ x: e.clientX, y: e.clientY })
@@ -66,6 +77,8 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       value={{
         menuIsVisible,
         subMenuIsVisible,
+        handleHoverOver,
+        handleHoverLeave,
         handleMouseDown,
         handleMouseUp,
         handleTouchStart,
