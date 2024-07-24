@@ -1,0 +1,1 @@
+export type MouseEventType = 'touchstart' | 'touchend' | 'mousedown' | 'mouseup' | null

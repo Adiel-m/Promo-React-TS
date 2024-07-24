@@ -5,10 +5,6 @@
   --link-border: var(--border-1);
 
   position: absolute;
-  inset-block: 50%;
-  inset-inline: 50%;
-
-  opacity: 0.5;
   text-align: center;
   font-weight: var(--fw-700);
   z-index: var(--z-index);
@@ -22,6 +18,19 @@
     align-items: center;
     justify-content: center;
     position: absolute;
+  }
+  
+  .menu {
+    visibility: hidden; 
+    &.visible {
+    visibility: visible;
+    }
+  }
+  
+  .item:has(.sub-menu){    
+    &.visible {
+    visibility: visible;
+    }
   }
 
   .item > a,
