@@ -5,7 +5,8 @@ export interface MenuContextProps {
   subMenuIsVisible: boolean
   isHover: boolean
   showMenu: boolean
-  screenSize: React.MutableRefObject<ScreenSizeProps>
+  itemListRef: React.MutableRefObject<(HTMLLIElement | null)[]>
+  screenSizeRef: React.MutableRefObject<screenSizeRefProps>
   handleHoverOver: MouseEventHandler
   handleHoverLeave: MouseEventHandler
   handleMouseDown: MouseEventHandler
@@ -14,11 +15,25 @@ export interface MenuContextProps {
   handleTouchEnd: TouchEventHandler
 }
 
-export interface ScreenSizeProps {
+export interface screenSizeRefProps {
   height: number
   width: number
 }
 export interface PositionProps {
   x: number
   y: number
+}
+
+export interface BoundingProps {
+  id: number
+  data: {
+    x: number
+    y: number
+    width: number
+    height: number
+    top: number
+    right: number
+    bottom: number
+    left: number
+  }
 }

@@ -1,10 +1,12 @@
-import {  createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
+import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
 import { Props } from "../../ts/interfaces"
-import { MenuContextProps, PositionProps, ScreenSizeProps } from './menu.interfaces'
+import { MenuContextProps, PositionProps, screenSizeRefProps } from './menu.interfaces'
 
 export const MenuContext = createContext<MenuContextProps>()
-export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
+export const MenuProvider = ({ children }: Props): React.ReactElement => {
+  /* UseState --------------------------------------
+  ------------------------------------------------*/
   const [isHover, setIsHover] = useState<boolean>(false)
   const [menuIsVisible, setMenuIsVisible] = useState<boolean>(false)
   const [subMenuIsVisible, setSubMenuIsVisible] = useState<boolean>(false)
@@ -13,11 +15,17 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const [downPosition, setDownPosition] = useState<PositionProps>({ x: 0, y: 0 })
   const [upPosition, setUpPosition] = useState<PositionProps>({ x: 0, y: 0 })
 
-  const screenSize = useRef<ScreenSizeProps>({
+  /* UseRef ----------------------------------------
+  ------------------------------------------------*/
+  const listItemsRef = useRef<(HTMLLIElement | null)[]>([])
+
+  const screenSizeRef = useRef<screenSizeRefProps>({
     width: window.screen.availWidth,
     height: window.screen.availHeight,
   })
 
+  /* Helper Functions ------------------------------
+  ------------------------------------------------*/
   const setDuration = () => {
     if (downTime !== null) {
       const curTime = Date.now()
@@ -34,7 +42,8 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     )
   }
 
-  // Handle Hover
+  /* Handle Hover ----------------------------------
+  ------------------------------------------------*/
   const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
     const el: HTMLLIElement = e.target
     e.stopPropagation()
@@ -49,7 +58,8 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     setIsHover(false)
   }
 
-  // Handle Mouse/Touch
+  /* Handle Mouse/Touch ----------------------------
+  ----------------------------------------------- */
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     if (!isHover || !menuIsVisible) {
       setDownPosition({ x: e.clientX, y: e.clientY })
@@ -64,7 +74,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       setDuration()
     }
   }
-  
+
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     if (!isHover || !menuIsVisible) {
       setDownPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY })
@@ -79,21 +89,46 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       setDuration()
     }
   }
-  
-  // Effects
+
+  /* Effects ---------------------------------------
+  ------------------------------------------------*/
   useEffect(() => {
+
+    // List Items Boundary box
+    const listItemsRectArr = listItemsRef.current.map((el, i) => {
+      if (el) {
+        const elRect = el.getBoundingClientRect()
+        return {
+          id: i,
+          data: {
+            x: elRect.x,
+            y: elRect.y,
+            width: elRect.width,
+            height: elRect.height,
+            top: elRect.top,
+            right: elRect.right,
+            bottom: elRect.bottom,
+            left: elRect.left,
+          },
+        }
+      }
+    })
+
+
     // Show Menu
-    if (downDuration !== null && downDuration > 1000) {
+    if (downDuration !== null && downDuration > 500) {
       setMenuIsVisible(true)
     }
-    
-  }, [setMenuIsVisible, downDuration])
+  }, [setMenuIsVisible, downDuration, listItemsRef])
 
+  /* Return ----------------------------------------
+  ------------------------------------------------*/
   return (
     <MenuContext.Provider
       value={{
         menuIsVisible,
         subMenuIsVisible,
+        listItemsRef,
         handleHoverOver,
         handleHoverLeave,
         handleMouseDown,
