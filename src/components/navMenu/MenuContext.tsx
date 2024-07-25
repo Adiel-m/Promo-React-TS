@@ -5,6 +5,7 @@ import { MenuContextProps, PositionProps, ScreenSizeProps } from './menu.interfa
 export const MenuContext = createContext<MenuContextProps>()
 export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
+  const [isHover, setIsHover] = useState<boolean>(false)
   const [menuIsVisible, setMenuIsVisible] = useState<boolean>(false)
   const [subMenuIsVisible, setSubMenuIsVisible] = useState<boolean>(false)
   const [downTime, setDownTime] = useState<number | null>(null)
@@ -33,35 +34,50 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     )
   }
 
+  // Handle Hover
   const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
     const el: HTMLLIElement = e.target
     e.stopPropagation()
     el.classList.add('isHover')
+    setIsHover(true)
   }
+
   const handleHoverLeave = (e: MouseEvent<HTMLLIElement>) => {
     const el: HTMLLIElement = e.target
     e.stopPropagation()
     el.classList.remove('isHover')
+    setIsHover(false)
   }
 
-  // Mouse/Touch
-  const handleMouseDown = (e: MouseEvent) => {
-    setDownPosition({ x: e.clientX, y: e.clientY })
-    setDownTime(Date.now())
+  // Handle Mouse/Touch
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isHover || !menuIsVisible) {
+      setDownPosition({ x: e.clientX, y: e.clientY })
+      setDownTime(Date.now())
+    }
   }
-  const handleMouseUp = (e: MouseEvent) => {
-    setUpPosition({ x: e.clientX, y: e.clientY })
-    menuPositionAt()
-    setDuration()
+
+  const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isHover || !menuIsVisible) {
+      setUpPosition({ x: e.clientX, y: e.clientY })
+      menuPositionAt()
+      setDuration()
+    }
   }
-  const handleTouchStart = (e: TouchEvent) => {
-    setDownPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY })
-    setDownTime(Date.now())
+  
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    if (!isHover || !menuIsVisible) {
+      setDownPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY })
+      setDownTime(Date.now())
+    }
   }
-  const handleTouchEnd = (e: TouchEvent) => {
-    setUpPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
-    menuPositionAt()
-    setDuration()
+
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    if (!isHover || !menuIsVisible) {
+      setUpPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
+      menuPositionAt()
+      setDuration()
+    }
   }
   
   // Effects

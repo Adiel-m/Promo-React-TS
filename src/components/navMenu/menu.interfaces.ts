@@ -3,6 +3,7 @@ import { MouseEventHandler, TouchEventHandler } from "react"
 export interface MenuContextProps {
   menuIsVisible: boolean
   subMenuIsVisible: boolean
+  isHover: boolean
   showMenu: boolean
   screenSize: React.MutableRefObject<ScreenSizeProps>
   handleHoverOver: MouseEventHandler
