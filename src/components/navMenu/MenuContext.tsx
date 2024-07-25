@@ -1,6 +1,7 @@
 import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
 import { Props } from "../../ts/interfaces"
 import { MenuContextProps, PositionProps, screenSizeRefProps } from './menu.interfaces'
+import { outOfScreenItemsArr, isTrue } from "../../ts/utils"
 
 export const MenuContext = createContext<MenuContextProps>()
 
@@ -19,10 +20,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   ------------------------------------------------*/
   const listItemsRef = useRef<(HTMLLIElement | null)[]>([])
 
-  const screenSizeRef = useRef<screenSizeRefProps>({
-    width: window.screen.availWidth,
-    height: window.screen.availHeight,
-  })
+  const screenSizeRef = useRef<screenSizeRefProps>({width: window.screen.availWidth, height: window.screen.availHeight})
 
   /* Helper Functions ------------------------------
   ------------------------------------------------*/
@@ -93,34 +91,26 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   /* Effects ---------------------------------------
   ------------------------------------------------*/
   useEffect(() => {
-
-    // List Items Boundary box
-    const listItemsRectArr = listItemsRef.current.map((el, i) => {
-      if (el) {
-        const elRect = el.getBoundingClientRect()
-        return {
-          id: i,
-          data: {
-            x: elRect.x,
-            y: elRect.y,
-            width: elRect.width,
-            height: elRect.height,
-            top: elRect.top,
-            right: elRect.right,
-            bottom: elRect.bottom,
-            left: elRect.left,
-          },
-        }
-      }
-    })
-
-
     // Show Menu
     if (downDuration !== null && downDuration > 500) {
       setMenuIsVisible(true)
     }
-  }, [setMenuIsVisible, downDuration, listItemsRef])
 
+    // Keep Menu inside the screen boundaries 
+    const screenMeasures = screenSizeRef.current
+    console.log('New');
+    listItemsRef.current.map((el) => {
+      if (el) {
+          // Get List Items Boundary box
+          const LiRect: DOMRect = el.getBoundingClientRect()
+          const arr: object[] = outOfScreenItemsArr(LiRect, screenMeasures)
+          const outOfBoundaryEl: object | null = isTrue(arr) ? { ...arr[0] } : null
+          console.log(outOfBoundaryEl)
+        }
+      })
+
+  }, [setMenuIsVisible, downDuration, listItemsRef])
+  
   /* Return ----------------------------------------
   ------------------------------------------------*/
   return (

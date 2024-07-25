@@ -1,3 +1,4 @@
+import { screenSizeRefProps } from "../components/navMenu/menu.interfaces"
 import { PageThemeProps } from "./interfaces"
 
 export const isObj = <T>(arg: T): boolean => {
@@ -52,4 +53,23 @@ export const pageAndThemeModeStyles = ({ pageTheme, pageThemeMode }: PageThemePr
   pageThemeMode === 'dark'
     ? body.classList.add(pageTheme, pageThemeMode)
     : body.classList.add(pageTheme)
+}
+
+export const outOfScreenItemsArr = (el: DOMRect, screenMeasures: screenSizeRefProps): object[] => {
+  const width = screenMeasures.width
+  const height = screenMeasures.height
+  const leftVal = Math.floor(el.left)
+  const topVal = Math.floor(el.top)
+  const rightVal = Math.floor(el.right)
+  const bottomVal = Math.floor(el.bottom)
+  // Check if list items are crossing over the AVAILABLE screen size
+  const sides = [
+    leftVal < 0 ? { left: leftVal } : false,
+    topVal < 0 ? { top: topVal } : false,
+    rightVal > width ? { right: rightVal } : false,
+    bottomVal > height ? { bottom: bottomVal } : false,
+  ]
+
+  const arr = sides.filter((side) => typeof side === 'object')
+  return arr
 }
