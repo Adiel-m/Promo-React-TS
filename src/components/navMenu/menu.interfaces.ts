@@ -5,7 +5,7 @@ export interface MenuContextProps {
   subMenuIsVisible: boolean
   isHover: boolean
   showMenu: boolean
-  itemListRef: React.MutableRefObject<(HTMLLIElement | null)[]>
+  listItemsRef: React.MutableRefObject<(HTMLLIElement | null)[]>
   screenSizeRef: React.MutableRefObject<screenSizeRefProps>
   handleHoverOver: MouseEventHandler
   handleHoverLeave: MouseEventHandler
