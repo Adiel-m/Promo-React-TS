@@ -55,9 +55,9 @@ export const pageAndThemeModeStyles = ({ pageTheme, pageThemeMode }: PageThemePr
     : body.classList.add(pageTheme)
 }
 
-export const outOfScreenItemsArr = (el: DOMRect, screenMeasures: screenSizeRefProps): object[] => {
-  const width = screenMeasures.width
-  const height = screenMeasures.height
+export const outOfScreenItemsArr = (el: DOMRect, screenSize: screenSizeRefProps): object[] => {
+  const width = screenSize.width
+  const height = screenSize.height
   const leftVal = Math.floor(el.left)
   const topVal = Math.floor(el.top)
   const rightVal = Math.floor(el.right)

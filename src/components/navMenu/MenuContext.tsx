@@ -97,13 +97,13 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     }
 
     // Keep Menu inside the screen boundaries 
-    const screenMeasures = screenSizeRef.current
+    const screenSize = screenSizeRef.current
     console.log('New');
     listItemsRef.current.map((el) => {
       if (el) {
           // Get List Items Boundary box
           const LiRect: DOMRect = el.getBoundingClientRect()
-          const arr: object[] = outOfScreenItemsArr(LiRect, screenMeasures)
+          const arr: object[] = outOfScreenItemsArr(LiRect, screenSize)
           const outOfBoundaryEl: object | null = isTrue(arr) ? { ...arr[0] } : null
           console.log(outOfBoundaryEl)
         }
