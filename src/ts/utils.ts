@@ -1,4 +1,5 @@
 import { screenSizeRefProps } from "../components/navMenu/menu.interfaces"
+import { screenSizeRefType } from "../components/navMenu/menu.types"
 import { PageThemeProps } from "./interfaces"
 
 export const isObj = <T>(arg: T): boolean => {
@@ -78,7 +79,7 @@ export const getOutOfScreenItemsArr = (el: DOMRect, screenSize: screenSizeRefPro
 /**  Get an Array of Offscreen listItem boundary props */
 export const getOffScreenProps = (
   items: React.MutableRefObject<(HTMLLIElement | null)[]>,
-  screenSizeRef: React.MutableRefObject<screenSizeRefProps>,
+  screenSizeRef: screenSizeRefType,
 ): object[] | [] => {
   const propsArr: (object | null)[] = []
   items.current.map((el) => {
