@@ -1,7 +1,7 @@
 import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
 import { Props } from "../../ts/interfaces"
 import { MenuContextProps, PositionProps, screenSizeRefProps } from './menu.interfaces'
-import { outOfScreenItemsArr, isTrue } from "../../ts/utils"
+import { getOffScreenProps } from "../../ts/utils"
 
 export const MenuContext = createContext<MenuContextProps>()
 
@@ -38,12 +38,6 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       'style',
       `transform: translateX(${downPosition.x}px) translateY(${downPosition.y}px);`,
     )
-  }
-
-  const showMenuDelay = (delay: number) => {
-        if (downDuration !== null && downDuration > delay) {
-          setMenuIsVisible(true)
-        }
   }
 
   /* Handle Hover ----------------------------------
@@ -97,21 +91,21 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   /* Effects ---------------------------------------
   ------------------------------------------------*/
   useEffect(() => {
+    console.log('New Render')
+    // Show menu after a delay
+    const showMenuDelay = (delay: number) => {
+      if (downDuration !== null && downDuration > delay) {
+        setMenuIsVisible(true)
+      }
+    }
     showMenuDelay(500)
 
-    // Keep the Menu in screen boundaries 
-    console.log("New Render");
-    listItemsRef.current.map((el) => {
-      if (el) {
-        const LiRect: DOMRect = el.getBoundingClientRect() // Get List Item Boundary box
-        const arr: object[] = outOfScreenItemsArr(LiRect, screenSizeRef.current) // Out of boundary {side: value} objects Array
-        const outOfBoundaryEl: object | null = isTrue(arr) ? { ...arr[0] } : null // Destruct objects from the Array (null if empty)
+    // Keep the Menu in screen boundaries
+    const offScreenPropsArr = getOffScreenProps(listItemsRef, screenSizeRef)
 
-        console.log(outOfBoundaryEl)
-      }
-      })
 
-  }, [setMenuIsVisible, downDuration, listItemsRef])
+    console.log(offScreenPropsArr)
+  },)
   
   /* Return ----------------------------------------
   ------------------------------------------------*/
