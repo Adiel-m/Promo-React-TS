@@ -99,17 +99,16 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   useEffect(() => {
     showMenuDelay(500)
 
-    // Keep Menu inside the screen boundaries 
-    const screenSize = screenSizeRef.current
-    console.log('New');
+    // Keep the Menu in screen boundaries 
+    console.log("New Render");
     listItemsRef.current.map((el) => {
       if (el) {
-          // Get List Items Boundary box
-          const LiRect: DOMRect = el.getBoundingClientRect()
-          const arr: object[] = outOfScreenItemsArr(LiRect, screenSize)
-          const outOfBoundaryEl: object | null = isTrue(arr) ? { ...arr[0] } : null
-          console.log(outOfBoundaryEl)
-        }
+        const LiRect: DOMRect = el.getBoundingClientRect() // Get List Item Boundary box
+        const arr: object[] = outOfScreenItemsArr(LiRect, screenSizeRef.current) // Out of boundary {side: value} objects Array
+        const outOfBoundaryEl: object | null = isTrue(arr) ? { ...arr[0] } : null // Destruct objects from the Array (null if empty)
+
+        console.log(outOfBoundaryEl)
+      }
       })
 
   }, [setMenuIsVisible, downDuration, listItemsRef])
