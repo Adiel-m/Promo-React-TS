@@ -40,6 +40,12 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     )
   }
 
+  const showMenuDelay = (delay: number) => {
+        if (downDuration !== null && downDuration > delay) {
+          setMenuIsVisible(true)
+        }
+  }
+
   /* Handle Hover ----------------------------------
   ------------------------------------------------*/
   const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
@@ -91,10 +97,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   /* Effects ---------------------------------------
   ------------------------------------------------*/
   useEffect(() => {
-    // Show Menu
-    if (downDuration !== null && downDuration > 500) {
-      setMenuIsVisible(true)
-    }
+    showMenuDelay(500)
 
     // Keep Menu inside the screen boundaries 
     const screenSize = screenSizeRef.current
