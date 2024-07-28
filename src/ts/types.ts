@@ -17,3 +17,7 @@ export type ThemeContextType = {
   setTheme: React.Dispatch<React.SetStateAction<ThemeType | undefined>>
   updateThemeMode: (theme: ThemeType | undefined) => void
 }
+
+export type StringNumberObj = { [key: string]: number }
+export type StrNumOrStrUndObj = { [key: string]: number | undefined }
+export type StringBooleanObj = { [key: string]: boolean }

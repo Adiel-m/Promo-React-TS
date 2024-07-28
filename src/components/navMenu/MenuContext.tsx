@@ -2,7 +2,7 @@ import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } fr
 import { Props } from "../../ts/interfaces"
 import { MenuContextProps, PositionProps, screenSizeRefProps } from './menu.interfaces'
 import { getOffScreenProps } from "../../ts/utils"
-import { screenSizeRefType } from "./menu.types"
+import { listItemsRef, screenSizeRefType } from "./menu.types"
 
 export const MenuContext = createContext<MenuContextProps>()
 
@@ -19,7 +19,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   /* UseRef ----------------------------------------
   ------------------------------------------------*/
-  const listItemsRef = useRef<(HTMLLIElement | null)[]>([])
+  const listItemsRef: listItemsRef = useRef<(HTMLLIElement | null)[]>([])
 
   const screenSizeRef: screenSizeRefType = useRef<screenSizeRefProps>({width: window.screen.availWidth, height: window.screen.availHeight})
 
