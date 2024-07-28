@@ -28,23 +28,6 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     right: window.innerWidth,
     bottom: window.innerHeight,
   })
-  /* Helper Functions ------------------------------
-  ------------------------------------------------*/
-  const setDuration = () => {
-    if (downTime !== null) {
-      const curTime = Date.now()
-      setDownDuration(curTime - downTime)
-      setDownTime(Date.now())
-    }
-  }
-
-  const menuPositionAt = () => {
-    const menu = document.querySelector('.menu') as HTMLUListElement
-    menu.setAttribute(
-      'style',
-      `transform: translateX(${downPosition.x}px) translateY(${downPosition.y}px);`,
-    )
-  }
 
   /* Handle Hover ----------------------------------
   ------------------------------------------------*/
@@ -74,7 +57,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     if (!isHover || !menuIsVisible) {
       setUpPosition({ x: e.clientX, y: e.clientY })
-      menuPositionAt()
+      menuPositionAt(downPosition.x, downPosition.y)
       setDuration()
     }
   }
@@ -89,9 +72,24 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
     if (!isHover || !menuIsVisible) {
       setUpPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
-      menuPositionAt()
+      menuPositionAt(downPosition.x, downPosition.y)
       setDuration()
     }
+  }
+
+  /* Helper Functions ------------------------------
+  ------------------------------------------------*/
+  const setDuration = () => {
+    if (downTime !== null) {
+      const curTime = Date.now()
+      setDownDuration(curTime - downTime)
+      setDownTime(Date.now())
+    }
+  }
+
+  const menuPositionAt = (x: number, y: number) => {
+    const menu = document.querySelector('.menu') as HTMLUListElement
+    menu.setAttribute('style', `transform: translateX(${x}px) translateY(${y}px);`)
   }
 
   /* Effects ---------------------------------------
@@ -112,9 +110,8 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     const screenVal = screenSizeRef.current as unknown as StringNumberObj
     const offsetReminder = calcOffsetReminder(screenVal, highestValues)
 
-
     console.log(offsetReminder)
-  })  
+  })
   /* Return ----------------------------------------
   ------------------------------------------------*/
   return (
