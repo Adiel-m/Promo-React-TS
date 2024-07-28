@@ -34,14 +34,12 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   /* Handle Hover ----------------------------------
   ------------------------------------------------*/
   const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
-    e.stopPropagation()
     const el = e.target as HTMLLIElement
     el.classList.add('isHover')
     setIsHover(true)
   }
 
   const handleHoverLeave = (e: MouseEvent<HTMLLIElement>) => {
-    e.stopPropagation()
     const el = e.target as HTMLLIElement
     el.classList.remove('isHover')
     setIsHover(false)
