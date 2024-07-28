@@ -28,7 +28,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     right: window.innerWidth,
     bottom: window.innerHeight,
   })
-
+  
   const screenVal = screenSizeRef.current as unknown as StringNumberObj
 
   /* Handle Hover ----------------------------------
@@ -49,8 +49,9 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   /* Handle Mouse/Touch ----------------------------
   ----------------------------------------------- */
+  const validHandle = !isHover
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isHover || !menuIsVisible) {
+    if (validHandle) {
       setDownPosition({ x: e.clientX, y: e.clientY })
       setDownTime(Date.now())
     }
@@ -58,7 +59,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   }
 
   const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isHover || !menuIsVisible) {
+    if (validHandle) {
       setUpPosition({ x: e.clientX, y: e.clientY })
       menuPositionAt(downPosition.x, downPosition.y)
       setDuration()
@@ -67,7 +68,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   }
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-    if (!isHover || !menuIsVisible) {
+    if (validHandle) {
       setDownPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY })
       setDownTime(Date.now())
     }
@@ -75,7 +76,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   }
 
   const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
-    if (!isHover || !menuIsVisible) {
+    if (validHandle) {
       setUpPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
       menuPositionAt(downPosition.x, downPosition.y)
       setDuration()
@@ -97,9 +98,21 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     setMenuPosition({x, y})
   }
 
+
+
   /* Effects ---------------------------------------
   ------------------------------------------------*/
   useEffect(() => {
+    // Initiate Menu Position at center
+      const menuPositionFirstInit = () => {
+        if (!menuIsVisible) {
+          const x = screenSizeRef.current.right / 2
+          const y = screenSizeRef.current.bottom / 2
+          menuPositionAt(x, y)
+        }
+      }
+      menuPositionFirstInit()
+
     // Show menu after a delay
     const showMenuDelay = (delay: number) => {
       if (downDuration !== null && downDuration > delay) {
@@ -108,18 +121,17 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     }
     showMenuDelay(500)
 
-
     // Keep the Menu in screen boundaries
     if (menuIsVisible && !isHover) {
       // Get the properties and values of ALL out-of-screen LI
       const offScreenPropsArr = getOffScreenProps(listItemsRef, screenSizeRef)
-      
+
       // Filter the furthest LI, with their properties and values
       const highestValues = findHighestAbsoluteValues(offScreenPropsArr)
-      
+
       // Calculate the distance remainder between the furthest LI to the screen boundaries
       const offsetRemainder = calcOffsetRemainder(screenVal, highestValues)
-      
+
       // Reposition the Menu into the screen boundaries
       const repositionMenu = (offsetRemainder: StringNumberObj, menuRef: MenuRefType) => {
         const menuBoundary = menuRef.current!.getBoundingClientRect()
