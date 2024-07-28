@@ -49,14 +49,14 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   /* Handle Hover ----------------------------------
   ------------------------------------------------*/
   const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
-    const el: HTMLLIElement = e.target
+    const el = e.target as HTMLLIElement
     e.stopPropagation()
     el.classList.add('isHover')
     setIsHover(true)
   }
 
   const handleHoverLeave = (e: MouseEvent<HTMLLIElement>) => {
-    const el: HTMLLIElement = e.target
+    const el = e.target as HTMLLIElement
     e.stopPropagation()
     el.classList.remove('isHover')
     setIsHover(false)
@@ -111,6 +111,8 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     const highestValues = findHighestAbsoluteValues(offScreenPropsArr)
     const screenVal = screenSizeRef.current as unknown as StringNumberObj
     const offsetReminder = calcOffsetReminder(screenVal, highestValues)
+
+
     console.log(offsetReminder)
   })  
   /* Return ----------------------------------------
