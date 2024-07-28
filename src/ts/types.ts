@@ -19,5 +19,3 @@ export type ThemeContextType = {
 }
 
 export type StringNumberObj = { [key: string]: number }
-export type StrNumOrStrUndObj = { [key: string]: number | undefined }
-export type StringBooleanObj = { [key: string]: boolean }
