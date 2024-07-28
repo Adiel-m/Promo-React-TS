@@ -9,13 +9,19 @@ export const NavMenu = () => {
     menuIsVisible,
     subMenuIsVisible,
     listItemsRef,
+    menuRef,
+    menuPosition,
     handleHoverOver,
     handleHoverLeave,
   } = useContext(MenuContext)
 
   return (
     <nav className="nav">
-      <ul className={`menu${menuIsVisible ? ' visible' : ''}`}>
+      <ul
+        ref={menuRef}
+        className={`menu${menuIsVisible ? ' visible' : ''}`}
+        style={{ transform: `translateX(${menuPosition.x}px) translateY(${menuPosition.y}px)` }}
+      >
         {
           // Menu
           navigation.map((item, i) => (
@@ -40,7 +46,7 @@ export const NavMenu = () => {
                   <ul className="sub-menu">
                     {item.children.map((subItem, j) => (
                       <li
-                        ref={(el) => (listItemsRef.current[(i * 10) + j] = el)}
+                        ref={(el) => (listItemsRef.current[i * 10 + j] = el)}
                         onMouseLeave={(e) => {
                           handleHoverLeave(e)
                         }}

@@ -57,20 +57,20 @@ export const findHighestAbsoluteValues = (arr: StringNumberObj[]): StringNumberO
   return highestValues
 }
 
-export const calcOffsetReminder = (
+export const calcOffsetRemainder = (
   screenVal: StringNumberObj,
   highestVal: StringNumberObj,
 ) => {
-  const offsetReminder: StringNumberObj = {}
+  const offsetRemainder: StringNumberObj = {}
 
   Object.keys(screenVal).map((scrKey) => {
-    Object.keys(highestVal).map((highKey) => {
-      if (scrKey === highKey) {
-        return (offsetReminder[scrKey] = screenVal[scrKey] - highestVal[highKey])
+    Object.keys(highestVal).map((highestKey) => {
+      if (scrKey === highestKey) {
+        return (offsetRemainder[scrKey] = screenVal[scrKey] - highestVal[highestKey])
       } else {
         return
       }
     })
   })
-  return offsetReminder
+  return offsetRemainder
 }

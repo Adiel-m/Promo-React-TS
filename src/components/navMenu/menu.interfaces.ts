@@ -1,12 +1,14 @@
 import { MouseEventHandler, TouchEventHandler } from "react"
-import { screenSizeRefType } from "./menu.types"
+import { MenuRefType, screenSizeRefType } from "./menu.types"
 
 export interface MenuContextProps {
   menuIsVisible: boolean
   subMenuIsVisible: boolean
   showMenu: boolean
+  menuRef: MenuRefType
   listItemsRef: React.MutableRefObject<(HTMLLIElement | null)[]>
   screenSizeRef: screenSizeRefType
+  menuPosition: PositionProps
   handleHoverOver: MouseEventHandler
   handleHoverLeave: MouseEventHandler
   handleMouseDown: MouseEventHandler
