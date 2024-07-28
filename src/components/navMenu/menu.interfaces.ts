@@ -37,3 +37,9 @@ export interface BoundingProps {
     left: number
   }
 }
+export interface LiBoundaryProps {
+  top: number
+  right: number
+  bottom: number
+  left: number
+}
