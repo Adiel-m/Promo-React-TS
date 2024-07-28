@@ -16,8 +16,10 @@ export interface MenuContextProps {
 }
 
 export interface screenSizeRefProps {
-  height: number
-  width: number
+  left: number
+  top: number
+  right: number
+  bottom: number
 }
 export interface PositionProps {
   x: number

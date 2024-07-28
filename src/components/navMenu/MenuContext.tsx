@@ -21,8 +21,12 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   ------------------------------------------------*/
   const listItemsRef: listItemsRef = useRef<(HTMLLIElement | null)[]>([])
 
-  const screenSizeRef: screenSizeRefType = useRef<screenSizeRefProps>({width: window.screen.availWidth, height: window.screen.availHeight})
-
+  const screenSizeRef: screenSizeRefType = useRef<screenSizeRefProps>({
+    left: 0,
+    top: 0,
+    right: window.innerWidth,
+    bottom: window.innerHeight,
+  })
   /* Helper Functions ------------------------------
   ------------------------------------------------*/
   const setDuration = () => {

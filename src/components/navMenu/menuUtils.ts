@@ -1,3 +1,4 @@
+import { StringNumberObj } from "../../ts/types"
 import { isTrue } from "../../ts/utils"
 import { screenSizeRefProps } from "./menu.interfaces"
 import { screenSizeRefType } from "./menu.types"
@@ -6,19 +7,19 @@ import { screenSizeRefType } from "./menu.types"
 export const getOutOfScreenItemsArr = (
   el: DOMRect,
   screenSize: screenSizeRefProps,
-): object[] => {
-  const width = screenSize.width
-  const height = screenSize.height
+): StringNumberObj[] => {
+  const right = screenSize.right
+  const bottom = screenSize.bottom
   const leftVal = Math.floor(el.left)
   const topVal = Math.floor(el.top)
   const rightVal = Math.floor(el.right)
   const bottomVal = Math.floor(el.bottom)
 
-  const sides = [
+  const sides: (StringNumberObj | boolean)[] = [
     leftVal < 0 ? { left: leftVal } : false,
     topVal < 0 ? { top: topVal } : false,
-    rightVal > width ? { right: rightVal } : false,
-    bottomVal > height ? { bottom: bottomVal } : false,
+    rightVal > right ? { right: rightVal } : false,
+    bottomVal > bottom ? { bottom: bottomVal } : false,
   ]
 
   const arr = sides.filter((side) => typeof side === 'object')
@@ -29,12 +30,12 @@ export const getOutOfScreenItemsArr = (
 export const getOffScreenProps = (
   items: React.MutableRefObject<(HTMLLIElement | null)[]>,
   screenSizeRef: screenSizeRefType,
-): object[] | [] => {
-  const propsArr: (object | null)[] = []
+): StringNumberObj[] => {
+  const propsArr: (StringNumberObj | null)[] = []
   items.current.map((el) => {
     if (el) {
-      const LiRect: DOMRect = el.getBoundingClientRect() // Get the Item Boundary box
-      const arr: object[] = getOutOfScreenItemsArr(LiRect, screenSizeRef.current) // create Out-of-boundary {side: value} objects Array
+      const LiRect = el.getBoundingClientRect() // Get the Item Boundary box
+      const arr = getOutOfScreenItemsArr(LiRect, screenSizeRef.current) // create Out-of-boundary {side: value} objects Array
       propsArr.push(isTrue(arr) ? { ...arr[0] } : null) // Destruct objects from the Array (null if empty)
     }
   })
