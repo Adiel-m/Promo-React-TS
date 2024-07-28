@@ -1,8 +1,9 @@
 import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
 import { Props } from "../../ts/interfaces"
 import { MenuContextProps, PositionProps, screenSizeRefProps } from './menu.interfaces'
-import { getOffScreenProps } from "../../ts/utils"
 import { listItemsRef, screenSizeRefType } from "./menu.types"
+import { calcOffsetReminder, findHighestAbsoluteValues, getOffScreenProps } from "./menuUtils"
+import { StringNumberObj } from "../../ts/types"
 
 export const MenuContext = createContext<MenuContextProps>()
 
@@ -107,11 +108,11 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
     // Keep the Menu in screen boundaries
     const offScreenPropsArr = getOffScreenProps(listItemsRef, screenSizeRef)
-
-
-    console.log(offScreenPropsArr)
-  },)
-  
+    const highestValues = findHighestAbsoluteValues(offScreenPropsArr)
+    const screenVal = screenSizeRef.current as unknown as StringNumberObj
+    const offsetReminder = calcOffsetReminder(screenVal, highestValues)
+    console.log(offsetReminder)
+  })  
   /* Return ----------------------------------------
   ------------------------------------------------*/
   return (

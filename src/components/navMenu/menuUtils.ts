@@ -41,3 +41,36 @@ export const getOffScreenProps = (
   })
   return propsArr.filter((prop) => prop !== null) // return props object Array
 }
+
+export const findHighestAbsoluteValues = (arr: StringNumberObj[]): StringNumberObj => {
+  const highestValues: StringNumberObj = {}
+
+  arr.map((obj) => {
+    const key = Object.keys(obj)[0]
+    const value = Math.abs(obj[key])
+
+    if (highestValues[key] === undefined || value > highestValues[key]) {
+      highestValues[key] = value
+    }
+  })
+
+  return highestValues
+}
+
+export const calcOffsetReminder = (
+  screenVal: StringNumberObj,
+  highestVal: StringNumberObj,
+) => {
+  const offsetReminder: StringNumberObj = {}
+
+  Object.keys(screenVal).map((scrKey) => {
+    Object.keys(highestVal).map((highKey) => {
+      if (scrKey === highKey) {
+        return (offsetReminder[scrKey] = screenVal[scrKey] - highestVal[highKey])
+      } else {
+        return
+      }
+    })
+  })
+  return offsetReminder
+}
