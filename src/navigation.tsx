@@ -1,24 +1,25 @@
-import App from '../App'
-import { Elevate } from '../pages/elevate'
-import { Empower } from '../pages/empower'
-import { Future } from '../pages/future'
-import { Socket } from '../pages/socket'
-import { Space } from '../pages/space'
-import { Vision } from '../pages/vision'
-import { PageTheme } from '../layouts/PageTheme'
+import App from './App'
+import { Elevate } from './pages/elevate'
+import { Empower } from './pages/empower'
+import { Future } from './pages/future'
+import { Socket } from './pages/socket'
+import { Space } from './pages/space'
+import { Vision } from './pages/vision'
+import { PageTheme } from './layouts/PageTheme'
 
 export const navigation = [
   {
     path: '/',
-    loader: false,
-    element: <App />
+    element: 
+      <PageTheme pageTheme="home" pageThemeMode="light">
+        <App />
+      </PageTheme>
   },
   {
     path: 'pages',
     children: [
       {
         path: 'elevate',
-        loader: false,
         element: (
           <PageTheme pageTheme="elevate" pageThemeMode="light">
             <Elevate />
@@ -27,7 +28,6 @@ export const navigation = [
       },
       {
         path: 'empower',
-        loader: false,
         element: (
           <PageTheme pageTheme="empower" pageThemeMode="light">
             <Empower />
@@ -36,7 +36,6 @@ export const navigation = [
       },
       {
         path: 'future',
-        loader: false,
         element: (
           <PageTheme pageTheme="future" pageThemeMode="light">
             <Future />
@@ -45,7 +44,6 @@ export const navigation = [
       },
       {
         path: 'socket',
-        loader: false,
         element: (
           <PageTheme pageTheme="socket" pageThemeMode="dark">
             <Socket />
@@ -54,7 +52,6 @@ export const navigation = [
       },
       {
         path: 'space',
-        loader: false,
         element: (
           <PageTheme pageTheme="space" pageThemeMode="dark">
             <Space />
@@ -63,7 +60,6 @@ export const navigation = [
       },
       {
         path: 'vision',
-        loader: false,
         element: (
           <PageTheme pageTheme="vision" pageThemeMode="dark">
             <Vision />

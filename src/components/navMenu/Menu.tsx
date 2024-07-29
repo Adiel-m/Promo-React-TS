@@ -1,6 +1,6 @@
 import './nav.css'
 import { NavLink } from "react-router-dom"
-import { navigation } from "../navigation"
+import { navigation } from "../../navigation"
 import { useContext } from 'react'
 import { MenuContext } from './MenuContext'
 export const NavMenu = () => {

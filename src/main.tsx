@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
-import { navigation } from './components/navigation'
+import { navigation } from './navigation'
 import { MenuProvider } from './components/navMenu/MenuContext'
 
 const router = createBrowserRouter(navigation)
