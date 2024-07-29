@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom"
 import { navigation } from "../../navigation"
 import { useContext } from 'react'
 import { MenuContext } from './MenuContext'
+
 export const NavMenu = () => {
-  
   const {
     menuIsVisible,
     subMenuIsVisible,

@@ -11,7 +11,7 @@ export const navigation = [
   {
     path: '/',
     element: 
-      <PageTheme pageTheme="home" pageThemeMode="light">
+      <PageTheme pageTheme="home" theme="light">
         <App />
       </PageTheme>
   },
@@ -21,7 +21,7 @@ export const navigation = [
       {
         path: 'elevate',
         element: (
-          <PageTheme pageTheme="elevate" pageThemeMode="light">
+          <PageTheme pageTheme="elevate" theme="light">
             <Elevate />
           </PageTheme>
         ),
@@ -29,7 +29,7 @@ export const navigation = [
       {
         path: 'empower',
         element: (
-          <PageTheme pageTheme="empower" pageThemeMode="light">
+          <PageTheme pageTheme="empower" theme="light">
             <Empower />
           </PageTheme>
         ),
@@ -37,7 +37,7 @@ export const navigation = [
       {
         path: 'future',
         element: (
-          <PageTheme pageTheme="future" pageThemeMode="light">
+          <PageTheme pageTheme="future" theme="light">
             <Future />
           </PageTheme>
         ),
@@ -45,7 +45,7 @@ export const navigation = [
       {
         path: 'socket',
         element: (
-          <PageTheme pageTheme="socket" pageThemeMode="dark">
+          <PageTheme pageTheme="socket" theme="dark">
             <Socket />
           </PageTheme>
         ),
@@ -53,7 +53,7 @@ export const navigation = [
       {
         path: 'space',
         element: (
-          <PageTheme pageTheme="space" pageThemeMode="dark">
+          <PageTheme pageTheme="space" theme="dark">
             <Space />
           </PageTheme>
         ),
@@ -61,7 +61,7 @@ export const navigation = [
       {
         path: 'vision',
         element: (
-          <PageTheme pageTheme="vision" pageThemeMode="dark">
+          <PageTheme pageTheme="vision" theme="dark">
             <Vision />
           </PageTheme>
         ),

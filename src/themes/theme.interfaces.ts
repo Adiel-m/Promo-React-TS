@@ -2,12 +2,18 @@ import { ReactNode } from "react"
 import { PageThemeType, ThemeType } from "./themeTypes"
 
 export interface PageThemeProps {
-  pageTheme: string
-  pageThemeMode: ThemeType
+  pageTheme: PageThemeType
+  theme: ThemeType
 }
 
-export interface pageThemeModeProps {
+export interface themeProps extends PageThemeProps {
   children: ReactNode
+}
+
+export type ThemeContextProps = {
+  theme: ThemeType
   pageTheme: PageThemeType
-  pageThemeMode: ThemeType
+  setTheme: React.Dispatch<React.SetStateAction<ThemeType>>
+  setPageTheme: React.Dispatch<React.SetStateAction<PageThemeType>>
+  updateTheme: (theme: ThemeType) => void
 }

@@ -1,16 +1,16 @@
-import { pageThemeModeProps } from "./theme.interfaces"
 import { ThemeContext } from "./ThemeContext"
 import { useContext, useEffect } from "react"
-import { pageAndThemeModeStyles } from "./themeUtils"
+import { themeProps } from "./theme.interfaces"
+import { pageAndThemeStyles } from "./themeUtils"
 
 
-export const PageTheme = ({ pageTheme, pageThemeMode, children }: pageThemeModeProps) => {
-  const themeCtx = useContext(ThemeContext)
+export const PageTheme = ({ theme, pageTheme, children }: themeProps) => {
+  const { updateTheme } = useContext(ThemeContext)!
 
   useEffect(() => {
-    themeCtx?.updateThemeMode(pageThemeMode)
-    pageAndThemeModeStyles({ pageTheme, pageThemeMode })
-  }, [pageTheme, themeCtx, pageThemeMode])
-  
-  return <>{ children }</>
+    updateTheme(theme)
+    pageAndThemeStyles({ pageTheme, theme })
+  }, [pageTheme, theme, updateTheme])
+
+  return <>{children}</>
 }

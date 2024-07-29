@@ -1,4 +1,4 @@
-export type ThemeType = 'light' | 'dark'
+export type ThemeType = 'light' | 'dark' |'system'
 
 export type PageThemeType =
   | 'elevate'
@@ -7,11 +7,5 @@ export type PageThemeType =
   | 'socket'
   | 'space'
   | 'vision'
-  | 'home'
+  | 'app'
   | string
-
-export type ThemeContextType = {
-  theme?: ThemeType
-  setTheme: React.Dispatch<React.SetStateAction<ThemeType | undefined>>
-  updateThemeMode: (theme: ThemeType | undefined) => void
-}
