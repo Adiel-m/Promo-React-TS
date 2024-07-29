@@ -4,7 +4,7 @@ import { navigation } from "../../navigation"
 import { useContext } from 'react'
 import { MenuContext } from './MenuContext'
 
-export const NavMenu = () => {
+export const Nav = () => {
   const {
     menuIsVisible,
     subMenuIsVisible,
@@ -35,14 +35,11 @@ export const NavMenu = () => {
               onMouseLeave={(e) => {
                 handleHoverLeave(e)
               }}
-              className='item'
+              className="item"
               key={item.path}
               style={{ offsetDistance: `${(100 / navigation.length) * (i + 1)}%` }}
             >
-              <NavLink
-                className="link"
-                to={item.path === '/' ? item.path : '/' + item.path}
-              >
+              <NavLink className="link" to={item.path}>
                 {item.path === '/' ? 'home' : item.path}
               </NavLink>
               {
@@ -64,7 +61,7 @@ export const NavMenu = () => {
                           offsetDistance: `${(100 / item.children.length) * (j + 1)}%`,
                         }}
                       >
-                        <NavLink className="sub-link" to={item.path + '/' + subItem.path}>
+                        <NavLink className="sub-link" to={ subItem.path}>
                           {subItem.path}
                         </NavLink>
                       </li>

@@ -1,7 +1,8 @@
 import './elevate.css'
-import { Hero } from '../layouts/hero/Hero'
-import { Footer } from '../layouts/footer/Footer'
+import PageHeader from '../layouts/PageHeader'
 import Main from '../layouts/Main'
+import { Footer } from '../layouts/footer/Footer'
+import { Hero } from '../layouts/hero/Hero'
 import { Benefits } from '../layouts/benefits/Benefits'
 import { Reviews } from '../layouts/reviews/Reviews'
 
@@ -20,15 +21,17 @@ export const Elevate = () => {
   const { hero, benefits, reviews, footer } = data
   return (
     <>
-      <Hero
-        slot={{
-          position: 'inContainerLast',
-          children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
-        }}
-        title={hero.title}
-        text={hero.text}
-        btnText={hero.btnText}
-      ></Hero>
+      <PageHeader>
+        <Hero
+          slot={{
+            position: 'inContainerLast',
+            children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
+          }}
+          title={hero.title}
+          text={hero.text}
+          btnText={hero.btnText}
+        ></Hero>
+      </PageHeader>
       <Main>
         <Benefits title={benefits.title} />
         <Reviews title={reviews.title} />

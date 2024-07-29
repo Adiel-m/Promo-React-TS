@@ -1,7 +1,8 @@
 import './socket.css'
-import { Hero } from '../layouts/hero/Hero'
-import { Footer } from '../layouts/footer/Footer'
+import PageHeader from '../layouts/PageHeader'
 import Main from '../layouts/Main'
+import { Footer } from '../layouts/footer/Footer'
+import { Hero } from '../layouts/hero/Hero'
 import { Benefits } from '../layouts/benefits/Benefits'
 import { Reviews } from '../layouts/reviews/Reviews'
 
@@ -20,7 +21,9 @@ export const Socket = () => {
 
   return (
     <>
+    <PageHeader>
       <Hero title={hero.title} text={hero.text} btnText={hero.btnText}></Hero>
+    </PageHeader>
       <Main>
         <Benefits
           title={benefits.title}

@@ -1,7 +1,8 @@
 import './empower.css'
-import { Hero } from '../layouts/hero/Hero'
-import { Footer } from '../layouts/footer/Footer'
+import PageHeader from '../layouts/PageHeader'
 import Main from '../layouts/Main'
+import { Footer } from '../layouts/footer/Footer'
+import { Hero } from '../layouts/hero/Hero'
 import { Benefits } from '../layouts/benefits/Benefits'
 import { Reviews } from '../layouts/reviews/Reviews'
 
@@ -23,15 +24,17 @@ export const Empower = () => {
 
   return (
     <>
-      <Hero
-        slot={{
-          position: 'inColumnLast',
-          children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
-        }}
-        title={hero.title}
-        text={hero.text}
-        btnText={hero.btnText}
-      ></Hero>
+      <PageHeader>
+        <Hero
+          slot={{
+            position: 'inColumnLast',
+            children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
+          }}
+          title={hero.title}
+          text={hero.text}
+          btnText={hero.btnText}
+        ></Hero>
+      </PageHeader>
       <Main>
         <Benefits titleClass="t-bg-clip grad-y" title={benefits.title} />
         <Reviews titleClass="t-bg-clip grad-y" title={reviews.title} />
