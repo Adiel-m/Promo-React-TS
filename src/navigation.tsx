@@ -5,7 +5,7 @@ import { Future } from './pages/future'
 import { Socket } from './pages/socket'
 import { Space } from './pages/space'
 import { Vision } from './pages/vision'
-import { PageTheme } from './layouts/themes/PageTheme'
+import { PageTheme } from './themes/PageTheme'
 
 export const navigation = [
   {
