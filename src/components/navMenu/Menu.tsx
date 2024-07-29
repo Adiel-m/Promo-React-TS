@@ -33,7 +33,7 @@ export const NavMenu = () => {
               onMouseLeave={(e) => {
                 handleHoverLeave(e)
               }}
-              className={`item${item.children && subMenuIsVisible ? ' visible' : ''}`}
+              className='item'
               key={item.path}
               style={{ offsetDistance: `${(100 / navigation.length) * (i + 1)}%` }}
             >
@@ -43,7 +43,7 @@ export const NavMenu = () => {
               {
                 // Sub-Menu
                 item.children && (
-                  <ul className="sub-menu">
+                  <ul className={`sub-menu${subMenuIsVisible ? ' visible' : ''}`}>
                     {item.children.map((subItem, j) => (
                       <li
                         ref={(el) => (listItemsRef.current[i * 10 + j] = el)}
