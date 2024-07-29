@@ -37,13 +37,26 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     const el = e.currentTarget as HTMLLIElement
     el.classList.add('isHover')
     setIsHover(true)
+
+    // Add isHover to sub-menu 
+    Array.from(el.children).map((ch) => ch.classList.contains('sub-menu') && ch.classList.add('visible'))
   }
 
   const handleHoverLeave = (e: MouseEvent<HTMLLIElement>) => {
     const el = e.currentTarget as HTMLLIElement
     el.classList.remove('isHover')
     setIsHover(false)
+    
+    // Remove isHover from sub-menu 
+    Array.from(el.children).map((ch) => ch.classList.contains('sub-menu') && setTimeout(()=> {
+      if (!el.classList.contains('isHover'))
+      {
+        ch.classList.remove('visible')
+      }
+    }, 150))
   }
+
+
 
   /* Handle Mouse/Touch ----------------------------
   ----------------------------------------------- */
