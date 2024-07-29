@@ -20,7 +20,9 @@ export const NavMenu = () => {
       <ul
         ref={menuRef}
         className={`menu${menuIsVisible ? ' visible' : ''}`}
-        style={{ transform: `translateX(${menuPosition.x}px) translateY(${menuPosition.y}px)` }}
+        style={{
+          transform: `translateX(${menuPosition.x}px) translateY(${menuPosition.y}px)`,
+        }}
       >
         {
           // Menu
@@ -37,7 +39,10 @@ export const NavMenu = () => {
               key={item.path}
               style={{ offsetDistance: `${(100 / navigation.length) * (i + 1)}%` }}
             >
-              <NavLink className="link" to={item.path}>
+              <NavLink
+                className="link"
+                to={item.path === '/' ? item.path : '/' + item.path}
+              >
                 {item.path === '/' ? 'home' : item.path}
               </NavLink>
               {
@@ -59,7 +64,7 @@ export const NavMenu = () => {
                           offsetDistance: `${(100 / item.children.length) * (j + 1)}%`,
                         }}
                       >
-                        <NavLink className="sub-link" to={item.path + subItem.path}>
+                        <NavLink className="sub-link" to={item.path + '/' + subItem.path}>
                           {subItem.path}
                         </NavLink>
                       </li>
