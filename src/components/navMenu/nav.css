@@ -3,6 +3,7 @@
   --width: 4.5em;
   --sub-width: calc(var(--width) * 1.5);
   --link-border: var(--border-1);
+  --scale: 1.05;
 
   position: absolute;
   text-align: center;
@@ -20,16 +21,17 @@
     position: absolute;
   }
   
-  .menu {
+  /* Visibility */
+  .menu,
+  .sub-menu {
     visibility: hidden; 
     &.visible {
     visibility: visible;
-    }
   }
+}
 
   .item,
   .sub-item {
-    transform-origin: center;
     width: var(--width);
     height: var(--width);
     border: var(--link-border);
@@ -40,52 +42,41 @@
     text-transform: uppercase;
     color: hsl(var(--c-primary));
     transition: border-color 0.2s, transform 0.2s;
-    
-    &:hover:not(:has(.sub-item)) { /* prevents item from scaling */
-      transform: scale(1.05);
-      border-color: hsl(var(--c-primary));
-      & > .sub-item {
-        transform: unset;
-        border-color: hsl(var(--c-primary));
-      }
-    }
   }
-  
-  .item > a { /* item scaling */
-    transition: transform 0.2s;
-    &:hover {
-      transform: scale(1.05);
+
+  .item:hover {
+    border-color: hsl(var(--c-primary));
+    transform: scale(var(--scale));
+
+    /* prevent scaling --- (items with a sub-menu child )*/
+    &:has(.sub-menu){
+      transform: unset;
     }
   }
 
-  .item:has(.sub-menu) {
-    offset-path: circle(calc(var(--width) * 3));  /* Items Circle */
-    offset-rotate: 0deg;
-    &.visible {
-    visibility: visible;
-    }
-  }
-
+  /* Items with a sub-menu child */
   .item:has(.sub-menu) {
     font-size: var(--fs-24);
     width: var(--width);
     height: var(--width);
-  }
-
-  .sub-item {
-    offset-path: circle(calc(var(--width) * 1.8)); /* Sub Items Circle */
+    /* Arrange in a circle */
+    offset-path: circle(calc(var(--width) * 3));
     offset-rotate: 0deg;
   }
-
+  
   .sub-item {
     width: var(--sub-width);
     height: var(--sub-width);
     font-size: var(--fs-16);
     color: hsl(var(--c-secondary));
     transition: border-color 0.2s, transform 0.2s;
-    
+
+    /* Arrange in a circle */
+    offset-path: circle(calc(var(--width) * 1.8)); 
+    offset-rotate: 0deg;
+
     &:hover {
-      transform: scale(1.05);
+      transform: scale(var(--scale));
       border-color: hsl(var(--c-secondary));
     }
   }
