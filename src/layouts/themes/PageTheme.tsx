@@ -1,7 +1,7 @@
-import { pageAndThemeModeStyles } from "../ts/utils"
-import { pageThemeModeProps } from "../ts/interfaces"
-import { ThemeContext } from "../context/ThemeContext"
+import { pageThemeModeProps } from "./theme.interfaces"
+import { ThemeContext } from "./ThemeContext"
 import { useContext, useEffect } from "react"
+import { pageAndThemeModeStyles } from "./themeUtils"
 
 
 export const PageTheme = ({ pageTheme, pageThemeMode, children }: pageThemeModeProps) => {

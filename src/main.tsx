@@ -2,7 +2,7 @@ import './styles/index.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { ThemeProvider } from './context/ThemeContext'
+import { ThemeProvider } from './layouts/themes/ThemeContext'
 import { navigation } from './navigation'
 import { MenuProvider } from './components/navMenu/MenuContext'
 
