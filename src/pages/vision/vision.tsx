@@ -1,26 +1,26 @@
 import './vision.css'
-import PageHeader from '../layouts/PageHeader'
-import Main from '../layouts/Main'
-import { Footer } from '../layouts/footer/Footer'
-import { Hero } from '../layouts/hero/Hero'
-import { Benefits } from '../layouts/benefits/Benefits'
-import { Reviews } from '../layouts/reviews/Reviews'
+import PageHeader from '../../layouts/PageHeader'
+import Main from '../../layouts/Main'
+import { Footer } from '../../layouts/footer/Footer'
+import { Hero } from '../../layouts/hero/Hero'
+import { Benefits } from '../../layouts/benefits/Benefits'
+import { Reviews } from '../../layouts/reviews/Reviews'
+import { PageTheme } from '../../themes/PageTheme'
 
+// Fetch Data
 const fetchData = async () => {
   const res = await fetch('/src/api/pages.json')
   const data = await res.json()
 
   return data.vision
 }
-
 const data = await fetchData()
 
 export const Vision = () => {
-
   const { hero, benefits, reviews, footer } = data
 
   return (
-    <>
+    <PageTheme pageTheme="vision" theme="dark">
       <PageHeader>
         <Hero
           slot={{
@@ -50,6 +50,6 @@ export const Vision = () => {
         btnText={footer.btnText}
         titleClass="t-bg-clip grad-x"
       />
-    </>
+    </PageTheme>
   )
 }

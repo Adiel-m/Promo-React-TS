@@ -1,6 +1,6 @@
 import './nav.css'
 import { NavLink } from "react-router-dom"
-import { navigation } from "../../navigation"
+import { routes } from "../../routes"
 import { useContext } from 'react'
 import { MenuContext } from './MenuContext'
 
@@ -26,7 +26,7 @@ export const Nav = () => {
       >
         {
           // Menu
-          navigation.map((item, i) => (
+          routes.map((item, i) => (
             <li
               ref={(el) => (listItemsRef.current[i] = el)}
               onMouseOver={(e) => {
@@ -37,7 +37,7 @@ export const Nav = () => {
               }}
               className="item"
               key={item.path}
-              style={{ offsetDistance: `${(100 / navigation.length) * (i + 1)}%` }}
+              style={{ offsetDistance: `${(100 / routes.length) * (i + 1)}%` }}
             >
               <NavLink className="link" to={item.path}>
                 {item.path === '/' ? 'home' : item.path}
@@ -61,7 +61,10 @@ export const Nav = () => {
                           offsetDistance: `${(100 / item.children.length) * (j + 1)}%`,
                         }}
                       >
-                        <NavLink className="sub-link" to={ subItem.path}>
+                        <NavLink
+                          className="sub-link"
+                          to={item.path + '/' + subItem.path}
+                        >
                           {subItem.path}
                         </NavLink>
                       </li>

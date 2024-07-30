@@ -1,30 +1,30 @@
-import './future.css'
-import PageHeader from '../layouts/PageHeader'
-import Main from '../layouts/Main'
-import { Footer } from '../layouts/footer/Footer'
-import { Hero } from '../layouts/hero/Hero'
-import { Benefits } from '../layouts/benefits/Benefits'
-import { Reviews } from '../layouts/reviews/Reviews'
+import './elevate.css'
+import PageHeader from '../../layouts/PageHeader'
+import Main from '../../layouts/Main'
+import { Footer } from '../../layouts/footer/Footer'
+import { Hero } from '../../layouts/hero/Hero'
+import { Benefits } from '../../layouts/benefits/Benefits'
+import { Reviews } from '../../layouts/reviews/Reviews'
+import { PageTheme } from '../../themes/PageTheme'
 
+// Fetch Data
 const fetchData = async () => {
   const res = await fetch('/src/api/pages.json')
   const data = await res.json()
 
-  return data.future
+  return data.elevate
 }
-
 const data = await fetchData()
 
-export const Future = () => {
-
+export const Elevate = () => {
   const { hero, benefits, reviews, footer } = data
-
+  
   return (
-    <>
+    <PageTheme pageTheme="elevate" theme="light">
       <PageHeader>
         <Hero
           slot={{
-            position: 'inSectionFirst',
+            position: 'inContainerLast',
             children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
           }}
           title={hero.title}
@@ -37,6 +37,6 @@ export const Future = () => {
         <Reviews title={reviews.title} />
       </Main>
       <Footer title={footer.title} btnText={footer.btnText} />
-    </>
+    </PageTheme>
   )
 }

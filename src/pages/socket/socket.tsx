@@ -1,29 +1,29 @@
 import './socket.css'
-import PageHeader from '../layouts/PageHeader'
-import Main from '../layouts/Main'
-import { Footer } from '../layouts/footer/Footer'
-import { Hero } from '../layouts/hero/Hero'
-import { Benefits } from '../layouts/benefits/Benefits'
-import { Reviews } from '../layouts/reviews/Reviews'
+import PageHeader from '../../layouts/PageHeader'
+import Main from '../../layouts/Main'
+import { Footer } from '../../layouts/footer/Footer'
+import { Hero } from '../../layouts/hero/Hero'
+import { Benefits } from '../../layouts/benefits/Benefits'
+import { Reviews } from '../../layouts/reviews/Reviews'
+import { PageTheme } from '../../themes/PageTheme'
 
+// Fetch Data
 const fetchData = async () => {
   const res = await fetch('/src/api/pages.json')
   const data = await res.json()
 
   return data.socket
 }
-
 const data = await fetchData()
 
 export const Socket = () => {
-
   const { hero, benefits, reviews, footer } = data
 
   return (
-    <>
-    <PageHeader>
-      <Hero title={hero.title} text={hero.text} btnText={hero.btnText}></Hero>
-    </PageHeader>
+    <PageTheme pageTheme="socket" theme="dark">
+      <PageHeader>
+        <Hero title={hero.title} text={hero.text} btnText={hero.btnText}></Hero>
+      </PageHeader>
       <Main>
         <Benefits
           title={benefits.title}
@@ -41,6 +41,6 @@ export const Socket = () => {
         title={footer.title}
         btnText={footer.btnText}
       />
-    </>
+    </PageTheme>
   )
 }
