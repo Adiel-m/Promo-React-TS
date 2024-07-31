@@ -1,5 +1,4 @@
 import './socket.css'
-import Header from '../../layouts/Header'
 import Main from '../../layouts/Main'
 import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
@@ -21,9 +20,7 @@ export const Socket = () => {
 
   return (
     <Theme themePage="socket" theme="dark">
-      <Header>
-        <Hero title={hero.title} text={hero.text} btnText={hero.btnText}></Hero>
-      </Header>
+      <Hero title={hero.title} text={hero.text} btnText={hero.btnText}/>
       <Main>
         <Benefits
           title={benefits.title}

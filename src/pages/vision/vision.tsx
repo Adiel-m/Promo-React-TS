@@ -1,5 +1,4 @@
 import './vision.css'
-import PageHeader from '../../layouts/Header'
 import Main from '../../layouts/Main'
 import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
@@ -21,18 +20,16 @@ export const Vision = () => {
 
   return (
     <Theme themePage="vision" theme="dark">
-      <PageHeader>
-        <Hero
-          slot={{
-            position: 'inColumnLast',
-            children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
-          }}
-          title={hero.title}
-          titleClass="t-bg-clip grad-x"
-          text={hero.text}
-          btnText={hero.btnText}
-        ></Hero>
-      </PageHeader>
+      <Hero
+        slot={{
+          position: 'inColumnLast',
+          children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
+        }}
+        title={hero.title}
+        titleClass="t-bg-clip grad-x"
+        text={hero.text}
+        btnText={hero.btnText}
+      ></Hero>
       <Main>
         <Benefits
           title={benefits.title}

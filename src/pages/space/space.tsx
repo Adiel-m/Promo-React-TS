@@ -1,5 +1,4 @@
 import './space.css'
-import Header from '../../layouts/Header'
 import Main from '../../layouts/Main'
 import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
@@ -25,17 +24,15 @@ export const Space = () => {
       <div className="bg-img">
         <img className="img" src={page.imgSrc} alt={page.imgAlt}></img>
       </div>
-      <Header>
-        <Hero
-          slot={{
-            position: 'inContainerFirst',
-            children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
-          }}
-          title={hero.title}
-          text={hero.text}
-          btnText={hero.btnText}
-        ></Hero>
-      </Header>
+      <Hero
+        slot={{
+          position: 'inContainerFirst',
+          children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
+        }}
+        title={hero.title}
+        text={hero.text}
+        btnText={hero.btnText}
+      />
       <Main>
         <Benefits
           title={benefits.title}
