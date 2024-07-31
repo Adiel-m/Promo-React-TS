@@ -20,8 +20,8 @@ export const Socket = () => {
 
   return (
     <Theme themePage="socket" theme="dark">
-      <Hero title={hero.title} text={hero.text} btnText={hero.btnText}/>
       <Main>
+      <Hero title={hero.title} text={hero.text} btnText={hero.btnText}/>
         <Benefits
           title={benefits.title}
           titleClass="t-bg-clip grad-y"

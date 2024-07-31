@@ -21,6 +21,7 @@ export const Space = () => {
 
   return (
     <Theme themePage="space" theme="dark">
+      <Main>
       <div className="bg-img">
         <img className="img" src={page.imgSrc} alt={page.imgAlt}></img>
       </div>
@@ -33,7 +34,6 @@ export const Space = () => {
         text={hero.text}
         btnText={hero.btnText}
       />
-      <Main>
         <Benefits
           title={benefits.title}
           titleClass="t-bg-clip grad-y"

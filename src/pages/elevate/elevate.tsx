@@ -20,6 +20,7 @@ export const Elevate = () => {
   
   return (
     <Theme themePage="elevate" theme="light">
+      <Main>
       <Hero
         slot={{
           position: 'inContainerLast',
@@ -29,7 +30,6 @@ export const Elevate = () => {
         text={hero.text}
         btnText={hero.btnText}
       />
-      <Main>
         <Benefits title={benefits.title} />
         <Reviews title={reviews.title} />
       </Main>

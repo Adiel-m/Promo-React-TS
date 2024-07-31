@@ -20,6 +20,7 @@ export const Empower = () => {
 
   return (
     <Theme themePage="empower" theme="light">
+      <Main>
       <Hero
         slot={{
           position: 'inColumnLast',
@@ -29,7 +30,6 @@ export const Empower = () => {
         text={hero.text}
         btnText={hero.btnText}
       />
-      <Main>
         <Benefits titleClass="t-bg-clip grad-y" title={benefits.title} />
         <Reviews titleClass="t-bg-clip grad-y" title={reviews.title} />
       </Main>

@@ -20,6 +20,7 @@ export const Future = () => {
 
   return (
     <Theme themePage="future" theme="light">
+      <Main>
       <Hero
         slot={{
           position: 'inSectionFirst',
@@ -29,7 +30,6 @@ export const Future = () => {
         text={hero.text}
         btnText={hero.btnText}
       />
-      <Main>
         <Benefits title={benefits.title} />
         <Reviews title={reviews.title} />
       </Main>

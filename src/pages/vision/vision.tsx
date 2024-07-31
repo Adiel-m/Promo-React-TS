@@ -20,6 +20,7 @@ export const Vision = () => {
 
   return (
     <Theme themePage="vision" theme="dark">
+      <Main>
       <Hero
         slot={{
           position: 'inColumnLast',
@@ -30,7 +31,6 @@ export const Vision = () => {
         text={hero.text}
         btnText={hero.btnText}
       ></Hero>
-      <Main>
         <Benefits
           title={benefits.title}
           titleClass="t-bg-clip grad-x"
