@@ -11,34 +11,36 @@ export const routes = [
   {
     path: '/',
     element: <App />,
-  },
-  {
-    path: 'pages',
-    element: <Pages />,
     children: [
       {
-        path: 'elevate',
-        element: <Elevate />,
-      },
-      {
-        path: 'empower',
-        element: <Empower />,
-      },
-      {
-        path: 'future',
-        element: <Future />,
-      },
-      {
-        path: 'socket',
-        element: <Socket />,
-      },
-      {
-        path: 'space',
-        element: <Space />,
-      },
-      {
-        path: 'vision',
-        element: <Vision />,
+        path: 'pages',
+        element: <Pages />,
+        children: [
+          {
+            path: 'elevate',
+            element: <Elevate />,
+          },
+          {
+            path: 'empower',
+            element: <Empower />,
+          },
+          {
+            path: 'future',
+            element: <Future />,
+          },
+          {
+            path: 'socket',
+            element: <Socket />,
+          },
+          {
+            path: 'space',
+            element: <Space />,
+          },
+          {
+            path: 'vision',
+            element: <Vision />,
+          },
+        ],
       },
     ],
   },
