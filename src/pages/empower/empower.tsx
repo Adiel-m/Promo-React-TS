@@ -1,5 +1,5 @@
 import './empower.css'
-import PageHeader from '../../layouts/PageHeader'
+import Header from '../../layouts/Header'
 import Main from '../../layouts/Main'
 import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
@@ -21,7 +21,7 @@ export const Empower = () => {
 
   return (
     <PageTheme pageTheme="empower" theme="light">
-      <PageHeader>
+      <Header>
         <Hero
           slot={{
             position: 'inColumnLast',
@@ -31,7 +31,7 @@ export const Empower = () => {
           text={hero.text}
           btnText={hero.btnText}
         ></Hero>
-      </PageHeader>
+      </Header>
       <Main>
         <Benefits titleClass="t-bg-clip grad-y" title={benefits.title} />
         <Reviews titleClass="t-bg-clip grad-y" title={reviews.title} />

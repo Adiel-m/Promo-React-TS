@@ -1,5 +1,5 @@
 import './future.css'
-import PageHeader from '../../layouts/PageHeader'
+import Header from '../../layouts/Header'
 import Main from '../../layouts/Main'
 import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
@@ -21,7 +21,7 @@ export const Future = () => {
 
   return (
     <PageTheme pageTheme="future" theme="light">
-      <PageHeader>
+      <Header>
         <Hero
           slot={{
             position: 'inSectionFirst',
@@ -31,7 +31,7 @@ export const Future = () => {
           text={hero.text}
           btnText={hero.btnText}
         ></Hero>
-      </PageHeader>
+      </Header>
       <Main>
         <Benefits title={benefits.title} />
         <Reviews title={reviews.title} />

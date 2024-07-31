@@ -1,5 +1,5 @@
 import './vision.css'
-import PageHeader from '../../layouts/PageHeader'
+import PageHeader from '../../layouts/Header'
 import Main from '../../layouts/Main'
 import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
