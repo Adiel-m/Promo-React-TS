@@ -4,6 +4,7 @@ import { MenuContext } from './components/navMenu/MenuContext'
 import { Theme } from "./themes/Theme";
 import Header from "./layouts/Header";
 import { Outlet } from "react-router-dom";
+import { Nav } from './components/navMenu/Nav';
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
     <Theme themePage="home" theme="light">
       <Header>
         <h1>Press and Hold for 1 Second To View the Menu</h1>
+        <Nav />
       </Header>
       <Outlet />
     </Theme>
