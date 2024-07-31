@@ -1,14 +1,11 @@
-import { ThemeContext } from "./ThemeContext"
 import { useContext, useEffect } from "react"
+import { ThemeContext } from "./ThemeContext"
 
 import { themeProps } from "./theme.interfaces"
 import { pageAndThemeStyles } from "./themeUtils"
-import { MenuContext } from "../components/navMenu/MenuContext"
 
 
 export const Theme = ({ theme, themePage, children }: themeProps) => {
-    const { handleMouseDown, handleMouseUp, handleTouchStart, handleTouchEnd } =
-      useContext(MenuContext)
   const { updateTheme } = useContext(ThemeContext)!
 
   useEffect(() => {
@@ -17,14 +14,8 @@ export const Theme = ({ theme, themePage, children }: themeProps) => {
   }, [themePage, theme, updateTheme])
 
   return (
-    <div
-      style={{ minHeight: '100dvh' }}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
+    <>
       {children}
-    </div>
+    </>
   )
 }
