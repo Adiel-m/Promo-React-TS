@@ -6,7 +6,7 @@ import { Hero } from '../../layouts/hero/Hero'
 import { Benefits } from '../../layouts/benefits/Benefits'
 import { Reviews } from '../../layouts/reviews/Reviews'
 import { Icon } from '../../components/icon/Icon'
-import { PageTheme } from '../../themes/PageTheme'
+import { Theme } from '../../themes/Theme'
 
 // Fetch Data
 const fetchData = async () => {
@@ -21,7 +21,7 @@ export const Space = () => {
   const { page, hero, benefits, reviews, footer } = data
 
   return (
-    <PageTheme pageTheme="space" theme="dark">
+    <Theme themePage="space" theme="dark">
       <div className="bg-img">
         <img className="img" src={page.imgSrc} alt={page.imgAlt}></img>
       </div>
@@ -69,6 +69,6 @@ export const Space = () => {
         title={footer.title}
         btnText={footer.btnText}
       />
-    </PageTheme>
+    </Theme>
   )
 }

@@ -1,6 +1,6 @@
 export type ThemeType = 'light' | 'dark' |'system'
 
-export type PageThemeType =
+export type ThemePageType =
   | 'elevate'
   | 'empower'
   | 'future'

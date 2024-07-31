@@ -5,7 +5,7 @@ import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
 import { Benefits } from '../../layouts/benefits/Benefits'
 import { Reviews } from '../../layouts/reviews/Reviews'
-import { PageTheme } from '../../themes/PageTheme'
+import { Theme } from '../../themes/Theme'
 
 // Fetch Data
 const fetchData = async () => {
@@ -20,7 +20,7 @@ export const Future = () => {
   const { hero, benefits, reviews, footer } = data
 
   return (
-    <PageTheme pageTheme="future" theme="light">
+    <Theme themePage="future" theme="light">
       <Header>
         <Hero
           slot={{
@@ -37,6 +37,6 @@ export const Future = () => {
         <Reviews title={reviews.title} />
       </Main>
       <Footer title={footer.title} btnText={footer.btnText} />
-    </PageTheme>
+    </Theme>
   )
 }

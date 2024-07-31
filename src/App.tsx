@@ -1,12 +1,12 @@
 import Header from "./layouts/Header";
-import { PageTheme } from "./themes/PageTheme";
+import { Theme } from "./themes/Theme";
 
 export default function App() {
   return (
-    <PageTheme pageTheme="home" theme="light">
+    <Theme themePage="home" theme="light">
       <Header>
         <h1>Press and Hold for 1 Second To View the Menu</h1>
       </Header>
-    </PageTheme>
+    </Theme>
   )
 }

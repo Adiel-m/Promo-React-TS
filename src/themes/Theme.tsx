@@ -6,15 +6,15 @@ import { pageAndThemeStyles } from "./themeUtils"
 import { MenuContext } from "../components/navMenu/MenuContext"
 
 
-export const PageTheme = ({ theme, pageTheme, children }: themeProps) => {
+export const Theme = ({ theme, themePage, children }: themeProps) => {
     const { handleMouseDown, handleMouseUp, handleTouchStart, handleTouchEnd } =
       useContext(MenuContext)
   const { updateTheme } = useContext(ThemeContext)!
 
   useEffect(() => {
     updateTheme(theme)
-    pageAndThemeStyles({ pageTheme, theme })
-  }, [pageTheme, theme, updateTheme])
+    pageAndThemeStyles({ themePage, theme })
+  }, [themePage, theme, updateTheme])
 
   return (
     <div

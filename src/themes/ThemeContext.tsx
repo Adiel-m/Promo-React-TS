@@ -1,13 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Props } from "../ts/interfaces";
-import { PageThemeType, ThemeType } from "./themeTypes";
+import { ThemePageType, ThemeType } from "./themeTypes";
 import { ThemeContextProps } from "./theme.interfaces";
 
 export const ThemeContext = createContext<ThemeContextProps | null>(null)
 
 export const ThemeProvider = ({children}: Props): React.ReactElement => {
   const [theme, setTheme] = useState<ThemeType>('system')
-  const [pageTheme, setPageTheme] = useState<PageThemeType>('app')
+  const [themePage, setPageTheme] = useState<ThemePageType>('app')
 
   const updateTheme = (theme: ThemeType) => {
     return theme
@@ -30,7 +30,7 @@ export const ThemeProvider = ({children}: Props): React.ReactElement => {
     <ThemeContext.Provider
       value={{
         theme,
-        pageTheme,
+        themePage,
         setPageTheme,
         setTheme,
         updateTheme,

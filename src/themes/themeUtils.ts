@@ -1,6 +1,6 @@
-import { PageThemeProps } from "./theme.interfaces"
+import { ThemePageProps } from "./theme.interfaces"
 
-export const pageAndThemeStyles = ({pageTheme, theme }: PageThemeProps) => {
+export const pageAndThemeStyles = ({themePage, theme }: ThemePageProps) => {
   const body = document.querySelector('body')!
-  theme === 'dark' ? (body.className = pageTheme + ' ' + theme) : (body.className = pageTheme)
+  theme === 'dark' ? (body.className = themePage + ' ' + theme) : (body.className = themePage)
 }
