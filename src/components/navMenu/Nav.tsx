@@ -7,7 +7,6 @@ import { MenuItem } from './MenuItem'
 export const Nav = () => {
   const {
     menuIsVisible,
-    subMenuIsVisible,
     listItemsRef,
     menuRef,
     menuPosition,
@@ -37,7 +36,7 @@ export const Nav = () => {
               {
                 // Sub-Menu
                 item1.children && (
-                  <ul className={`sub-menu${subMenuIsVisible ? ' visible' : ''}`}>
+                  <ul className='sub-menu'>
                     {item1.children.map((item2, j) => (
                       <MenuItem
                         key={item2.path}
@@ -54,7 +53,7 @@ export const Nav = () => {
                           // Sub-Menu
                           item2.children && (
                             <ul
-                              className={`sub-menu${subMenuIsVisible ? ' visible' : ''}`}
+                              className='sub-menu'
                             >
                               {item2.children.map((item3, k) => (
                                 <MenuItem

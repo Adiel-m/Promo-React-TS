@@ -12,7 +12,6 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   ------------------------------------------------*/
   const [isHover, setIsHover] = useState<boolean>(false)
   const [menuIsVisible, setMenuIsVisible] = useState<boolean>(false)
-  const [subMenuIsVisible, setSubMenuIsVisible] = useState<boolean>(false)
   const [downTime, setDownTime] = useState<number | null>(null)
   const [menuPosition, setMenuPosition] = useState<PositionProps>({x: 0, y: 0})
   const [downDuration, setDownDuration] = useState<number | null>(null)
@@ -191,7 +190,6 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     <MenuContext.Provider
       value={{
         menuIsVisible,
-        subMenuIsVisible,
         listItemsRef,
         menuRef,
         menuPosition,
