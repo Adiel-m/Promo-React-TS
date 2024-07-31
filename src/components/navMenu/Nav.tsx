@@ -1,8 +1,8 @@
 import './nav.css'
-import { NavLink } from "react-router-dom"
 import { routes } from "../../routes"
 import { useContext } from 'react'
 import { MenuContext } from './MenuContext'
+import { MenuItem } from './MenuItem'
 
 export const Nav = () => {
   const {
@@ -11,8 +11,6 @@ export const Nav = () => {
     listItemsRef,
     menuRef,
     menuPosition,
-    handleHoverOver,
-    handleHoverLeave,
   } = useContext(MenuContext)
 
   return (
@@ -26,53 +24,64 @@ export const Nav = () => {
       >
         {
           // Menu
-          routes.map((item, i) => (
-            <li
-              ref={(el) => (listItemsRef.current[i] = el)}
-              onMouseOver={(e) => {
-                handleHoverOver(e)
-              }}
-              onMouseLeave={(e) => {
-                handleHoverLeave(e)
-              }}
-              className="item"
-              key={item.path}
+          routes.map((item1, i) => (
+            <MenuItem
+              key={item1.path === '/' ? 'home' : item1.path}
+              itemRef={(el) => (listItemsRef.current[i] = el)}
+              itemClass={'item'}
               style={{ offsetDistance: `${(100 / routes.length) * (i + 1)}%` }}
+              linkLabel={item1.path === '/' ? 'home' : item1.path}
+              linkClass={'link'}
+              linkTo={item1.path}
             >
-              <NavLink className="link" to={item.path}>
-                {item.path === '/' ? 'home' : item.path}
-              </NavLink>
               {
                 // Sub-Menu
-                item.children && (
+                item1.children && (
                   <ul className={`sub-menu${subMenuIsVisible ? ' visible' : ''}`}>
-                    {item.children.map((subItem, j) => (
-                      <li
-                        ref={(el) => (listItemsRef.current[i * 10 + j] = el)}
-                        onMouseLeave={(e) => {
-                          handleHoverLeave(e)
-                        }}
-                        onMouseOver={(e) => {
-                          handleHoverOver(e)
-                        }}
-                        className="sub-item"
-                        key={subItem.path}
+                    {item1.children.map((item2, j) => (
+                      <MenuItem
+                        key={item2.path}
+                        itemRef={(el) => (listItemsRef.current[i * 10 + j] = el)}
+                        itemClass={'sub-item'}
                         style={{
-                          offsetDistance: `${(100 / item.children.length) * (j + 1)}%`,
+                          offsetDistance: `${(100 / item1.children.length) * (j + 1)}%`,
                         }}
+                        linkLabel={item2.path}
+                        linkClass={'sub-link'}
+                        linkTo={item2.path}
                       >
-                        <NavLink
-                          className="sub-link"
-                          to={item.path + '/' + subItem.path}
-                        >
-                          {subItem.path}
-                        </NavLink>
-                      </li>
+                        {
+                          // Sub-Menu
+                          item2.children && (
+                            <ul
+                              className={`sub-menu${subMenuIsVisible ? ' visible' : ''}`}
+                            >
+                              {item2.children.map((item3, k) => (
+                                <MenuItem
+                                  key={item3.path}
+                                  itemRef={(el) =>
+                                    (listItemsRef.current[i * 100 + k] = el)
+                                  }
+                                  itemClass={'sub-item'}
+                                  style={{
+                                    offsetDistance: `${
+                                      (100 / item2.children.length) * (k + 1)
+                                    }%`,
+                                  }}
+                                  linkLabel={item3.path}
+                                  linkClass={'sub-link'}
+                                  linkTo={item2.path + '/' + item3.path}
+                                ></MenuItem>
+                              ))}
+                            </ul>
+                          )
+                        }
+                      </MenuItem>
                     ))}
                   </ul>
                 )
               }
-            </li>
+            </MenuItem>
           ))
         }
       </ul>
