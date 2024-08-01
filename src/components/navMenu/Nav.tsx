@@ -36,12 +36,12 @@ export const Nav = () => {
               {
                 // Sub-Menu
                 item1.children && (
-                  <ul className='sub-menu'>
+                  <ul className="sub-menu">
                     {item1.children.map((item2, j) => (
                       <MenuItem
                         key={item2.path}
                         itemRef={(el) => (listItemsRef.current[i * 10 + j] = el)}
-                        itemClass={'sub-item'}
+                        itemClass={'sub-item circle-items-1'}
                         style={{
                           offsetDistance: `${(100 / item1.children.length) * (j + 1)}%`,
                         }}
@@ -52,16 +52,14 @@ export const Nav = () => {
                         {
                           // Sub-Menu
                           item2.children && (
-                            <ul
-                              className='sub-menu'
-                            >
+                            <ul className="sub-menu">
                               {item2.children.map((item3, k) => (
                                 <MenuItem
                                   key={item3.path}
                                   itemRef={(el) =>
                                     (listItemsRef.current[i * 100 + k] = el)
                                   }
-                                  itemClass={'sub-item'}
+                                  itemClass={'sub-item circle-items-2'}
                                   style={{
                                     offsetDistance: `${
                                       (100 / item2.children.length) * (k + 1)

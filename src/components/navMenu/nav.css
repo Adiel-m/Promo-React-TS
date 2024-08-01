@@ -3,7 +3,7 @@
   --width: 4.5em;
   --sub-width: calc(var(--width) * 1.5);
   --link-border: var(--border-1);
-  --scale: 1.05;
+  --scale: 1.1;
 
   position: absolute;
   text-align: center;
@@ -25,10 +25,11 @@
   .menu,
   .sub-menu {
     visibility: hidden; 
-    &.visible {
-    visibility: visible;
+    
+      &.visible {
+      visibility: visible;
+    }
   }
-}
 
   .item,
   .sub-item {
@@ -38,46 +39,43 @@
     border-color: transparent;
     border-radius: var(--border-radius-0);
     background-color: hsl(var(--c-background));
-    font-size: var(--fs-32);
+    font-size: var(--fs-28);
     text-transform: uppercase;
     color: hsl(var(--c-primary));
     transition: border-color 0.2s, transform 0.2s;
   }
-
+  
   .item:hover {
+    transition-delay:0.75s;
     border-color: hsl(var(--c-primary));
     transform: scale(var(--scale));
-
+    
     /* prevent scaling --- (items with a sub-menu child )*/
     &:has(.sub-menu){
       transform: unset;
     }
   }
-
-  /* Items with a sub-menu child */
-  .item:has(.sub-menu) {
-    font-size: var(--fs-24);
-    width: var(--width);
-    height: var(--width);
-    /* Arrange in a circle */
-    offset-path: circle(calc(var(--width) * 3));
-    offset-rotate: 0deg;
-  }
   
   .sub-item {
-    width: var(--sub-width);
-    height: var(--sub-width);
-    font-size: var(--fs-16);
     color: hsl(var(--c-secondary));
     transition: border-color 0.2s, transform 0.2s;
-
-    /* Arrange in a circle */
-    offset-path: circle(calc(var(--width) * 1.8)); 
-    offset-rotate: 0deg;
-
     &:hover {
       transform: scale(var(--scale));
       border-color: hsl(var(--c-secondary));
     }
+  }
+  
+  .circle-items-1 {
+    font-size: var(--fs-24);
+    offset-path: circle(calc(var(--width) * 2));
+    offset-rotate: 0deg;
+  }
+  
+  .circle-items-2 {
+    width: calc(var(--width) * 1.3);
+    height: calc(var(--width) * 1.3);
+    font-size: var(--fs-16);
+    offset-path: circle(calc(var(--width) * 1.6)); 
+    offset-rotate: 0deg;
   }
 }
