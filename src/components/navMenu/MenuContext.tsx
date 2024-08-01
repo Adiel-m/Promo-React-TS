@@ -33,26 +33,11 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   /* Handle Hover ----------------------------------
   ------------------------------------------------*/
   const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
-    const el = e.currentTarget as HTMLLIElement
-    el.classList.add('isHover')
-    setIsHover(true)
-
-    // Add isHover to sub-menu 
-    Array.from(el.children).map((ch) => ch.classList.contains('sub-menu') && ch.classList.add('visible'))
+    showSubMenu(e)
   }
 
   const handleHoverLeave = (e: MouseEvent<HTMLLIElement>) => {
-    const el = e.currentTarget as HTMLLIElement
-    el.classList.remove('isHover')
-    setIsHover(false)
-    
-    // Remove isHover from sub-menu 
-    Array.from(el.children).map((ch) => ch.classList.contains('sub-menu') && setTimeout(()=> {
-      if (!el.classList.contains('isHover'))
-      {
-        ch.classList.remove('visible')
-      }
-    }, 250))
+    hideSubMenu(e)
   }
 
 
@@ -106,6 +91,34 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   const menuPositionAt = (x: number, y: number) => {
     setMenuPosition({x, y})
+  }
+
+  const showSubMenu = (e: MouseEvent<HTMLLIElement>) => {
+    const el = e.currentTarget as HTMLLIElement
+    el.classList.add('isHover')
+    setIsHover(true)
+
+    // Add isHover to sub-menu
+    Array.from(el.children).map(
+      (ch) => ch.classList.contains('sub-menu') && ch.classList.add('visible'),
+    )
+  }
+  
+  const hideSubMenu = (e: MouseEvent<HTMLLIElement>) => {
+    const el = e.currentTarget as HTMLLIElement
+    el.classList.remove('isHover')
+    setIsHover(false)
+
+    // Remove isHover from sub-menu
+    Array.from(el.children).map(
+      (ch) =>
+        ch.classList.contains('sub-menu') &&
+        setTimeout(() => {
+          if (!el.classList.contains('isHover')) {
+            ch.classList.remove('visible')
+          }
+        }, 250),
+    )
   }
 
 
