@@ -36,10 +36,10 @@ export const MenuItem = ({
       className={itemClass}
       style={style}
     >
+      {children}
       <NavLink className={linkClass} to={linkTo}>
         {linkLabel}
       </NavLink>
-      {children}
     </li>
   )
 }
