@@ -52,7 +52,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       {
         ch.classList.remove('visible')
       }
-    }, 150))
+    }, 250))
   }
 
 
