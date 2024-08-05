@@ -1,8 +1,12 @@
-:where(.space) {
+:has(.space) {
   /* Colors */
   --c-primary: 213 62% 46%;
   --c-secondary: 321 70% 46%;
   --c-tertiary: 0 0% 100%;
+
+  /* Body */
+  --body-bg-color: hsl(var(--c-foreground));
+  --body-color: hsl(var(--c-background));
 
   /* Components */
   .bg-img {

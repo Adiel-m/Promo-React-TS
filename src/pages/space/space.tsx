@@ -5,7 +5,6 @@ import { Hero } from '../../layouts/hero/Hero'
 import { Benefits } from '../../layouts/benefits/Benefits'
 import { Reviews } from '../../layouts/reviews/Reviews'
 import { Icon } from '../../components/icon/Icon'
-import { Theme } from '../../themes/Theme'
 
 // Fetch Data
 const fetchData = async () => {
@@ -20,20 +19,20 @@ export const Space = () => {
   const { page, hero, benefits, reviews, footer } = data
 
   return (
-    <Theme themePage="space" theme="dark">
+    <div className="space">
       <Main>
-      <div className="bg-img">
-        <img className="img" src={page.imgSrc} alt={page.imgAlt}></img>
-      </div>
-      <Hero
-        slot={{
-          position: 'inContainerFirst',
-          children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
-        }}
-        title={hero.title}
-        text={hero.text}
-        btnText={hero.btnText}
-      />
+        <div className="bg-img">
+          <img className="img" src={page.imgSrc} alt={page.imgAlt}></img>
+        </div>
+        <Hero
+          slot={{
+            position: 'inContainerFirst',
+            children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
+          }}
+          title={hero.title}
+          text={hero.text}
+          btnText={hero.btnText}
+        />
         <Benefits
           title={benefits.title}
           titleClass="t-bg-clip grad-y"
@@ -66,6 +65,6 @@ export const Space = () => {
         title={footer.title}
         btnText={footer.btnText}
       />
-    </Theme>
+    </div>
   )
 }

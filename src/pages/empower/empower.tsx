@@ -4,7 +4,6 @@ import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
 import { Benefits } from '../../layouts/benefits/Benefits'
 import { Reviews } from '../../layouts/reviews/Reviews'
-import { Theme } from '../../themes/Theme'
 
 // Fetch Data
 const fetchData = async () => {
@@ -19,7 +18,7 @@ export const Empower = () => {
   const { hero, benefits, reviews, footer } = data
 
   return (
-    <Theme themePage="empower" theme="light">
+    <div className='empower'>
       <Main>
       <Hero
         slot={{
@@ -38,6 +37,6 @@ export const Empower = () => {
         title={footer.title}
         btnText={footer.btnText}
       />
-    </Theme>
+    </div>
   )
 }

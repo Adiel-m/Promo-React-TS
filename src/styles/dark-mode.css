@@ -1,6 +1,21 @@
 @media (prefers-color-scheme: dark) {
-  .dark {
-      --body-bg-color: hsl(var(--c-foreground));
-      --body-color: hsl(var(--c-background));
+  [data-theme='dark'] {
+    --body-bg-color: hsl(var(--c-foreground));
+    --body-color: hsl(var(--c-background));
+
+    /* &:has(.elevate) {
+      --body-bg-color: hsl(var(--c-background));
+      --body-color: hsl(var(--c-foreground));
+    } */
+
+    /* &:has(.future) {
+      --body-bg-color: hsl(hsl(var(--c-white)));
+      --body-color: hsl(var(--c-foreground));
+    } */
+
+    /* &:has(.empower) {
+      --body-bg-color: hsl(var(--gradient-y-2));
+      --body-color: hsl(var(--c-foreground));
+    } */
   }
 }

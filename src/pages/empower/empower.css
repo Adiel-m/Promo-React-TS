@@ -1,4 +1,4 @@
-:where(.empower) {
+:has(.empower) {
   /* Colors */
   --c-primary: 26 56% 8%; /*#201309*/
   --c-primary-1: 25 56% 16%; /*#3F2512*/
@@ -13,8 +13,13 @@
   /* Gradients */
   --gradient-x: linear-gradient(120deg, hsl(var(--c-primary-4)) 0%, hsl(var(--c-primary-2)) 50%, hsl(var(--c-primary-1)) 100%);
   --gradient-y: linear-gradient( hsl(var(--c-primary-4)) 15%, hsl(var(--c-primary-3)) 30%, hsl(var(--c-primary-1)) 100%);
-  --gradient-y-2: linear-gradient( hsl(var(--c-primary-8)) 0%, hsl(var(--c-primary-7)) 100%);
+  --gradient-y-2: linear-gradient( hsl(var(--c-primary-8)) 0%, hsl(var(--c-primary-7)) 100%)
+}
 
-  /* Body */
-  --body-bg-color: var(--gradient-y-2);
+/* Overwrite DarkMode */
+@media (prefers-color-scheme: dark) {
+  [data-theme='dark']:has(.empower) {
+    --body-bg-color: hsl(var(--gradient-y-2));
+    --body-color: hsl(var(--c-foreground));
+  }
 }

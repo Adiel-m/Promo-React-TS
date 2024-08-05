@@ -1,14 +1,23 @@
-:where(.future) {
+:has(.future) {
   /* Colors */
   --c-primary: 197 31% 16%;
   --c-primary-01: 197 31% 34%;
   --c-secondary: 153 72% 62%;
 
-  /* Body */
-  --body-bg-color: hsl(var(--c-white));
 
   /* Reset */
   h2 {
     font-weight: var(--fw-400);
   }
+  --body-bg-color: hsl(hsl(var(--c-white)));
 }
+
+/* Overwrite DarkMode */
+@media (prefers-color-scheme: dark) {
+  [data-theme='dark']:has(.future) {
+    --body-bg-color: hsl(hsl(var(--c-white)));
+    --body-color: hsl(var(--c-foreground));
+  }
+}
+
+

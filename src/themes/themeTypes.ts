@@ -1,11 +1,11 @@
-export type ThemeType = 'light' | 'dark' |'system'
+export type ThemeModeType = 'light' | 'dark'
+export type booleanOrUndefined = boolean | undefined
 
-export type ThemePageType =
+export type PageType =
   | 'elevate'
   | 'empower'
   | 'future'
   | 'socket'
   | 'space'
   | 'vision'
-  | 'app'
   | string

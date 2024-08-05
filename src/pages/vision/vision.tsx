@@ -4,7 +4,6 @@ import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
 import { Benefits } from '../../layouts/benefits/Benefits'
 import { Reviews } from '../../layouts/reviews/Reviews'
-import { Theme } from '../../themes/Theme'
 
 // Fetch Data
 const fetchData = async () => {
@@ -19,18 +18,18 @@ export const Vision = () => {
   const { hero, benefits, reviews, footer } = data
 
   return (
-    <Theme themePage="vision" theme="dark">
+    <div className="vision">
       <Main>
-      <Hero
-        slot={{
-          position: 'inColumnLast',
-          children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
-        }}
-        title={hero.title}
-        titleClass="t-bg-clip grad-x"
-        text={hero.text}
-        btnText={hero.btnText}
-      ></Hero>
+        <Hero
+          slot={{
+            position: 'inColumnLast',
+            children: <img src={hero.imgSrc} alt={hero.imgAlt} />,
+          }}
+          title={hero.title}
+          titleClass="t-bg-clip grad-x"
+          text={hero.text}
+          btnText={hero.btnText}
+        ></Hero>
         <Benefits
           title={benefits.title}
           titleClass="t-bg-clip grad-x"
@@ -47,6 +46,6 @@ export const Vision = () => {
         btnText={footer.btnText}
         titleClass="t-bg-clip grad-x"
       />
-    </Theme>
+    </div>
   )
 }

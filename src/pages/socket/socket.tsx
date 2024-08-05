@@ -4,7 +4,6 @@ import { Footer } from '../../layouts/footer/Footer'
 import { Hero } from '../../layouts/hero/Hero'
 import { Benefits } from '../../layouts/benefits/Benefits'
 import { Reviews } from '../../layouts/reviews/Reviews'
-import { Theme } from '../../themes/Theme'
 
 // Fetch Data
 const fetchData = async () => {
@@ -19,9 +18,9 @@ export const Socket = () => {
   const { hero, benefits, reviews, footer } = data
 
   return (
-    <Theme themePage="socket" theme="dark">
+    <div className="socket">
       <Main>
-      <Hero title={hero.title} text={hero.text} btnText={hero.btnText}/>
+        <Hero title={hero.title} text={hero.text} btnText={hero.btnText} />
         <Benefits
           title={benefits.title}
           titleClass="t-bg-clip grad-y"
@@ -38,6 +37,6 @@ export const Socket = () => {
         title={footer.title}
         btnText={footer.btnText}
       />
-    </Theme>
+    </div>
   )
 }

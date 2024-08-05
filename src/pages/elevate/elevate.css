@@ -1,4 +1,4 @@
-:where(.elevate) {
+:has(.elevate) {
   /* Colors */
   --c-primary: 40 13% 70%; 
   --c-primary-01: 40 13% 50%;
@@ -25,5 +25,13 @@
   
   h3 {
     font-size: var(--fs-20);
+  }
+}
+
+/* Overwrite DarkMode */
+@media (prefers-color-scheme: dark) {
+  [data-theme='dark']:has(.elevate) {
+    --body-bg-color: hsl(var(--c-background));
+    --body-color: hsl(var(--c-foreground));
   }
 }

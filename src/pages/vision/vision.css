@@ -1,4 +1,4 @@
-:where(.vision) {
+:has(.vision) {
   /* Colors */
   --c-primary: 299 84% 45%; /*#D012D3*/
   --c-secondary: 191 92% 53%; /*#1BCDF5*/
@@ -9,6 +9,10 @@
   --gradient-x-2: linear-gradient( hsl(var(--c-tertiary)) 0%, hsl(var(--c-secondary)) 100%);
   --gradient-y: linear-gradient( hsl(var(--c-secondary)) 0%, hsl(var(--c-primary)) 100%);
   --fs-96: clamp(1.25em, 6vw, 6em);
+
+  /* Body */
+  --body-bg-color: hsl(var(--c-foreground));
+  --body-color: hsl(var(--c-background));
 
   /* Reset */
   main {
