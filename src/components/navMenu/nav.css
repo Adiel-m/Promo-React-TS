@@ -65,13 +65,13 @@
     }
   }
   
-  .circle-items-1 {
+  .circle-1 {
     font-size: var(--fs-24);
     offset-path: circle(calc(var(--width) * 2));
     offset-rotate: 0deg;
   }
   
-  .circle-items-2 {
+  .circle-2 {
     width: calc(var(--width) * 1.3);
     height: calc(var(--width) * 1.3);
     font-size: var(--fs-16);

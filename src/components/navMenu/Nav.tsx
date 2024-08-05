@@ -41,7 +41,7 @@ export const Nav = () => {
                       <MenuItem
                         key={item2.path}
                         itemRef={(el) => (listItemsRef.current[i * 10 + j] = el)}
-                        itemClass={'sub-item circle-items-1'}
+                        itemClass={'sub-item circle-1'}
                         style={{
                           offsetDistance: `${(100 / item1.children.length) * (j + 1)}%`,
                         }}
@@ -59,7 +59,7 @@ export const Nav = () => {
                                   itemRef={(el) =>
                                     (listItemsRef.current[i * 100 + k] = el)
                                   }
-                                  itemClass={'sub-item circle-items-2'}
+                                  itemClass={'sub-item circle-2'}
                                   style={{
                                     offsetDistance: `${
                                       (100 / item2.children.length) * (k + 1)
