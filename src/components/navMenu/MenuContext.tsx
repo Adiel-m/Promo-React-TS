@@ -1,9 +1,7 @@
 import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
 import { Props } from "../../ts/interfaces"
-import { MenuContextProps, PositionProps, screenSizeRefProps } from './menu.interfaces'
-import { listItemsRef, MenuRefType, screenSizeRefType } from "./menu.types"
-import { calcOffsetRemainder, findHighestAbsoluteValues, getOffScreenProps } from "./menuUtils"
-import { StringNumberObj } from "../../ts/types"
+import { MenuContextProps, PositionProps } from './menu.interfaces'
+import { keepMenuInPageBoundaries } from "./menuUtils"
 
 export const MenuContext = createContext<MenuContextProps>()
 
@@ -19,16 +17,9 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const [upPosition, setUpPosition] = useState<PositionProps>({ x: 0, y: 0 })
   /* UseRef ----------------------------------------
   ------------------------------------------------*/
-  const menuRef: MenuRefType = useRef<HTMLUListElement>(null)
-  const listItemsRef: listItemsRef = useRef<(HTMLLIElement | null)[]>([])
-  const screenSizeRef: screenSizeRefType = useRef<screenSizeRefProps>({
-    left: 0,
-    top: 0,
-    right: window.innerWidth,
-    bottom: window.innerHeight,
-  })
-  
-  const screenVal = screenSizeRef.current as unknown as StringNumberObj
+  const menuRef = useRef<HTMLUListElement>()
+  const listItemsRef = useRef<HTMLLIElement[]>([])
+  const screenSizeRef = useRef<HTMLDivElement>()
 
   /* Handle Hover ----------------------------------
   ------------------------------------------------*/
@@ -40,14 +31,12 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     hideSubMenu(e)
   }
 
-
-
   /* Handle Mouse/Touch ----------------------------
   ----------------------------------------------- */
   const validHandle = !isHover
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setDownPosition({ x: e.clientX, y: e.clientY })
+      setDownPosition({ x: e.pageX, y: e.pageY })
       setDownTime(Date.now())
     }
     return
@@ -55,7 +44,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setUpPosition({ x: e.clientX, y: e.clientY })
+      setUpPosition({ x: e.pageX, y: e.pageY })
       menuPositionAt(downPosition.x, downPosition.y)
       setDuration()
     }
@@ -64,7 +53,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setDownPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY })
+      setDownPosition({ x: e.touches[0].pageX, y: e.touches[0].pageY })
       setDownTime(Date.now())
     }
     return
@@ -72,7 +61,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setUpPosition({ x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY })
+      setUpPosition({ x: e.changedTouches[0].pageX, y: e.changedTouches[0].pageY })
       menuPositionAt(downPosition.x, downPosition.y)
       setDuration()
     }
@@ -94,7 +83,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   }
 
   const showSubMenu = (e: MouseEvent<HTMLLIElement>) => {
-    const el = e.currentTarget as HTMLLIElement
+    const el = e.currentTarget
     el.classList.add('isHover')
     setIsHover(true)
 
@@ -105,7 +94,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   }
   
   const hideSubMenu = (e: MouseEvent<HTMLLIElement>) => {
-    const el = e.currentTarget as HTMLLIElement
+    const el = e.currentTarget
     el.classList.remove('isHover')
     setIsHover(false)
 
@@ -121,21 +110,11 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
     )
   }
 
-
-
   /* Effects ---------------------------------------
   ------------------------------------------------*/
   useEffect(() => {
     // Initiate Menu Position at center
-      const menuPositionFirstInit = () => {
-        if (!menuIsVisible) {
-          const x = screenSizeRef.current.right / 2
-          const y = screenSizeRef.current.bottom / 2
-          menuPositionAt(x, y)
-        }
-      }
-      menuPositionFirstInit()
-
+    
     // Show menu after a delay
     const showMenuDelay = (delay: number) => {
       if (downDuration !== null && downDuration > delay) {
@@ -143,60 +122,17 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       }
     }
     showMenuDelay(500)
-
-    // Keep the Menu in screen boundaries
+    
+    // Keep the Menu in page boundaries
     if (menuIsVisible && !isHover) {
-      // Get the properties and values of ALL out-of-screen LI
-      const offScreenPropsArr = getOffScreenProps(listItemsRef, screenSizeRef)
+      const menuPos = keepMenuInPageBoundaries(menuRef, screenSizeRef, listItemsRef)
 
-      // Filter the furthest LI, with their properties and values
-      const highestValues = findHighestAbsoluteValues(offScreenPropsArr)
-
-      // Calculate the distance remainder between the furthest LI to the screen boundaries
-      const offsetRemainder = calcOffsetRemainder(screenVal, highestValues)
-
-      // Reposition the Menu into the screen boundaries
-      const repositionMenu = (offsetRemainder: StringNumberObj, menuRef: MenuRefType) => {
-        const menuBoundary = menuRef.current!.getBoundingClientRect()
-        const menuPos = { x: Math.floor(menuBoundary?.x), y: Math.floor(menuBoundary?.y) }
-
-        if (Object.keys(offsetRemainder).length !== 0) {
-          // validate that the Menu is offScreen
-          // Reposition the Menu
-          if (menuRef.current) {
-            Object.keys(offsetRemainder).map((key) => {
-              switch (key) {
-                case 'left': {
-                  // Offset the menu X(px) right
-                  const offsetX = menuPos.x - offsetRemainder['left']
-                  return menuPositionAt(offsetX, menuPos.y)
-                }
-                case 'top': {
-                  // Offset the menu Y(px) down
-                  const offsetY = menuPos.y - offsetRemainder['top']
-                  return menuPositionAt(menuPos.x, offsetY)
-                }
-                case 'right': {
-                  // Offset the menu Y(px) left
-                  const offsetX = menuPos.x + offsetRemainder['right']
-                  return menuPositionAt(offsetX, menuPos.y)
-                }
-                case 'bottom': {
-                  // Offset the menu Y(px) up
-                  const offsetY = menuPos.y + offsetRemainder['bottom']
-                  return menuPositionAt(menuPos.x, offsetY)
-                }
-                default:
-                  break
-              }
-            })
-          }
-        }
+      if (menuPos) {
+        menuPositionAt(menuPos.x, menuPos.y)
       }
-      repositionMenu(offsetRemainder, menuRef)
     }
-  }, [isHover, downDuration, screenVal, menuIsVisible])
-
+  }, [isHover, downDuration, menuIsVisible])
+  
   /* Return ----------------------------------------
   ------------------------------------------------*/
   return (
@@ -205,6 +141,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
         menuIsVisible,
         listItemsRef,
         menuRef,
+        screenSizeRef,
         menuPosition,
         handleHoverOver,
         handleHoverLeave,

@@ -1,13 +1,12 @@
 import { MouseEventHandler, TouchEventHandler } from "react"
-import { MenuRefType, screenSizeRefType } from "./menu.types"
+import { ListItemsRefType, MenuRefType, ScreenSizeRefType } from "./menu.types"
+import { To } from "react-router-dom"
 
 export interface MenuContextProps {
   menuIsVisible: boolean
-  subMenuIsVisible: boolean
-  showMenu: boolean
   menuRef: MenuRefType
-  listItemsRef: React.MutableRefObject<(HTMLLIElement | null)[]>
-  screenSizeRef: screenSizeRefType
+  listItemsRef: ListItemsRefType
+  screenSizeRef: ScreenSizeRefType
   menuPosition: PositionProps
   handleHoverOver: MouseEventHandler
   handleHoverLeave: MouseEventHandler
@@ -15,6 +14,16 @@ export interface MenuContextProps {
   handleMouseUp: MouseEventHandler
   handleTouchStart: TouchEventHandler
   handleTouchEnd: TouchEventHandler
+}
+
+export interface MenuItemProps {
+  itemRef: ListItemsRefType
+  itemClass: string
+  style: React.CSSProperties | undefined
+  linkLabel: string
+  linkClass: string
+  linkTo: To
+  children?: JSX.Element
 }
 
 export interface screenSizeRefProps {

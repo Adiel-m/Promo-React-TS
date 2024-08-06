@@ -1,76 +1,138 @@
-import { StringNumberObj } from "../../ts/types"
+import { StrNumObject } from "../../ts/types"
 import { isTrue } from "../../ts/utils"
-import { screenSizeRefProps } from "./menu.interfaces"
-import { screenSizeRefType } from "./menu.types"
+import { ListItemsRefType, MenuRefType, ScreenSizeRefType } from "./menu.types"
+
+export const generateRectObj = (el: (HTMLElement | HTMLDivElement)): StrNumObject => {
+  const rect: DOMRect = el.getBoundingClientRect()
+
+  return {
+    width: Math.floor(rect.width),
+    height: Math.floor(rect.height),
+    left: Math.floor(rect.left),
+    top: Math.floor(rect.top),
+    right: Math.floor(rect.right),
+    bottom: Math.floor(rect.bottom),
+    x: Math.floor(rect.x),
+    y: Math.floor(rect.y),
+  }
+}
 
 /**  Returns an Array of ALL listItem props that are crossing over the AVAILABLE screen size */
-export const getOutOfScreenItemsArr = (
-  el: DOMRect,
-  screenSize: screenSizeRefProps,
-): StringNumberObj[] => {
-  const right = screenSize.right
-  const bottom = screenSize.bottom
-  const leftVal = Math.floor(el.left)
-  const topVal = Math.floor(el.top)
-  const rightVal = Math.floor(el.right)
-  const bottomVal = Math.floor(el.bottom)
-
-  const sides: (StringNumberObj | boolean)[] = [
-    leftVal < 0 ? { left: leftVal } : false,
-    topVal < 0 ? { top: topVal } : false,
-    rightVal > right ? { right: rightVal } : false,
-    bottomVal > bottom ? { bottom: bottomVal } : false,
+export const getOffscreenItems = ( item: StrNumObject, scr: StrNumObject ): StrNumObject[] => {
+  const entries: (StrNumObject | boolean)[] = [
+    item.left < 0 ? { left: item.left } : false,
+    item.top < 0 ? { top: item.top } : false,
+    item.right > scr.width ? { right: item.right } : false,
+    item.bottom > scr.height ? { bottom: item.bottom } : false,
   ]
-
-  const arr = sides.filter((side) => typeof side === 'object')
-  return arr
+  
+  return entries.filter((entry) => typeof entry === 'object')
 }
 
 /**  Get an Array of Offscreen listItem boundary props */
 export const getOffScreenProps = (
-  items: React.MutableRefObject<(HTMLLIElement | null)[]>,
-  screenSizeRef: screenSizeRefType,
-): StringNumberObj[] => {
-  const propsArr: (StringNumberObj | null)[] = []
-  items.current.map((el) => {
-    if (el) {
-      const LiRect = el.getBoundingClientRect() // Get the Item Boundary box
-      const arr = getOutOfScreenItemsArr(LiRect, screenSizeRef.current) // create Out-of-boundary {side: value} objects Array
-      propsArr.push(isTrue(arr) ? { ...arr[0] } : null) // Destruct objects from the Array (null if empty)
+  items: ListItemsRefType,
+  scrRect: StrNumObject,
+): StrNumObject[] => {
+  const entriesArr: (StrNumObject | null)[] = []
+  items.current.map((item) => {
+    if (item) {
+      const itemRect = generateRectObj(item) // Get the Item Boundary box
+      const arr = getOffscreenItems(itemRect, scrRect) // create Out-of-boundary {side: value} objects Array
+      entriesArr.push(isTrue(arr) ? { ...arr[0] } : null) // Destruct objects from the Array (null if empty)
     }
   })
-  return propsArr.filter((prop) => prop !== null) // return props object Array
+  return entriesArr.filter((entry) => entry !== null) // return props object Array
 }
 
-export const findHighestAbsoluteValues = (arr: StringNumberObj[]): StringNumberObj => {
-  const highestValues: StringNumberObj = {}
+export const getHighestEntriesInAbsoluteValue = (items: StrNumObject[]): StrNumObject => {
+  const entries: StrNumObject = {}
 
-  arr.map((obj) => {
-    const key = Object.keys(obj)[0]
-    const value = Math.abs(obj[key])
+  items.map((item) => {
+    const itemKey = Object.keys(item)[0]
+    const itemValue = Math.abs(item[itemKey])
 
-    if (highestValues[key] === undefined || value > highestValues[key]) {
-      highestValues[key] = value
+    if (entries[itemKey] === undefined || itemValue > entries[itemKey]) {
+      entries[itemKey] = itemValue
     }
   })
 
-  return highestValues
+  return entries
 }
 
 export const calcOffsetRemainder = (
-  screenVal: StringNumberObj,
-  highestVal: StringNumberObj,
+  scrRect: StrNumObject,
+  entries: StrNumObject,
 ) => {
-  const offsetRemainder: StringNumberObj = {}
-
-  Object.keys(screenVal).map((scrKey) => {
-    Object.keys(highestVal).map((highestKey) => {
-      if (scrKey === highestKey) {
-        return (offsetRemainder[scrKey] = screenVal[scrKey] - highestVal[highestKey])
-      } else {
-        return
+  // get the distance remainder
+  const newEntries: StrNumObject = {}
+  Object.keys(scrRect).map((scrKey) => {
+    Object.keys(entries).map((entryKey) => {
+      if (scrKey === entryKey) {
+        return (newEntries[scrKey] = scrRect[scrKey] - entries[entryKey])
       }
     })
   })
-  return offsetRemainder
+  return {...newEntries}
+}
+
+export const repositionMenu = (remainder: StrNumObject, menuEntries: StrNumObject) => {
+  const translateMenu: StrNumObject = { x: menuEntries.x, y: menuEntries.y }
+
+  if (Object.keys(remainder).length > 0) {
+    // if there are offScreen items
+    Object.keys(remainder).map((remKey: string) => {
+      Object.keys(menuEntries).map((menuKey: string) => {
+        if (menuKey === 'x') {
+          if (remKey === 'left') {
+            return (translateMenu.x = menuEntries.x - remainder[remKey])
+          }
+          if (remKey === 'right') {
+            return (translateMenu.x = menuEntries.x + remainder[remKey])
+          }
+        }
+        if (menuKey === 'y') {
+          if (remKey === 'top') {
+            return (translateMenu.x = menuEntries.x - remainder[remKey])
+          }
+          if (remKey === 'bottom') {
+            return (translateMenu.x = menuEntries.x + remainder[remKey])
+          }
+        }
+      })
+    })
+
+    return translateMenu
+  }
+}
+
+export const keepMenuInPageBoundaries = (
+  menuRef: MenuRefType,
+  screenSizeRef: ScreenSizeRefType,
+  listItemsRef: ListItemsRefType,
+) => {
+  const menuRect = generateRectObj(menuRef.current!)
+  const screenRect = generateRectObj(screenSizeRef.current!)
+
+  // Get the properties and values of ALL out-of-screen LI
+  const offScreenPropsArr = getOffScreenProps(listItemsRef, screenRect)
+
+  // Filter the furthest LI, with their properties and values
+  const highEntries = getHighestEntriesInAbsoluteValue(offScreenPropsArr)
+
+  // Calculate the distance remainder between the furthest LI to the screen boundaries
+  const scrEntries: StrNumObject = {
+    top: 0,
+    right: screenRect.width - 8, // fix menu overflow
+    bottom: screenRect.height,
+    left: 0,
+  }
+  const offsetRemainder = calcOffsetRemainder(scrEntries, highEntries)
+
+  // Keep Menu in screen boundaries
+  const menuEntries = {
+    x: menuRect.x,
+    y: menuRect.y,
+  }
+  return repositionMenu(offsetRemainder, menuEntries)
 }

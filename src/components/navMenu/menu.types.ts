@@ -1,5 +1,3 @@
-import { screenSizeRefProps } from "./menu.interfaces"
-
-export type MenuRefType = React.RefObject<HTMLUListElement>
-export type listItemsRef =  React.MutableRefObject<(HTMLLIElement | null)[]>
-export type screenSizeRefType =  React.MutableRefObject<screenSizeRefProps>
+export type MenuRefType = React.MutableRefObject<HTMLUListElement | undefined>
+export type ListItemsRefType = React.MutableRefObject<HTMLLIElement[]>
+export type ScreenSizeRefType = React.MutableRefObject<HTMLDivElement | undefined>

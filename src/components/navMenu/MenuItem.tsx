@@ -1,16 +1,7 @@
-import { NavLink, To } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { useContext } from "react"
 import { MenuContext } from "./MenuContext"
-
-interface MenuItemProps {
-  itemRef: React.LegacyRef<HTMLLIElement> | undefined
-  itemClass: string
-  style: React.CSSProperties | undefined
-  linkLabel: string
-  linkClass: string
-  linkTo: To
-  children?: JSX.Element
-}
+import { MenuItemProps } from "./menu.interfaces"
 
 
 export const MenuItem = ({

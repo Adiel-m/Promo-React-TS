@@ -1,6 +1,6 @@
 import './nav.css'
 import { routes } from "../../routes"
-import { useContext } from 'react'
+import { LegacyRef, useContext } from 'react'
 import { MenuContext } from './MenuContext'
 import { MenuItem } from './MenuItem'
 
@@ -15,7 +15,7 @@ export const Nav = () => {
   return (
     <nav className="nav">
       <ul
-        ref={menuRef}
+        ref={menuRef as LegacyRef<HTMLUListElement> | undefined}
         className={`menu${menuIsVisible ? ' visible' : ''}`}
         style={{
           transform: `translateX(${menuPosition.x}px) translateY(${menuPosition.y}px)`,
@@ -26,7 +26,7 @@ export const Nav = () => {
           routes.map((item1, i) => (
             <MenuItem
               key={item1.path === '/' ? 'home' : item1.path}
-              itemRef={(el) => (listItemsRef.current[i] = el)}
+              itemRef={(el: HTMLLIElement) => (listItemsRef.current[i] = el)}
               itemClass={'item'}
               style={{ offsetDistance: `${(100 / routes.length) * (i + 1)}%` }}
               linkLabel={item1.path === '/' ? 'home' : item1.path}
@@ -40,7 +40,9 @@ export const Nav = () => {
                     {item1.children.map((item2, j) => (
                       <MenuItem
                         key={item2.path}
-                        itemRef={(el) => (listItemsRef.current[i * 10 + j] = el)}
+                        itemRef={(el: HTMLLIElement) =>
+                          (listItemsRef.current[i * 10 + j] = el)
+                        }
                         itemClass={'sub-item circle-1'}
                         style={{
                           offsetDistance: `${(100 / item1.children.length) * (j + 1)}%`,
@@ -56,7 +58,7 @@ export const Nav = () => {
                               {item2.children.map((item3, k) => (
                                 <MenuItem
                                   key={item3.path}
-                                  itemRef={(el) =>
+                                  itemRef={(el: HTMLLIElement) =>
                                     (listItemsRef.current[i * 100 + k] = el)
                                   }
                                   itemClass={'sub-item circle-2'}

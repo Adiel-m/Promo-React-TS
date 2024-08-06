@@ -8,4 +8,4 @@ export type SlotPosition =
   | 'inColumnFirst'
   | 'inColumnLast'
 
-export type StringNumberObj = { [key: string]: number }
+export type StrNumObject = { [key: string]: number }
