@@ -45,7 +45,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     if (validHandle) {
       setUpPosition({ x: e.pageX, y: e.pageY })
-      menuPositionAt(downPosition.x, downPosition.y)
+      setMenuPosition({x:downPosition.x, y:downPosition.y})
       setDuration()
     }
     return
@@ -62,7 +62,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
     if (validHandle) {
       setUpPosition({ x: e.changedTouches[0].pageX, y: e.changedTouches[0].pageY })
-      menuPositionAt(downPosition.x, downPosition.y)
+      setMenuPosition({ x: downPosition.x, y: downPosition.y })
       setDuration()
     }
     return
@@ -76,10 +76,6 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       setDownDuration(curTime - downTime)
       setDownTime(Date.now())
     }
-  }
-
-  const menuPositionAt = (x: number, y: number) => {
-    setMenuPosition({x, y})
   }
 
   const showSubMenu = (e: MouseEvent<HTMLLIElement>) => {
@@ -128,7 +124,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       const menuPos = keepMenuInPageBoundaries(menuRef, screenSizeRef, listItemsRef)
 
       if (menuPos) {
-        menuPositionAt(menuPos.x, menuPos.y)
+        setMenuPosition({x:menuPos.x, y:menuPos.y})
       }
     }
   }, [isHover, downDuration, menuIsVisible])

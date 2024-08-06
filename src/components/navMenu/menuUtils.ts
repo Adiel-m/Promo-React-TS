@@ -93,10 +93,10 @@ export const repositionMenu = (remainder: StrNumObject, menuEntries: StrNumObjec
         }
         if (menuKey === 'y') {
           if (remKey === 'top') {
-            return (translateMenu.x = menuEntries.x - remainder[remKey])
+            return (translateMenu.y = menuEntries.y - remainder[remKey])
           }
           if (remKey === 'bottom') {
-            return (translateMenu.x = menuEntries.x + remainder[remKey])
+            return (translateMenu.y = menuEntries.y + remainder[remKey])
           }
         }
       })
@@ -111,8 +111,20 @@ export const keepMenuInPageBoundaries = (
   screenSizeRef: ScreenSizeRefType,
   listItemsRef: ListItemsRefType,
 ) => {
+  const scrollX = window.scrollX
+  const scrollY = window.scrollY
   const menuRect = generateRectObj(menuRef.current!)
+  const menuEntries = {
+    x: menuRect.x + scrollX - 16, // fix menu overflow
+    y: menuRect.y + scrollY,
+  }
   const screenRect = generateRectObj(screenSizeRef.current!)
+  const scrEntries: StrNumObject = {
+    top: 0,
+    right: screenRect.width,
+    bottom: screenRect.height,
+    left: 0,
+  }
 
   // Get the properties and values of ALL out-of-screen LI
   const offScreenPropsArr = getOffScreenProps(listItemsRef, screenRect)
@@ -121,18 +133,9 @@ export const keepMenuInPageBoundaries = (
   const highEntries = getHighestEntriesInAbsoluteValue(offScreenPropsArr)
 
   // Calculate the distance remainder between the furthest LI to the screen boundaries
-  const scrEntries: StrNumObject = {
-    top: 0,
-    right: screenRect.width - 8, // fix menu overflow
-    bottom: screenRect.height,
-    left: 0,
-  }
   const offsetRemainder = calcOffsetRemainder(scrEntries, highEntries)
 
-  // Keep Menu in screen boundaries
-  const menuEntries = {
-    x: menuRect.x,
-    y: menuRect.y,
-  }
-  return repositionMenu(offsetRemainder, menuEntries)
+  // Repositioned menu entries
+  const obj = repositionMenu(offsetRemainder, menuEntries)
+  return obj
 }
