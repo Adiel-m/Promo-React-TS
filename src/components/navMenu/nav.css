@@ -20,6 +20,11 @@
     justify-content: center;
     position: absolute;
   }
+
+  .menu {
+    width: var(--width);
+    height: var(--width);
+  }
   
   /* Visibility */
   .menu,

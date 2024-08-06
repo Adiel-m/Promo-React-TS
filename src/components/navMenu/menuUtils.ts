@@ -69,11 +69,14 @@ export const calcOffsetRemainder = (
   Object.keys(scrRect).map((scrKey) => {
     Object.keys(entries).map((entryKey) => {
       if (scrKey === entryKey) {
+        if (entryKey === 'bottom') {
+          newEntries[scrKey] = scrRect[scrKey] - entries[entryKey]
+        }
         return (newEntries[scrKey] = scrRect[scrKey] - entries[entryKey])
       }
     })
   })
-  return {...newEntries}
+  return { ...newEntries }
 }
 
 export const repositionMenu = (remainder: StrNumObject, menuEntries: StrNumObject) => {
@@ -111,13 +114,6 @@ export const keepMenuInPageBoundaries = (
   screenSizeRef: ScreenSizeRefType,
   listItemsRef: ListItemsRefType,
 ) => {
-  const scrollX = window.scrollX
-  const scrollY = window.scrollY
-  const menuRect = generateRectObj(menuRef.current!)
-  const menuEntries = {
-    x: menuRect.x + scrollX - 16, // fix menu overflow
-    y: menuRect.y + scrollY,
-  }
   const screenRect = generateRectObj(screenSizeRef.current!)
   const scrEntries: StrNumObject = {
     top: 0,
@@ -133,9 +129,21 @@ export const keepMenuInPageBoundaries = (
   const highEntries = getHighestEntriesInAbsoluteValue(offScreenPropsArr)
 
   // Calculate the distance remainder between the furthest LI to the screen boundaries
+  const scrollX = window.scrollX
+  const scrollY = window.scrollY
+  const menuRect = generateRectObj(menuRef.current!)
+  const menuHeight = menuRect.bottom - menuRect.top
+  const menuEntries = {
+    top: menuRect.top,
+    bottom: menuRect.bottom,
+    x: menuRect.x + scrollX - 16, // fix menu overflow right
+    y: menuRect.y + scrollY - menuHeight - 32, // fix menu overflow bottom
+  }
+
   const offsetRemainder = calcOffsetRemainder(scrEntries, highEntries)
 
   // Repositioned menu entries
   const obj = repositionMenu(offsetRemainder, menuEntries)
+  
   return obj
 }
