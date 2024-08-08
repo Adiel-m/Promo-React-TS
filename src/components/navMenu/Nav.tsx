@@ -41,7 +41,7 @@ export const Nav = () => {
                       <MenuItem
                         key={item2.path}
                         itemRef={(el: HTMLLIElement) =>
-                          (listItemsRef.current[i * 10 + j] = el)
+                          (listItemsRef.current[i + j + 1] = el)
                         }
                         itemClass={'sub-item circle-1'}
                         style={{
@@ -59,7 +59,7 @@ export const Nav = () => {
                                 <MenuItem
                                   key={item3.path}
                                   itemRef={(el: HTMLLIElement) =>
-                                    (listItemsRef.current[i * 100 + k] = el)
+                                    (listItemsRef.current[i + j + k + 2] = el)
                                   }
                                   itemClass={'sub-item circle-2'}
                                   style={{

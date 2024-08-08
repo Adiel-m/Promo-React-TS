@@ -1,149 +1,183 @@
 import { StrNumObject } from "../../ts/types"
 import { isTrue } from "../../ts/utils"
-import { ListItemsRefType, MenuRefType, ScreenSizeRefType } from "./menu.types"
+import { ListItemsRefType } from "./menu.types"
 
-export const generateRectObj = (el: (HTMLElement | HTMLDivElement)): StrNumObject => {
-  const rect: DOMRect = el.getBoundingClientRect()
+/** Return BoundingClientRect  */
+export const setRect = (el: HTMLElement | HTMLDivElement): DOMRect => {
+  return el.getBoundingClientRect()
+}
 
-  return {
-    width: Math.floor(rect.width),
-    height: Math.floor(rect.height),
-    left: Math.floor(rect.left),
-    top: Math.floor(rect.top),
-    right: Math.floor(rect.right),
-    bottom: Math.floor(rect.bottom),
-    x: Math.floor(rect.x),
-    y: Math.floor(rect.y),
+/** Return a BoundingClientRect Array  */
+export const setRectArr = (elArr: (HTMLElement | HTMLDivElement)[]): DOMRect[] => {
+  let arr: DOMRect[] = []
+  elArr.map((el) => arr = [...arr, setRect(el)])
+
+  return arr
+}
+
+/** Convert BoundingClientRect to Object  */
+export const toRectObject = (el: (HTMLElement | HTMLDivElement)): StrNumObject => {
+  const rect = setRect(el) as unknown as StrNumObject
+  const obj: StrNumObject = {}
+
+  for (const key in rect) {
+    const val = rect[key]
+    obj[key] = Math.floor(val)
   }
+
+  return obj
 }
 
-/**  Returns an Array of ALL listItem props that are crossing over the AVAILABLE screen size */
-export const getOffscreenItems = ( item: StrNumObject, scr: StrNumObject ): StrNumObject[] => {
-  const entries: (StrNumObject | boolean)[] = [
-    item.left < 0 ? { left: item.left } : false,
-    item.top < 0 ? { top: item.top } : false,
-    item.right > scr.width ? { right: item.right } : false,
-    item.bottom > scr.height ? { bottom: item.bottom } : false,
-  ]
-  
-  return entries.filter((entry) => typeof entry === 'object')
-}
+/** Convert BoundingClientRect Array to Objects Array */
+export const toRectObjectArr = (refEl: ListItemsRefType): StrNumObject[] => {
+  const elArr = { ...refEl }
+  let arr: StrNumObject[] = []
 
-/**  Get an Array of Offscreen listItem boundary props */
-export const getOffScreenProps = (
-  items: ListItemsRefType,
-  scrRect: StrNumObject,
-): StrNumObject[] => {
-  const entriesArr: (StrNumObject | null)[] = []
-  items.current.map((item) => {
-    if (item) {
-      const itemRect = generateRectObj(item) // Get the Item Boundary box
-      const arr = getOffscreenItems(itemRect, scrRect) // create Out-of-boundary {side: value} objects Array
-      entriesArr.push(isTrue(arr) ? { ...arr[0] } : null) // Destruct objects from the Array (null if empty)
-    }
-  })
-  return entriesArr.filter((entry) => entry !== null) // return props object Array
-}
-
-export const getHighestEntriesInAbsoluteValue = (items: StrNumObject[]): StrNumObject => {
-  const entries: StrNumObject = {}
-
-  items.map((item) => {
-    const itemKey = Object.keys(item)[0]
-    const itemValue = Math.abs(item[itemKey])
-
-    if (entries[itemKey] === undefined || itemValue > entries[itemKey]) {
-      entries[itemKey] = itemValue
-    }
+  elArr.current.map((el) => {
+    const newEl = toRectObject(el)
+    return arr = [...arr, newEl]
   })
 
-  return entries
+  return arr
 }
 
-export const calcOffsetRemainder = (
-  scrRect: StrNumObject,
-  entries: StrNumObject,
-) => {
-  // get the distance remainder
-  const newEntries: StrNumObject = {}
-  Object.keys(scrRect).map((scrKey) => {
-    Object.keys(entries).map((entryKey) => {
-      if (scrKey === entryKey) {
-        if (entryKey === 'bottom') {
-          newEntries[scrKey] = scrRect[scrKey] - entries[entryKey]
+/** Compare if entries sides are over the boundary    
+ * Return out-of-boundary object entries  */
+export const outOfBoundaryEntries = (obj: StrNumObject, boundary: StrNumObject): StrNumObject => {
+  const newObj: StrNumObject = {}
+
+  if (obj.left < boundary.left) {
+    newObj.left = obj.left
+  }
+  if (obj.top < boundary.top) {
+    newObj.top = obj.top
+  }
+  if (obj.right > boundary.right) {
+    newObj.right = obj.right
+  }
+  if (obj.bottom > boundary.bottom) {
+    newObj.bottom = obj.bottom
+  }
+
+  return newObj
+}
+
+/** Iterate over an Array of objects  
+ * Compare if entries sides are over the boundary  
+ * Return an Array of All out-of-boundary objects entries */
+export const outOfBoundaryObjectsEntriesArr = ( refEl: ListItemsRefType, boundary: StrNumObject, ) => {
+  const elArr = toRectObjectArr(refEl)
+  let arr: StrNumObject[] = []
+
+  elArr.map((el) => {
+    const newEl = outOfBoundaryEntries(el, boundary)
+
+    if (isTrue(newEl)) {
+      arr = [...arr, newEl]
+    }
+  })
+
+  return arr
+}
+
+/** Convert an ARRAY of boundary objects to a SINGLE boundary object  
+ * Compare all values and find:  
+ * * Lowest Negative Values (left, top)  
+ * * Highest Positive Values (right, bottom, width, height, x, y)  
+ * Return an Object entries (right, bottom, width, height,) */
+export const toSingleBoundaryObject = (elArr: StrNumObject[]): StrNumObject => {
+  const obj: StrNumObject = {}
+
+  elArr.map((el) => {
+    Object.keys(el).map((entry) => {
+      const value = el[entry]
+
+      // set the highest value
+      if (entry === 'left' || entry === 'top') {
+        if (obj[entry] === undefined || value < obj[entry]) {
+          obj[entry] = Math.floor(value)
         }
-        return (newEntries[scrKey] = scrRect[scrKey] - entries[entryKey])
+      } else {
+        if (obj[entry] === undefined || value > obj[entry]) {
+          obj[entry] = Math.floor(value)
+        }
       }
     })
   })
-  return { ...newEntries }
-}
 
-export const repositionMenu = (remainder: StrNumObject, menuEntries: StrNumObject) => {
-  const translateMenu: StrNumObject = { x: menuEntries.x, y: menuEntries.y }
-
-  if (Object.keys(remainder).length > 0) {
-    // if there are offScreen items
-    Object.keys(remainder).map((remKey: string) => {
-      Object.keys(menuEntries).map((menuKey: string) => {
-        if (menuKey === 'x') {
-          if (remKey === 'left') {
-            return (translateMenu.x = menuEntries.x - remainder[remKey])
-          }
-          if (remKey === 'right') {
-            return (translateMenu.x = menuEntries.x + remainder[remKey])
-          }
-        }
-        if (menuKey === 'y') {
-          if (remKey === 'top') {
-            return (translateMenu.y = menuEntries.y - remainder[remKey])
-          }
-          if (remKey === 'bottom') {
-            return (translateMenu.y = menuEntries.y + remainder[remKey])
-          }
-        }
-      })
-    })
-
-    return translateMenu
-  }
-}
-
-export const keepMenuInPageBoundaries = (
-  menuRef: MenuRefType,
-  screenSizeRef: ScreenSizeRefType,
-  listItemsRef: ListItemsRefType,
-) => {
-  const screenRect = generateRectObj(screenSizeRef.current!)
-  const scrEntries: StrNumObject = {
-    top: 0,
-    right: screenRect.width,
-    bottom: screenRect.height,
-    left: 0,
-  }
-
-  // Get the properties and values of ALL out-of-screen LI
-  const offScreenPropsArr = getOffScreenProps(listItemsRef, screenRect)
-
-  // Filter the furthest LI, with their properties and values
-  const highEntries = getHighestEntriesInAbsoluteValue(offScreenPropsArr)
-
-  // Calculate the distance remainder between the furthest LI to the screen boundaries
-  const scrollX = window.scrollX
-  const scrollY = window.scrollY
-  const menuRect = generateRectObj(menuRef.current!)
-  const menuHeight = menuRect.bottom - menuRect.top
-  const menuEntries = {
-    top: menuRect.top,
-    bottom: menuRect.bottom,
-    x: menuRect.x + scrollX - 16, // fix menu overflow right
-    y: menuRect.y + scrollY - menuHeight - 32, // fix menu overflow bottom
-  }
-
-  const offsetRemainder = calcOffsetRemainder(scrEntries, highEntries)
-
-  // Repositioned menu entries
-  const obj = repositionMenu(offsetRemainder, menuEntries)
-  
   return obj
+}
+
+/** return left, top, right, bottom Object */
+export const setBoundarySides = (obj: StrNumObject | DOMRect): StrNumObject => {
+  return {
+    left: obj.left,
+    top: obj.top,
+    right: obj.right,
+    bottom: obj.bottom,
+    width: obj.width,
+    height: obj.height,
+    x: obj.x,
+    y: obj.bottom,
+  }
+}
+
+/** return left, top, right, bottom Objects Array */
+export const setBoundarySidesArray = (objArr: (StrNumObject | DOMRect)[]): StrNumObject[] => {
+  let arr: StrNumObject[] = []
+  
+  objArr.map(obj =>{
+    const objBoundaries = setBoundarySides(obj)
+    arr = [...arr, objBoundaries]})
+  return arr
+}
+
+/** Calculate the remainder between the object and boundary  
+ * Return the matching entries*/
+export const boundaryEntryRemainder = (obj: StrNumObject, boundary: StrNumObject) => {
+  const newObj: StrNumObject = {}
+
+  for (const entry in obj) {
+    for (const key in boundary) {
+      if (entry === key) {
+        if (entry === 'left' || entry === 'top') {
+          newObj[entry] = Math.abs(obj[entry])
+        } else {
+          newObj[entry] = obj[entry] - boundary[key]
+        }
+      }
+    }
+  } 
+  
+  return newObj
+}
+
+/** Shift the object to new coordinates by the remainder  
+ * Return object coordinates entries */
+export const deflectByRemainder = (obj: StrNumObject, reminder: StrNumObject) => {
+  const newObj: {x: number, y: number} = {x: obj.x, y: obj.y} 
+  Object.keys(reminder).map(entry => {
+    if (entry === 'left') {
+      newObj.x = obj.x + reminder[entry]
+    }
+    if (entry === 'top') {
+      newObj.x = obj.y + reminder[entry]
+    }
+    if (entry === 'right') {
+      newObj.x = obj.x - reminder[entry] - 32 // 32 fix overflow issue
+    }
+    if (entry === 'bottom') {
+      newObj.y = obj.y - reminder[entry]
+    }
+  })
+  return newObj
+}
+
+export const menuStartPosition = (el: HTMLUListElement, scroll: StrNumObject) => {
+  const menuRect = toRectObject(el)
+
+  return {
+    x: Math.floor(menuRect.x + scroll.x),
+    y: Math.floor(menuRect.y + scroll.y),
+  }
 }

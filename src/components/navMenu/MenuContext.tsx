@@ -1,7 +1,20 @@
 import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
 import { Props } from "../../ts/interfaces"
 import { MenuContextProps, PositionProps } from './menu.interfaces'
-import { keepMenuInPageBoundaries } from "./menuUtils"
+import { 
+  toRectObjectArr, 
+  setBoundarySides, 
+  toRectObject, 
+  menuStartPosition, 
+  setRectArr, 
+  setBoundarySidesArray, 
+  toSingleBoundaryObject, 
+  outOfBoundaryEntries, 
+  boundaryEntryRemainder, 
+  deflectByRemainder, 
+  setRect
+} from "./menuUtils"
+import { isTrue } from "../../ts/utils"
 
 export const MenuContext = createContext<MenuContextProps>()
 
@@ -110,7 +123,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   ------------------------------------------------*/
   useEffect(() => {
     // Initiate Menu Position at center
-    
+    toRectObjectArr(listItemsRef)
     // Show menu after a delay
     const showMenuDelay = (delay: number) => {
       if (downDuration !== null && downDuration > delay) {
@@ -118,14 +131,22 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       }
     }
     showMenuDelay(500)
-    
-    // Keep the Menu in page boundaries
-    if (menuIsVisible && !isHover) {
-      const menuPos = keepMenuInPageBoundaries(menuRef, screenSizeRef, listItemsRef)
 
-      if (menuPos) {
-        setMenuPosition({x:menuPos.x, y:menuPos.y})
-      }
+    console.log(setRect(menuRef.current!))
+    // Shift the Menu into page boundaries
+    if (menuIsVisible && !isHover) {
+      const WinScroll = { x: window.screenX, y: window.scrollY }
+      const menuStartPos = menuStartPosition((menuRef.current!), WinScroll)
+      const screenBoundary = setBoundarySides(toRectObject(screenSizeRef.current!))
+      const menuItemsBoundary = toSingleBoundaryObject(setBoundarySidesArray(setRectArr((listItemsRef.current))))
+      const remainder = boundaryEntryRemainder(outOfBoundaryEntries(menuItemsBoundary, screenBoundary), screenBoundary)
+
+      console.log(menuItemsBoundary)
+      console.log(setRect(menuRef.current!))
+      
+      if (isTrue(remainder)) {
+        setMenuPosition(deflectByRemainder(menuStartPos, remainder))
+      } 
     }
   }, [isHover, downDuration, menuIsVisible])
   
