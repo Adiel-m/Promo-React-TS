@@ -36,7 +36,7 @@ export const toRectObjectArr = (refEl: ListItemsRefType): StrNumObject[] => {
  * Compare all values and find:  
  * * Lowest Negative Values (left, top)  
  * * Highest Positive Values (right, bottom, width, height, x, y)  
- * Return an Object entries (right, bottom, width, height,) */
+ * Return an Object entries */
 export const toSingleRectObject = (elArr: StrNumObject[]): StrNumObject => {
   const obj: StrNumObject = {}
 
@@ -60,7 +60,7 @@ export const toSingleRectObject = (elArr: StrNumObject[]): StrNumObject => {
   return obj
 }
 
-/** return left, top, right, bottom Object */
+/** Return Necessary Rect object entries */
 export const setNecessaryRectObject = (obj: StrNumObject | DOMRect): StrNumObject => {
   return {
     left: obj.left,
@@ -72,7 +72,7 @@ export const setNecessaryRectObject = (obj: StrNumObject | DOMRect): StrNumObjec
   }
 }
 
-/** return left, top, right, bottom Objects Array */
+/** Return an Array of Necessary Rect objects entries */
 export const setNecessaryRectObjectArray = (objArr: (StrNumObject | DOMRect)[]): StrNumObject[] => {
   let arr: StrNumObject[] = []
   
@@ -82,7 +82,7 @@ export const setNecessaryRectObjectArray = (objArr: (StrNumObject | DOMRect)[]):
   return arr
 }
 
-/** Return the remainder of outer and inner objects */
+/** Return a Remainder between an outer Rect Entries and an inner Rect Entries    */
 export const axisLimitRemainder = (outer: StrNumObject, inner: StrNumObject) => {
   const obj: StrNumObject = {}
 
@@ -108,6 +108,7 @@ export const axisLimitRemainder = (outer: StrNumObject, inner: StrNumObject) => 
   return obj
 }
 
+/** Limit the menu from passing min/max axis points */
 export const menuAxisLimit = (currentPos: { x: number; y: number }, limit: StrNumObject) => {
   const body = document.querySelector('body')!
   const html = document.documentElement
@@ -161,6 +162,7 @@ export const menuAxisLimit = (currentPos: { x: number; y: number }, limit: StrNu
   return newPos
 }
 
+/** Initiate Axis Limits */
 export const axisLimitInit = (menuRef: MenuRefType, listItemsRef: ListItemsRefType) => {
   const menuRect = setNecessaryRectObject(toRectObject(menuRef.current!))
   const itemsRect = toSingleRectObject(
