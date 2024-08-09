@@ -1,18 +1,9 @@
 import { StrNumObject } from "../../ts/types"
-import { isTrue } from "../../ts/utils"
-import { ListItemsRefType } from "./menu.types"
+import { ListItemsRefType, MenuRefType } from "./menu.types"
 
 /** Return BoundingClientRect  */
 export const setRect = (el: HTMLElement | HTMLDivElement): DOMRect => {
   return el.getBoundingClientRect()
-}
-
-/** Return a BoundingClientRect Array  */
-export const setRectArr = (elArr: (HTMLElement | HTMLDivElement)[]): DOMRect[] => {
-  let arr: DOMRect[] = []
-  elArr.map((el) => arr = [...arr, setRect(el)])
-
-  return arr
 }
 
 /** Convert BoundingClientRect to Object  */
@@ -41,75 +32,36 @@ export const toRectObjectArr = (refEl: ListItemsRefType): StrNumObject[] => {
   return arr
 }
 
-/** Compare if entries sides are over the boundary    
- * Return out-of-boundary object entries  */
-export const outOfBoundaryEntries = (obj: StrNumObject, boundary: StrNumObject): StrNumObject => {
-  const newObj: StrNumObject = {}
-
-  if (obj.left < boundary.left) {
-    newObj.left = obj.left
-  }
-  if (obj.top < boundary.top) {
-    newObj.top = obj.top
-  }
-  if (obj.right > boundary.right) {
-    newObj.right = obj.right
-  }
-  if (obj.bottom > boundary.bottom) {
-    newObj.bottom = obj.bottom
-  }
-
-  return newObj
-}
-
-/** Iterate over an Array of objects  
- * Compare if entries sides are over the boundary  
- * Return an Array of All out-of-boundary objects entries */
-export const outOfBoundaryObjectsEntriesArr = ( refEl: ListItemsRefType, boundary: StrNumObject, ) => {
-  const elArr = toRectObjectArr(refEl)
-  let arr: StrNumObject[] = []
-
-  elArr.map((el) => {
-    const newEl = outOfBoundaryEntries(el, boundary)
-
-    if (isTrue(newEl)) {
-      arr = [...arr, newEl]
-    }
-  })
-
-  return arr
-}
-
 /** Convert an ARRAY of boundary objects to a SINGLE boundary object  
  * Compare all values and find:  
  * * Lowest Negative Values (left, top)  
  * * Highest Positive Values (right, bottom, width, height, x, y)  
  * Return an Object entries (right, bottom, width, height,) */
-export const toSingleBoundaryObject = (elArr: StrNumObject[]): StrNumObject => {
+export const toSingleRectObject = (elArr: StrNumObject[]): StrNumObject => {
   const obj: StrNumObject = {}
 
   elArr.map((el) => {
-    Object.keys(el).map((entry) => {
-      const value = el[entry]
+    for (const key in el) {
+      const value = el[key]
 
       // set the highest value
-      if (entry === 'left' || entry === 'top') {
-        if (obj[entry] === undefined || value < obj[entry]) {
-          obj[entry] = Math.floor(value)
+      if (key === 'left' || key === 'top') {
+        if (obj[key] === undefined || value <= obj[key]) {
+          obj[key] = Math.floor(value)
         }
       } else {
-        if (obj[entry] === undefined || value > obj[entry]) {
-          obj[entry] = Math.floor(value)
+        if (obj[key] === undefined || value >= obj[key]) {
+          obj[key] = Math.floor(value)
         }
       }
-    })
+    }
   })
 
   return obj
 }
 
 /** return left, top, right, bottom Object */
-export const setBoundarySides = (obj: StrNumObject | DOMRect): StrNumObject => {
+export const setNecessaryRectObject = (obj: StrNumObject | DOMRect): StrNumObject => {
   return {
     left: obj.left,
     top: obj.top,
@@ -117,67 +69,203 @@ export const setBoundarySides = (obj: StrNumObject | DOMRect): StrNumObject => {
     bottom: obj.bottom,
     width: obj.width,
     height: obj.height,
-    x: obj.x,
-    y: obj.bottom,
   }
 }
 
 /** return left, top, right, bottom Objects Array */
-export const setBoundarySidesArray = (objArr: (StrNumObject | DOMRect)[]): StrNumObject[] => {
+export const setNecessaryRectObjectArray = (objArr: (StrNumObject | DOMRect)[]): StrNumObject[] => {
   let arr: StrNumObject[] = []
   
   objArr.map(obj =>{
-    const objBoundaries = setBoundarySides(obj)
+    const objBoundaries = setNecessaryRectObject(obj)
     arr = [...arr, objBoundaries]})
   return arr
 }
 
-/** Calculate the remainder between the object and boundary  
- * Return the matching entries*/
-export const boundaryEntryRemainder = (obj: StrNumObject, boundary: StrNumObject) => {
-  const newObj: StrNumObject = {}
+/** Return the remainder of outer and inner objects */
+export const axisLimitRemainder = (outer: StrNumObject, inner: StrNumObject) => {
+  const obj: StrNumObject = {}
 
-  for (const entry in obj) {
-    for (const key in boundary) {
-      if (entry === key) {
-        if (entry === 'left' || entry === 'top') {
-          newObj[entry] = Math.abs(obj[entry])
-        } else {
-          newObj[entry] = obj[entry] - boundary[key]
+  for (const outKey in outer) {
+    for (const inKey in inner) {
+      if (outKey === inKey) {
+        if (outKey === 'left') { 
+          obj[outKey] = Math.abs(inner[inKey] - outer[outKey] - outer.width)
+        } 
+        if (outKey === 'top') {
+          obj[outKey] = Math.abs(inner[inKey] - outer[outKey] - outer.height)
+        } 
+        if (outKey === 'right') {
+          obj[outKey] = Math.abs(outer[outKey] - inner[inKey] + outer.width)
+        }
+        if (outKey === 'bottom') {
+          obj[outKey] = Math.abs(outer[outKey] - inner['top'] + outer.height)
         }
       }
     }
-  } 
-  
-  return newObj
+  }
+
+  return obj
 }
+
+export const menuAxisLimit = (currentPos: { x: number; y: number }, limit: StrNumObject) => {
+  const body = document.querySelector('body')!
+  const html = document.documentElement
+  const page: StrNumObject = {
+    width: window.innerWidth,
+    height: Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight,
+    ),
+  }
+
+  const newPos: StrNumObject = {
+    x: currentPos.x,
+    y: currentPos.y,
+  }
+
+  for (const posKey in currentPos) {
+    for (const limKey in limit) {
+      // X Axis
+      if (posKey === 'x') {
+        // Min X position
+        const minX = limit[limKey]
+        if (limKey === 'left' && currentPos[posKey] < minX) {
+          newPos.x = minX
+        }
+        // Max X position
+        const maxX = page.width - limit[limKey]
+        if (limKey === 'right' && currentPos[posKey] > maxX) {
+          newPos.x = maxX
+        }
+      }
+      // Y Axis
+      if (posKey === 'y') {
+        // Min Y position
+        const minY = limit[limKey]
+        if (limKey === 'top' && currentPos[posKey] < minY) {
+          newPos.y = minY
+        }
+        
+        // Max Y position
+        const maxY = page.height - limit[limKey]
+        if (limKey === 'bottom' && currentPos[posKey] > maxY) {
+          newPos.y = maxY
+        }
+      }
+    }
+  }
+  return newPos
+}
+
+export const axisLimitInit = (menuRef: MenuRefType, listItemsRef: ListItemsRefType) => {
+  const menuRect = setNecessaryRectObject(toRectObject(menuRef.current!))
+  const itemsRect = toSingleRectObject(
+    setNecessaryRectObjectArray(toRectObjectArr(listItemsRef)),
+  )
+
+  return axisLimitRemainder(itemsRect, menuRect)
+}
+
+/** Return a BoundingClientRect Array  */
+// export const setRectArr = (elArr: (HTMLElement | HTMLDivElement)[]): DOMRect[] => {
+//   let arr: DOMRect[] = []
+//   elArr.map((el) => arr = [...arr, setRect(el)])
+
+//   return arr
+// }
+
+/** Compare if entries sides are over the boundary    
+ * Return out-of-boundary object entries  */
+// export const outOfBoundaryEntries = (obj: StrNumObject, boundary: StrNumObject): StrNumObject => {
+//   const newObj: StrNumObject = {}
+
+//   if (obj.left < boundary.left) {
+//     newObj.left = obj.left
+//   }
+//   if (obj.top < boundary.top) {
+//     newObj.top = obj.top
+//   }
+//   if (obj.right > boundary.right) {
+//     newObj.right = obj.right
+//   }
+//   if (obj.bottom > boundary.bottom) {
+//     newObj.bottom = obj.bottom
+//   }
+
+//   return newObj
+// }
+
+/** Iterate over an Array of objects  
+ * Compare if entries sides are over the boundary  
+ * Return an Array of All out-of-boundary objects entries */
+// export const outOfBoundaryEntriesObjectsArr = (
+//   refEl: ListItemsRefType,
+//   boundary: StrNumObject,
+// ) => {
+//   const elArr = toRectObjectArr(refEl)
+//   let arr: StrNumObject[] = []
+
+//   elArr.map((el) => {
+//     const newEl = outOfBoundaryEntries(el, boundary)
+
+//     if (isTrue(newEl)) {
+//       arr = [...arr, newEl]
+//     }
+//   })
+
+//   return arr
+// }
+
+/** Return the remainder between the object and Screen boundary */
+// export const outScreenRemainder = (obj: StrNumObject, boundary: StrNumObject) => {
+//   const newObj: StrNumObject = {}
+
+//   for (const entry in obj) {
+//     for (const key in boundary) {
+//       if (entry === key) {
+//         if (entry === 'left' || entry === 'top') {
+//           newObj[entry] = Math.abs(obj[entry])
+//         } else {
+//           newObj[entry] = obj[entry] - boundary[key]
+//         }
+//       }
+//     }
+//   } 
+  
+//   return newObj
+// }
 
 /** Shift the object to new coordinates by the remainder  
  * Return object coordinates entries */
-export const deflectByRemainder = (obj: StrNumObject, reminder: StrNumObject) => {
-  const newObj: {x: number, y: number} = {x: obj.x, y: obj.y} 
-  Object.keys(reminder).map(entry => {
-    if (entry === 'left') {
-      newObj.x = obj.x + reminder[entry]
-    }
-    if (entry === 'top') {
-      newObj.x = obj.y + reminder[entry]
-    }
-    if (entry === 'right') {
-      newObj.x = obj.x - reminder[entry] - 32 // 32 fix overflow issue
-    }
-    if (entry === 'bottom') {
-      newObj.y = obj.y - reminder[entry]
-    }
-  })
-  return newObj
-}
+// export const deflectByRemainder = (obj: StrNumObject, reminder: StrNumObject) => {
+//   const newObj: {x: number, y: number} = {x: obj.x, y: obj.y} 
+//   Object.keys(reminder).map(entry => {
+//     if (entry === 'left') {
+//       newObj.x = obj.x + reminder[entry]
+//     }
+//     if (entry === 'top') {
+//       newObj.x = obj.y + reminder[entry]
+//     }
+//     if (entry === 'right') {
+//       newObj.x = obj.x - reminder[entry] - 32 // 32 fix overflow issue
+//     }
+//     if (entry === 'bottom') {
+//       newObj.y = obj.y - reminder[entry]
+//     }
+//   })
+//   return newObj
+// }
 
-export const menuStartPosition = (el: HTMLUListElement, scroll: StrNumObject) => {
-  const menuRect = toRectObject(el)
+/** Return the first menu base position  */
+// export const menuBasePosition = (el: HTMLUListElement, scroll: StrNumObject) => {
+//   const menuRect = toRectObject(el)
 
-  return {
-    x: Math.floor(menuRect.x + scroll.x),
-    y: Math.floor(menuRect.y + scroll.y),
-  }
-}
+//   return {
+//     x: Math.floor(menuRect.x + scroll.x),
+//     y: Math.floor(menuRect.y + scroll.y),
+//   }
+// }

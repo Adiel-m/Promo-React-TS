@@ -1,20 +1,11 @@
 import { createContext, MouseEvent, TouchEvent, useEffect, useRef, useState } from "react"
 import { Props } from "../../ts/interfaces"
-import { MenuContextProps, PositionProps } from './menu.interfaces'
+import { MenuContextProps } from './menu.interfaces'
 import { 
-  toRectObjectArr, 
-  setBoundarySides, 
-  toRectObject, 
-  menuStartPosition, 
-  setRectArr, 
-  setBoundarySidesArray, 
-  toSingleBoundaryObject, 
-  outOfBoundaryEntries, 
-  boundaryEntryRemainder, 
-  deflectByRemainder, 
-  setRect
+  menuAxisLimit,
+  axisLimitInit
 } from "./menuUtils"
-import { isTrue } from "../../ts/utils"
+import { StrNumObject } from "../../ts/types"
 
 export const MenuContext = createContext<MenuContextProps>()
 
@@ -24,16 +15,17 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const [isHover, setIsHover] = useState<boolean>(false)
   const [menuIsVisible, setMenuIsVisible] = useState<boolean>(false)
   const [downTime, setDownTime] = useState<number | null>(null)
-  const [menuPosition, setMenuPosition] = useState<PositionProps>({x: 0, y: 0})
+  const [menuPosition, setMenuPosition] = useState<StrNumObject>({ x: 0, y: 0 })
   const [downDuration, setDownDuration] = useState<number | null>(null)
-  const [downPosition, setDownPosition] = useState<PositionProps>({ x: 0, y: 0 })
-  const [upPosition, setUpPosition] = useState<PositionProps>({ x: 0, y: 0 })
+  const [axisLimit, setAxisLimit] = useState<StrNumObject>()
+  const [newPos, setNewPos] = useState<StrNumObject>()
   /* UseRef ----------------------------------------
   ------------------------------------------------*/
   const menuRef = useRef<HTMLUListElement>()
   const listItemsRef = useRef<HTMLLIElement[]>([])
   const screenSizeRef = useRef<HTMLDivElement>()
 
+  // const docSize = useMemo( )
   /* Handle Hover ----------------------------------
   ------------------------------------------------*/
   const handleHoverOver = (e: MouseEvent<HTMLLIElement>) => {
@@ -49,16 +41,15 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   const validHandle = !isHover
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setDownPosition({ x: e.pageX, y: e.pageY })
+      setNewPos(menuAxisLimit({ x: e.pageX, y: e.pageY }, axisLimit!))
       setDownTime(Date.now())
     }
     return
   }
-
+  
   const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setUpPosition({ x: e.pageX, y: e.pageY })
-      setMenuPosition({x:downPosition.x, y:downPosition.y})
+        setMenuPosition(newPos!)
       setDuration()
     }
     return
@@ -66,7 +57,12 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setDownPosition({ x: e.touches[0].pageX, y: e.touches[0].pageY })
+      setNewPos(
+        menuAxisLimit(
+          { x: e.touches[0].pageX, y: e.touches[0].pageY },
+          axisLimit!,
+        ),
+      )
       setDownTime(Date.now())
     }
     return
@@ -74,8 +70,7 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
 
   const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
     if (validHandle) {
-      setUpPosition({ x: e.changedTouches[0].pageX, y: e.changedTouches[0].pageY })
-      setMenuPosition({ x: downPosition.x, y: downPosition.y })
+      setMenuPosition(newPos!)
       setDuration()
     }
     return
@@ -122,8 +117,9 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
   /* Effects ---------------------------------------
   ------------------------------------------------*/
   useEffect(() => {
-    // Initiate Menu Position at center
-    toRectObjectArr(listItemsRef)
+    // Limit the x, y menu positioning (prevent overflow)
+    setAxisLimit(axisLimitInit(menuRef, listItemsRef))
+
     // Show menu after a delay
     const showMenuDelay = (delay: number) => {
       if (downDuration !== null && downDuration > delay) {
@@ -131,23 +127,6 @@ export const MenuProvider = ({ children }: Props): React.ReactElement => {
       }
     }
     showMenuDelay(500)
-
-    console.log(setRect(menuRef.current!))
-    // Shift the Menu into page boundaries
-    if (menuIsVisible && !isHover) {
-      const WinScroll = { x: window.screenX, y: window.scrollY }
-      const menuStartPos = menuStartPosition((menuRef.current!), WinScroll)
-      const screenBoundary = setBoundarySides(toRectObject(screenSizeRef.current!))
-      const menuItemsBoundary = toSingleBoundaryObject(setBoundarySidesArray(setRectArr((listItemsRef.current))))
-      const remainder = boundaryEntryRemainder(outOfBoundaryEntries(menuItemsBoundary, screenBoundary), screenBoundary)
-
-      console.log(menuItemsBoundary)
-      console.log(setRect(menuRef.current!))
-      
-      if (isTrue(remainder)) {
-        setMenuPosition(deflectByRemainder(menuStartPos, remainder))
-      } 
-    }
   }, [isHover, downDuration, menuIsVisible])
   
   /* Return ----------------------------------------

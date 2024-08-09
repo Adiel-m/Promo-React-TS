@@ -1,13 +1,14 @@
 import { MouseEventHandler, TouchEventHandler } from "react"
 import { ListItemsRefType, MenuRefType, ScreenSizeRefType } from "./menu.types"
 import { To } from "react-router-dom"
+import { StrNumObject } from "../../ts/types"
 
 export interface MenuContextProps {
   menuIsVisible: boolean
   menuRef: MenuRefType
   listItemsRef: ListItemsRefType
   screenSizeRef: ScreenSizeRefType
-  menuPosition: PositionProps
+  menuPosition: StrNumObject
   handleHoverOver: MouseEventHandler
   handleHoverLeave: MouseEventHandler
   handleMouseDown: MouseEventHandler
